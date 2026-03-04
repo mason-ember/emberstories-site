@@ -1,1 +1,89 @@
 @import "tailwindcss";
+
+/* ─── Ember Color Palette ──────────────────────────────────────────────────
+   Full purple and gray scales as Tailwind utilities.
+   Usage: bg-ember-purple-500, text-ember-gray-900, etc.
+   ─────────────────────────────────────────────────────────────────────── */
+@theme {
+  /* Purple */
+  --color-ember-purple-25:  #FDFBFD;
+  --color-ember-purple-50:  #F7F1F9;
+  --color-ember-purple-100: #EFE2F3;
+  --color-ember-purple-200: #E7C5EA;
+  --color-ember-purple-300: #CF8BD5;
+  --color-ember-purple-400: #B652C1;
+  --color-ember-purple-500: #9E18AC;
+  --color-ember-purple-600: #811193;
+  --color-ember-purple-700: #5B0C73;
+  --color-ember-purple-800: #4B085F;
+  --color-ember-purple-900: #3B074B;
+  --color-ember-purple-950: #2A0136;
+
+  /* Gray */
+  --color-ember-gray-25:  #FCFCFD;
+  --color-ember-gray-50:  #F9FAFB;
+  --color-ember-gray-100: #F2F4F7;
+  --color-ember-gray-200: #EAECF0;
+  --color-ember-gray-300: #D0D5DD;
+  --color-ember-gray-400: #98A2B3;
+  --color-ember-gray-500: #667085;
+  --color-ember-gray-600: #475467;
+  --color-ember-gray-700: #344054;
+  --color-ember-gray-800: #182230;
+  --color-ember-gray-900: #101828;
+  --color-ember-gray-950: #0C111D;
+}
+
+/* ─── shadcn/ui Semantic Variable Mapping ──────────────────────────────────
+   Maps :root CSS vars to Tailwind utilities.
+   Usage: bg-background, text-foreground, bg-primary, etc.
+   ─────────────────────────────────────────────────────────────────────── */
+@theme inline {
+  --color-background:         var(--background);
+  --color-foreground:         var(--foreground);
+  --color-card:               var(--card);
+  --color-card-foreground:    var(--card-foreground);
+  --color-primary:            var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary:          var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted:              var(--muted);
+  --color-muted-foreground:   var(--muted-foreground);
+  --color-accent:             var(--accent);
+  --color-accent-foreground:  var(--accent-foreground);
+  --color-destructive:        var(--destructive);
+  --color-border:             var(--border);
+  --color-input:              var(--input);
+  --color-ring:               var(--ring);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+}
+
+/* ─── Ember Light Theme ─────────────────────────────────────────────────── */
+:root {
+  --background:           #ffffff;
+  --foreground:           #101828;  /* gray900  — textPrimary  */
+
+  --card:                 #ffffff;
+  --card-foreground:      #101828;
+
+  --primary:              #9E18AC;  /* purple500 — primary button */
+  --primary-foreground:   #ffffff;
+
+  --secondary:            #F2F4F7;  /* gray100  — surface3     */
+  --secondary-foreground: #344054;  /* gray700                 */
+
+  --muted:                #F9FAFB;  /* gray50   — surface2     */
+  --muted-foreground:     #667085;  /* gray500                 */
+
+  --accent:               #EFE2F3;  /* purple100               */
+  --accent-foreground:    #3B074B;  /* purple900               */
+
+  --destructive:          #F04438;  /* error500                */
+
+  --border:               #EAECF0;  /* gray200                 */
+  --input:                #EAECF0;
+  --ring:                 #9E18AC;  /* purple500               */
+  --radius:               0.5rem;
+}
