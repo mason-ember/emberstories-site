@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button'
 function Step({ number, title, children }) {
   return (
     <div className="mb-10">
-      <h2 className="text-[22px] font-semibold mt-10 mb-2.5 text-ember-purple-900">
+      <h2 className="text-[22px] font-semibold mt-10 mb-2.5 text-foreground">
         Step {number} — {title}
       </h2>
       {children}
@@ -16,7 +16,7 @@ export default function TestFlightPage() {
     <div className="min-h-screen bg-background text-foreground font-sans leading-relaxed">
       <div className="max-w-[720px] mx-auto px-6 py-[60px] pb-20">
 
-        <h1 className="text-[32px] font-semibold mb-4 tracking-[-0.5px] text-ember-purple-900">
+        <h1 className="text-[32px] font-semibold mb-4 tracking-[-0.5px] text-foreground">
           You're helping shape Ember.
         </h1>
 
@@ -64,7 +64,7 @@ export default function TestFlightPage() {
         <div className="h-px bg-border my-[60px]" />
 
         <div className="bg-muted p-6 rounded-lg border border-border">
-          <h2 className="text-[22px] font-semibold mb-2.5 text-ember-purple-900">
+          <h2 className="text-[22px] font-semibold mb-2.5 text-foreground">
             What to Expect
           </h2>
           <p className="text-muted-foreground mb-5 text-[17px]">This is an early build.</p>
