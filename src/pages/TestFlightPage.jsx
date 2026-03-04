@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button'
 function Step({ number, title, children }) {
   return (
     <div className="mb-10">
-      <h2 className="text-[22px] font-semibold mt-10 mb-2.5 text-[#f5f5f7]">
+      <h2 className="text-[22px] font-semibold mt-10 mb-2.5 text-[#3B074B]">
         Step {number} — {title}
       </h2>
       {children}
@@ -13,21 +13,21 @@ function Step({ number, title, children }) {
 
 export default function TestFlightPage() {
   return (
-    <div className="min-h-screen bg-[#0f0f12] text-[#f5f5f7] font-sans leading-relaxed">
+    <div className="min-h-screen bg-white text-[#3B074B] font-sans leading-relaxed">
       <div className="max-w-[720px] mx-auto px-6 py-[60px] pb-20">
 
-        <h1 className="text-[32px] font-semibold mb-4 tracking-[-0.5px]">
+        <h1 className="text-[32px] font-semibold mb-4 tracking-[-0.5px] text-[#3B074B]">
           You're helping shape Ember.
         </h1>
 
-        <p className="text-lg text-white mb-10">
+        <p className="text-lg text-[#444] mb-10">
           Ember is currently in private beta.{' '}
           This build gives you early access before public release.
           Installation takes about 60 seconds.
         </p>
 
         <Step number={1} title="Install Apple TestFlight">
-          <p className="text-[#c9c9cf] mb-5 text-[17px]">
+          <p className="text-[#666] mb-5 text-[17px]">
             TestFlight is Apple's official beta testing app.{' '}
             If you don't already have it installed, download it below.
           </p>
@@ -35,7 +35,7 @@ export default function TestFlightPage() {
             asChild
             variant="outline"
             size="lg"
-            className="border-[#2a2a32] bg-[#1c1c22] text-[#f5f5f7] hover:bg-[#222229] hover:text-white"
+            className="border-[#ddd] bg-white text-[#444] hover:bg-[#f5f5f5] hover:text-[#3B074B]"
           >
             <a
               href="https://apps.apple.com/us/app/testflight/id899247664"
@@ -48,7 +48,7 @@ export default function TestFlightPage() {
         </Step>
 
         <Step number={2} title="Install Ember Beta">
-          <p className="text-[#c9c9cf] mb-5 text-[17px]">
+          <p className="text-[#666] mb-5 text-[17px]">
             Once TestFlight is installed, tap the button below.
           </p>
           <Button
@@ -63,21 +63,21 @@ export default function TestFlightPage() {
         </Step>
 
         <Step number={3} title='Tap "Install" Inside TestFlight'>
-          <p className="text-[#c9c9cf] text-[17px]">
-            When Ember appears in TestFlight, tap <strong className="text-[#f5f5f7]">Install</strong>.{' '}
+          <p className="text-[#666] text-[17px]">
+            When Ember appears in TestFlight, tap <strong className="text-[#3B074B]">Install</strong>.{' '}
             The app will download to your home screen.
           </p>
         </Step>
 
-        <div className="h-px bg-[#222] my-[60px]" />
+        <div className="h-px bg-[#eee] my-[60px]" />
 
-        <div className="bg-[#16161b] p-6 rounded-[10px] border border-[#222]">
-          <h2 className="text-[22px] font-semibold mb-2.5 text-[#f5f5f7]">What to Expect</h2>
-          <p className="text-[#c9c9cf] mb-5 text-[17px]">This is an early build.</p>
-          <p className="text-[#c9c9cf] mb-5 text-[17px]">
+        <div className="bg-[#f9f9f9] p-6 rounded-[10px] border border-[#eee]">
+          <h2 className="text-[22px] font-semibold mb-2.5 text-[#3B074B]">What to Expect</h2>
+          <p className="text-[#666] mb-5 text-[17px]">This is an early build.</p>
+          <p className="text-[#666] mb-5 text-[17px]">
             You may encounter bugs. Features may evolve quickly.
           </p>
-          <p className="text-[#c9c9cf] text-[17px]">
+          <p className="text-[#666] text-[17px]">
             Your feedback directly shapes the product.
           </p>
         </div>
@@ -89,7 +89,7 @@ export default function TestFlightPage() {
             <br />
             <a
               href="mailto:william@emberstories.com"
-              className="text-[#ff8c42] no-underline hover:underline"
+              className="text-[#3498db] no-underline hover:underline"
             >
               william@emberstories.com
             </a>
