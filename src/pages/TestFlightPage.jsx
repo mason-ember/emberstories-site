@@ -1,12 +1,25 @@
 import { Button } from '@/components/ui/button'
 
-function Step({ number, title, children }) {
+function StepCard({ number, title, children }) {
   return (
-    <div className="mb-10">
-      <h2 className="text-[22px] font-semibold mt-10 mb-2.5 text-foreground">
-        Step {number} — {title}
-      </h2>
-      {children}
+    <div className="bg-muted rounded-lg border border-border p-6 mb-4 flex gap-8 items-center">
+
+      {/* Left: content */}
+      <div className="flex-1 min-w-0">
+        <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-1">
+          Step {number}
+        </p>
+        <h2 className="text-[20px] font-semibold mb-3 text-foreground">
+          {title}
+        </h2>
+        {children}
+      </div>
+
+      {/* Right: image placeholder */}
+      <div className="w-[120px] h-[120px] shrink-0 rounded-lg border-2 border-dashed border-ember-gray-300 bg-ember-gray-100 flex items-center justify-center text-ember-gray-400 text-xs">
+        image
+      </div>
+
     </div>
   )
 }
@@ -26,7 +39,7 @@ export default function TestFlightPage() {
           Installation takes about 60 seconds.
         </p>
 
-        <Step number={1} title="Install Apple TestFlight">
+        <StepCard number={1} title="Install Apple TestFlight">
           <p className="text-muted-foreground mb-5 text-[17px]">
             TestFlight is Apple's official beta testing app.{' '}
             If you don't already have it installed, download it below.
@@ -40,9 +53,9 @@ export default function TestFlightPage() {
               Download TestFlight
             </a>
           </Button>
-        </Step>
+        </StepCard>
 
-        <Step number={2} title="Install Ember Beta">
+        <StepCard number={2} title="Install Ember Beta">
           <p className="text-muted-foreground mb-5 text-[17px]">
             Once TestFlight is installed, tap the button below.
           </p>
@@ -51,15 +64,15 @@ export default function TestFlightPage() {
               Install Ember Beta
             </a>
           </Button>
-        </Step>
+        </StepCard>
 
-        <Step number={3} title='Tap "Install" Inside TestFlight'>
+        <StepCard number={3} title='Tap "Install" Inside TestFlight'>
           <p className="text-muted-foreground text-[17px]">
             When Ember appears in TestFlight, tap{' '}
             <strong className="text-foreground">Install</strong>.{' '}
             The app will download to your home screen.
           </p>
-        </Step>
+        </StepCard>
 
         <div className="h-px bg-border my-[60px]" />
 
@@ -77,17 +90,12 @@ export default function TestFlightPage() {
         </div>
 
         <footer className="mt-[60px] text-sm text-muted-foreground">
-          <p className="mb-2">Need help? Reach out directly.</p>
-          <p>
-            William Shewman
-            <br />
-            <a
-              href="mailto:william@emberstories.com"
+          <p className="mb-2">Questions or comments can be sent to <a
+              href="mailto:feedback@emberstories.com"
               className="text-primary no-underline hover:underline"
             >
-              william@emberstories.com
-            </a>
-          </p>
+              feedback@emberstories.com
+            </a>.</p>
         </footer>
 
       </div>
