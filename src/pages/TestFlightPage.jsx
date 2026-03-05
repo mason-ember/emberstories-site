@@ -1,10 +1,10 @@
 import { Button } from '@/components/ui/button'
 
-function StepCard({ number, title, image, alt, children }) {
+function StepCard({ number, title, image, alt, imageBelow = false, children }) {
   return (
-    <div className="bg-muted rounded-lg border border-border p-6 mb-4 flex gap-8 items-center">
+    <div className={`bg-muted rounded-lg border border-border p-6 mb-4 flex gap-6 ${imageBelow ? 'flex-col' : 'flex-row items-center'}`}>
 
-      {/* Left: content */}
+      {/* Content */}
       <div className="flex-1 min-w-0 text-left">
         <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-1">
           Step {number}
@@ -15,11 +15,18 @@ function StepCard({ number, title, image, alt, children }) {
         {children}
       </div>
 
-      {/* Right: image or placeholder */}
+      {/* Image: right (default) or below */}
       {image ? (
-        <img src={image} alt={alt} className="w-[120px] h-[120px] shrink-0 rounded-lg object-contain" />
+        <img
+          src={image}
+          alt={alt}
+          className={imageBelow
+            ? 'w-full rounded-lg object-contain'
+            : 'w-[120px] h-[120px] shrink-0 rounded-lg object-contain'
+          }
+        />
       ) : (
-        <div className="w-[120px] h-[120px] shrink-0 rounded-lg border-2 border-dashed border-ember-gray-300 bg-ember-gray-100 flex items-center justify-center text-ember-gray-400 text-xs">
+        <div className={`shrink-0 rounded-lg border-2 border-dashed border-ember-gray-300 bg-ember-gray-100 flex items-center justify-center text-ember-gray-400 text-xs ${imageBelow ? 'w-full h-[200px]' : 'w-[120px] h-[120px]'}`}>
           image
         </div>
       )}
@@ -76,7 +83,7 @@ export default function TestFlightPage() {
           </Button>
         </StepCard>
 
-        <StepCard number={3} title='Tap "Install" Inside TestFlight'>
+        <StepCard number={3} title='Tap "Install" Inside TestFlight' image="/assets/images/testing/testflight-screenshot.png" alt="TestFlight install screen" imageBelow>
           <p className="text-muted-foreground text-[17px]">
             When Ember appears in TestFlight, tap <strong className="text-foreground">Install</strong>.
             The app will download to your home screen.
