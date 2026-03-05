@@ -1,6 +1,38 @@
 import { Button } from '@/components/ui/button'
 
-function StepCard({ number, title, image, alt, imageBelow = false, placeholder = false, children }) {
+function StepCard({ number, title, image, alt, imageBelow = false, imageSide = false, placeholder = false, children }) {
+  const imageEl = image ? (
+    <img
+      src={image}
+      alt={alt}
+      className={imageBelow
+        ? 'w-full rounded-lg object-contain'
+        : 'w-[120px] h-[120px] shrink-0 rounded-lg object-contain'
+      }
+    />
+  ) : placeholder ? (
+    <div className={`shrink-0 rounded-lg border-2 border-dashed border-ember-gray-300 bg-ember-gray-100 flex items-center justify-center text-ember-gray-400 text-xs ${imageBelow ? 'w-full h-[200px]' : 'w-[120px] h-[120px]'}`}>
+      image
+    </div>
+  ) : null
+
+  if (imageSide) {
+    return (
+      <div className="bg-muted rounded-lg border border-border p-6 mb-4 text-left">
+        <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-1">
+          Step {number}
+        </p>
+        <h2 className="text-[20px] font-semibold mb-3 text-foreground">
+          {title}
+        </h2>
+        <div className="flex gap-6 items-center">
+          <div className="flex-1 min-w-0">{children}</div>
+          {imageEl}
+        </div>
+      </div>
+    )
+  }
+
   return (
     <div className={`bg-muted rounded-lg border border-border p-6 mb-4 flex gap-6 ${imageBelow ? 'flex-col' : 'flex-row items-center'}`}>
 
@@ -15,22 +47,7 @@ function StepCard({ number, title, image, alt, imageBelow = false, placeholder =
         {children}
       </div>
 
-      {/* Image: right (default) or below */}
-      {image && (
-        <img
-          src={image}
-          alt={alt}
-          className={imageBelow
-            ? 'w-full rounded-lg object-contain'
-            : 'w-[120px] h-[120px] shrink-0 rounded-lg object-contain'
-          }
-        />
-      )}
-      {!image && placeholder && (
-        <div className={`shrink-0 rounded-lg border-2 border-dashed border-ember-gray-300 bg-ember-gray-100 flex items-center justify-center text-ember-gray-400 text-xs ${imageBelow ? 'w-full h-[200px]' : 'w-[120px] h-[120px]'}`}>
-          image
-        </div>
-      )}
+      {imageEl}
 
     </div>
   )
@@ -57,7 +74,7 @@ export default function TestFlightPage() {
           Installation takes about 60 seconds.
         </p>
 
-        <StepCard number={1} title="Install Apple TestFlight" image="/assets/images/testing/testflight.webp" alt="TestFlight app icon">
+        <StepCard number={1} title="Install Apple TestFlight" image="/assets/images/testing/testflight.webp" alt="TestFlight app icon" imageSide>
           <p className="text-muted-foreground mb-5 text-[17px]">
             TestFlight is Apple's official beta testing app.
             If you don't already have it installed, download it below.
@@ -91,7 +108,7 @@ export default function TestFlightPage() {
           </p>
         </StepCard>
 
-        <StepCard number={4} title="Open Ember Anytime" placeholder>
+        <StepCard number={4} title="Open Ember Anytime" placeholder imageSide>
           <p className="text-muted-foreground text-[17px]">
             Once installed, tap the Ember icon on your home screen to open the app whenever you'd like.
           </p>
