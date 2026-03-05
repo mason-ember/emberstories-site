@@ -5,7 +5,7 @@ function StepCard({ number, title, children }) {
     <div className="bg-muted rounded-lg border border-border p-6 mb-4 flex gap-8 items-center">
 
       {/* Left: content */}
-      <div className="flex-1 min-w-0">
+      <div className="flex-1 min-w-0 text-left">
         <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-1">
           Step {number}
         </p>
@@ -27,7 +27,7 @@ function StepCard({ number, title, children }) {
 export default function TestFlightPage() {
   return (
     <div className="min-h-screen bg-background text-foreground font-sans leading-relaxed">
-      <div className="max-w-[720px] mx-auto px-6 py-[60px] pb-20">
+      <div className="max-w-[720px] mx-auto px-6 py-[60px] pb-20 text-center">
 
         <img
           src="/assets/brand/EmberLogo-Vert-BlackTxt.svg"
@@ -82,7 +82,7 @@ export default function TestFlightPage() {
 
         <div className="h-px bg-border my-[60px]" />
 
-        <div className="bg-muted p-6 rounded-lg border border-border">
+        <div className="bg-muted p-6 rounded-lg border border-border text-left">
           <h2 className="text-[22px] font-semibold mb-2.5 text-foreground">
             What to Expect
           </h2>
