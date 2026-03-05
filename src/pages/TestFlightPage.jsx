@@ -7,25 +7,25 @@ function StepCard({ number, title, image, alt, imageBelow = false, imageSide = f
       alt={alt}
       className={imageBelow
         ? 'w-full rounded-lg object-contain'
-        : 'w-[120px] h-[120px] shrink-0 rounded-lg object-contain'
+        : 'w-[90px] h-[90px] shrink-0 rounded-lg object-contain'
       }
     />
   ) : placeholder ? (
-    <div className={`shrink-0 rounded-lg border-2 border-dashed border-ember-gray-300 bg-ember-gray-100 flex items-center justify-center text-ember-gray-400 text-xs ${imageBelow ? 'w-full h-[200px]' : 'w-[120px] h-[120px]'}`}>
+    <div className={`shrink-0 rounded-lg border-2 border-dashed border-ember-gray-300 bg-ember-gray-100 flex items-center justify-center text-ember-gray-400 text-xs ${imageBelow ? 'w-full h-[200px]' : 'w-[90px] h-[90px]'}`}>
       image
     </div>
   ) : null
 
   if (imageSide) {
     return (
-      <div className="bg-muted rounded-lg border border-border p-6 mb-4 text-left">
+      <div className="bg-muted rounded-lg border border-border py-6 px-3 mb-8 text-left">
         <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-1">
           Step {number}
         </p>
         <h2 className="text-[20px] font-semibold mb-3 text-foreground">
           {title}
         </h2>
-        <div className="flex gap-6 items-center">
+        <div className="flex gap-6 items-start">
           <div className="flex-1 min-w-0">{children}</div>
           {imageEl}
         </div>
@@ -34,7 +34,7 @@ function StepCard({ number, title, image, alt, imageBelow = false, imageSide = f
   }
 
   return (
-    <div className={`bg-muted rounded-lg border border-border p-6 mb-4 flex gap-6 ${imageBelow ? 'flex-col' : 'flex-row items-center'}`}>
+    <div className={`bg-muted rounded-lg border border-border py-6 px-3 mb-8 flex gap-6 ${imageBelow ? 'flex-col' : 'flex-row items-center'}`}>
 
       {/* Content */}
       <div className="flex-1 min-w-0 text-left">
