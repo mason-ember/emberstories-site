@@ -29,6 +29,12 @@ export default function TestFlightPage() {
     <div className="min-h-screen bg-background text-foreground font-sans leading-relaxed">
       <div className="max-w-[720px] mx-auto px-6 py-[60px] pb-20">
 
+        <img
+          src="/assets/brand/EmberLogo-Vert-BlackTxt.svg"
+          alt="Ember Stories"
+          className="h-20 mb-10"
+        />
+
         <h1 className="text-[32px] font-semibold mb-4 tracking-[-0.5px] text-foreground">
           You're helping shape Ember.
         </h1>
@@ -44,7 +50,7 @@ export default function TestFlightPage() {
             TestFlight is Apple's official beta testing app.{' '}
             If you don't already have it installed, download it below.
           </p>
-          <Button asChild variant="outline" size="lg">
+          <Button asChild size="lg">
             <a
               href="https://apps.apple.com/us/app/testflight/id899247664"
               target="_blank"
