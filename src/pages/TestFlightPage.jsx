@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button'
 
-function StepCard({ number, title, image, alt, imageBelow = false, children }) {
+function StepCard({ number, title, image, alt, imageBelow = false, placeholder = false, children }) {
   return (
     <div className={`bg-muted rounded-lg border border-border p-6 mb-4 flex gap-6 ${imageBelow ? 'flex-col' : 'flex-row items-center'}`}>
 
@@ -16,7 +16,7 @@ function StepCard({ number, title, image, alt, imageBelow = false, children }) {
       </div>
 
       {/* Image: right (default) or below */}
-      {image ? (
+      {image && (
         <img
           src={image}
           alt={alt}
@@ -25,7 +25,8 @@ function StepCard({ number, title, image, alt, imageBelow = false, children }) {
             : 'w-[120px] h-[120px] shrink-0 rounded-lg object-contain'
           }
         />
-      ) : (
+      )}
+      {!image && placeholder && (
         <div className={`shrink-0 rounded-lg border-2 border-dashed border-ember-gray-300 bg-ember-gray-100 flex items-center justify-center text-ember-gray-400 text-xs ${imageBelow ? 'w-full h-[200px]' : 'w-[120px] h-[120px]'}`}>
           image
         </div>
@@ -74,7 +75,7 @@ export default function TestFlightPage() {
 
         <StepCard number={2} title="Install Ember Beta">
           <p className="text-muted-foreground mb-5 text-[17px]">
-            Once TestFlight is installed, tap the button below.
+            After TestFlight is installed on your iPhone, tap the following button to install Ember Beta.
           </p>
           <Button asChild size="lg">
             <a href="YOUR_TESTFLIGHT_LINK_HERE" target="_blank" rel="noreferrer">
@@ -90,7 +91,7 @@ export default function TestFlightPage() {
           </p>
         </StepCard>
 
-        <StepCard number={4} title="Open Ember Anytime">
+        <StepCard number={4} title="Open Ember Anytime" placeholder>
           <p className="text-muted-foreground text-[17px]">
             Once installed, tap the Ember icon on your home screen to open the app whenever you'd like.
           </p>
