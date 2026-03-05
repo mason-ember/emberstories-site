@@ -7,7 +7,7 @@ function StepCard({ number, title, image, alt, imageBelow = false, imageSide = f
       alt={alt}
       className={imageBelow
         ? 'w-full rounded-lg object-contain'
-        : 'w-[90px] h-[90px] shrink-0 rounded-lg object-contain'
+        : 'w-[90px] h-[90px] shrink-0 object-contain'
       }
     />
   ) : placeholder ? (
@@ -74,7 +74,7 @@ export default function TestFlightPage() {
           Installation takes about 60 seconds.
         </p>
 
-        <StepCard number={1} title="Install Apple TestFlight" image="/assets/images/testing/testflight.webp" alt="TestFlight app icon" imageSide>
+        <StepCard number={1} title="Install Apple TestFlight" image="/assets/images/testing/testflight-launch-icon.png" alt="TestFlight app icon" imageSide>
           <p className="text-muted-foreground mb-5 text-[17px]">
             TestFlight is Apple's official beta testing app.
             If you don't already have it installed, download it below.
