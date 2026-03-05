@@ -18,8 +18,8 @@ function StepCard({ number, title, image, alt, imageBelow = false, imageSide = f
 
   if (imageSide) {
     return (
-      <div className="bg-muted rounded-lg border border-border py-6 px-3 mb-8 text-left">
-        <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-1">
+      <div className="bg-muted rounded-lg border border-border py-4 px-4 mb-8 text-left">
+        <p className="text-xs font-bold uppercase tracking-widest text-primary mb-1">
           Step {number}
         </p>
         <h2 className="text-[20px] font-semibold mb-3 text-foreground">
@@ -34,11 +34,11 @@ function StepCard({ number, title, image, alt, imageBelow = false, imageSide = f
   }
 
   return (
-    <div className={`bg-muted rounded-lg border border-border py-6 px-3 mb-8 flex gap-6 ${imageBelow ? 'flex-col' : 'flex-row items-center'}`}>
+    <div className={`bg-muted rounded-lg border border-border py-4 px-4 mb-8 flex gap-6 ${imageBelow ? 'flex-col' : 'flex-row items-center'}`}>
 
       {/* Content */}
       <div className="flex-1 min-w-0 text-left">
-        <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-1">
+        <p className="text-xs font-bold uppercase tracking-widest text-primary mb-1">
           Step {number}
         </p>
         <h2 className="text-[20px] font-semibold mb-3 text-foreground">
@@ -108,7 +108,7 @@ export default function TestFlightPage() {
           </p>
         </StepCard>
 
-        <StepCard number={4} title="Open Ember Anytime" placeholder imageSide>
+        <StepCard number={4} title="Open Ember Anytime" image="/assets/images/testing/ember-launch-icon.png" alt="Ember app icon" imageSide>
           <p className="text-muted-foreground text-[17px]">
             Once installed, tap the Ember icon on your home screen to open the app whenever you'd like.
           </p>
