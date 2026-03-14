@@ -7,7 +7,7 @@ function StepCard({ number, title, image, alt, imageBelow = false, imageSide = f
       alt={alt}
       className={imageBelow
         ? 'w-full rounded-lg object-contain'
-        : 'w-[90px] h-[90px] shrink-0 object-contain'
+        : 'w-[80px] h-[80px] shrink-0 object-contain'
       }
     />
   ) : placeholder ? (
@@ -19,7 +19,7 @@ function StepCard({ number, title, image, alt, imageBelow = false, imageSide = f
   if (imageSide) {
     return (
       <div className="bg-muted rounded-lg border border-border py-4 px-4 mb-8 text-left">
-        <p className="text-xs font-bold uppercase tracking-widest text-primary mb-1">
+        <p className="text-sm font-extrabold uppercase tracking-widest text-primary mb-1">
           Step {number}
         </p>
         <h2 className="text-[20px] font-semibold mb-3 text-foreground">
@@ -38,7 +38,7 @@ function StepCard({ number, title, image, alt, imageBelow = false, imageSide = f
 
       {/* Content */}
       <div className="flex-1 min-w-0 text-left">
-        <p className="text-xs font-bold uppercase tracking-widest text-primary mb-1">
+        <p className="text-sm font-extrabold uppercase tracking-widest text-primary mb-1">
           Step {number}
         </p>
         <h2 className="text-[20px] font-semibold mb-3 text-foreground">
@@ -53,7 +53,7 @@ function StepCard({ number, title, image, alt, imageBelow = false, imageSide = f
   )
 }
 
-export default function TestFlightPage() {
+export default function IosPage() {
   return (
     <div className="min-h-screen bg-background text-foreground font-sans leading-relaxed">
       <div className="max-w-[720px] mx-auto px-6 py-[60px] pb-20 text-center">
@@ -68,22 +68,33 @@ export default function TestFlightPage() {
           You're shaping Ember.
         </h1>
 
-        <p className="text-lg text-foreground mb-10">
+        <p className="text-lg text-foreground mb-6">
           Ember Stories is currently in private beta.
           This build gives you early access before public release.
           Installation takes about 60 seconds.
         </p>
 
+        <div className="bg-black rounded-lg px-5 py-3 mb-3 text-[15px] text-white font-medium flex items-center justify-center gap-2">
+          <svg viewBox="0 0 814 1000" className="w-4 h-4 fill-white shrink-0">
+            <path d="M788.1 340.9c-5.8 4.5-108.2 62.2-108.2 190.5 0 148.4 130.3 200.9 134.2 202.2-.6 3.2-20.7 71.9-68.7 141.9-42.8 61.6-87.5 123.1-155.5 123.1s-85.5-39.5-164-39.5c-76.5 0-103.7 40.8-165.9 40.8s-105-57.8-155.5-127.4C46 790.7 0 663 0 541.8c0-207.5 135.4-317.3 264.5-317.3 70 0 127.9 46.5 170.7 46.5 41 0 106.2-49.1 183.1-49.1 29.4 0 108.2 2.6 168.9 80.7zm-126.6-169.1c-30.7 36.4-78.7 64.5-126.7 64.5-5.2 0-10.4-.5-15.5-1.5 1-52.4 27.5-104.2 58.8-139.5 35.1-38.4 90-68.5 138.1-72.4 4.2 55.1-15.2 110.2-54.7 148.9z"/>
+          </svg>
+          iOS installation instructions.
+        </div>
+
+        <p className="text-sm text-muted-foreground mb-10">
+          Installing on Android?{' '}
+          <a href="/android" className="text-primary hover:underline">Visit the Android page →</a>
+        </p>
+
         <StepCard number={1} title="Install Apple TestFlight" image="/assets/images/testing/testflight-launch-icon.png" alt="TestFlight app icon" imageSide>
           <p className="text-muted-foreground mb-5 text-[17px]">
             TestFlight is Apple's official beta testing app.
-            If you don't already have it installed, download it below.
+            If you don't already have it installed, download it here.
           </p>
           <Button asChild size="lg">
             <a
               href="https://apps.apple.com/us/app/testflight/id899247664"
-              target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
             >
               Download TestFlight
             </a>
@@ -92,10 +103,13 @@ export default function TestFlightPage() {
 
         <StepCard number={2} title="Install Ember Beta">
           <p className="text-muted-foreground mb-5 text-[17px]">
-            After TestFlight is installed on your iPhone, tap the following button to install Ember Beta.
+            After TestFlight is installed, tap this button to join the Ember Beta.
           </p>
           <Button asChild size="lg">
-            <a href="YOUR_TESTFLIGHT_LINK_HERE" target="_blank" rel="noreferrer">
+            <a
+              href="https://testflight.apple.com/join/4q4e415j"
+              rel="noopener noreferrer"
+            >
               Install Ember Beta
             </a>
           </Button>
