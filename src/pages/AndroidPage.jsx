@@ -86,7 +86,7 @@ export default function AndroidPage() {
           <a href="/ios" className="text-primary hover:underline">Visit the iOS page →</a>
         </p>
 
-        <StepCard number={1} title="Join the Ember Beta" placeholder imageSide>
+        <StepCard number={1} title="Join the Ember Beta" image="/assets/images/testing/google-play-icon.png" alt="Google Play icon" imageSide>
           <p className="text-muted-foreground mb-5 text-[17px]">
             Open the link below on your Android phone. This takes you to Google Play's testing program for Ember. Tap <strong className="text-foreground">Become a tester</strong> to join.
           </p>
