@@ -3,6 +3,7 @@ import HomePage from './pages/HomePage'
 import BetaPage from './pages/BetaPage'
 import IosPage from './pages/IosPage'
 import AndroidPage from './pages/AndroidPage'
+import AndroidSignupPage from './pages/AndroidSignupPage'
 
 export default function App() {
   return (
@@ -11,6 +12,7 @@ export default function App() {
       <Route path="/beta" element={<BetaPage />} />
       <Route path="/ios" element={<IosPage />} />
       <Route path="/android" element={<AndroidPage />} />
+      <Route path="/android/signup" element={<AndroidSignupPage />} />
     </Routes>
   )
 }

@@ -51,7 +51,7 @@ export default function BetaPage() {
           </Link>
 
           <Link
-            to="/android"
+            to="/android/signup"
             className="flex-1 bg-[#3DDC84] text-[#1a1a1a] rounded-lg px-6 py-5 flex items-center gap-4 hover:opacity-90 transition-opacity no-underline text-left"
           >
             <AndroidIcon />
