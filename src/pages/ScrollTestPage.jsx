@@ -213,9 +213,9 @@ export default function ScrollTestPage() {
       {/* Grid 1 — type1 */}
       <div className="grid-section">
         <div className="content-title">
-          <div style={{ background: 'rgba(222, 222, 222, 0.25)', backdropFilter: 'blur(20px)', borderRadius: 7, padding: '2rem 4rem', display: 'inline-block' }}>
-            <p style={{ fontSize: 'clamp(1.5rem, 4vw, 2rem)', fontWeight: 600, letterSpacing: '-0.5px', marginBottom: '0.25rem', lineHeight: 1.5, color: '#000' }}>
-              Your cherished memories,<br />saved as beautiful stories.
+          <div style={{ background: 'rgba(245, 245, 245, 0.75)', backdropFilter: 'blur(16px)', borderRadius: 7, padding: '2rem 3rem', display: 'inline-block' }}>
+            <p style={{ fontSize: 'clamp(1.5rem, 4vw, 2rem)', fontWeight: 600, letterSpacing: '-0.5px', marginBottom: '0.1rem', lineHeight: 1.5, color: '#000' }}>
+              Turn your cherished memories<br /> into beautiful stories.
             </p>
             <Button asChild size="lg">
               <Link to="/beta">Get Early Access</Link>
@@ -224,7 +224,7 @@ export default function ScrollTestPage() {
         </div>
         <div className="grid" ref={grid1Ref}>
           <div className="grid-wrap">
-            {Array.from({ length: 24 }).map((_, i) => (
+            {Array.from({ length: 32 }).map((_, i) => (
               <div key={i} className="grid__item">
                 {hasImage
                   ? <img src={`/assets/images/home/photo${String(i + 1).padStart(2, '0')}.jpg`} alt="" />
