@@ -37,7 +37,7 @@ const COLORS = [
 
 // ─── Animation — verbatim from the Scroll3DGrid demo ─────────────────────────
 
-function applyAnimation(grid, animationType) {
+function applyAnimation(grid, animationType, triggerOverrides = {}) {
   const gridWrap  = grid.querySelector('.grid-wrap')
   const gridItems = grid.querySelectorAll('.grid__item')
   const gridItemsInner = [...gridItems].map(item => item.querySelector('.grid__item-inner'))
@@ -49,6 +49,7 @@ function applyAnimation(grid, animationType) {
       start: 'top bottom+=5%',
       end: 'bottom top-=5%',
       scrub: true,
+      ...triggerOverrides,
     },
   })
 
@@ -169,7 +170,8 @@ export default function ScrollTestPage() {
     const rafLoop = (time) => { lenis.raf(time); requestAnimationFrame(rafLoop) }
     requestAnimationFrame(rafLoop)
 
-    if (grid1Ref.current) applyAnimation(grid1Ref.current, 'type1')
+    // Start type1 early so the animation begins the moment the user scrolls
+    if (grid1Ref.current) applyAnimation(grid1Ref.current, 'type1', { start: 'top bottom+=100%' })
     if (grid2Ref.current) applyAnimation(grid2Ref.current, 'type2')
 
     return () => {
