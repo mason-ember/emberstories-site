@@ -11,9 +11,11 @@
  */
 
 import { useEffect, useRef } from 'react'
+import { Link } from 'react-router-dom'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Lenis from 'lenis'
+import { Button } from '@/components/ui/button'
 import './ScrollTestPage.css'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -186,13 +188,23 @@ export default function ScrollTestPage() {
   return (
     <div className="scroll-test">
 
-      {/* Intro */}
+      {/* Hero */}
       <section className="section-intro">
         <div>
-          <h1>Scroll Test</h1>
-          <p style={{ opacity: 0.4, fontSize: '1rem', marginTop: '1rem' }}>
-            Animation: <strong>{ANIMATION_TYPE}</strong> — scroll slowly
+          <img
+            src="/assets/brand/EmberLogo-Vert-BlackTxt.svg"
+            alt="Ember Stories"
+            style={{ height: 96, margin: '0 auto 40px', display: 'block' }}
+          />
+          <h1 style={{ fontSize: 'clamp(2rem, 5vw, 3rem)', fontWeight: 600, letterSpacing: '-0.5px', marginBottom: 20, maxWidth: 620 }}>
+            Your family's stories deserve more than a camera roll.
+          </h1>
+          <p style={{ fontSize: '1.1rem', opacity: 0.6, maxWidth: 480, margin: '0 auto 40px', lineHeight: 1.6 }}>
+            Ember transforms your shared photos into memories your household can relive together.
           </p>
+          <Button asChild size="lg">
+            <Link to="/beta">Join the Beta</Link>
+          </Button>
         </div>
       </section>
 
