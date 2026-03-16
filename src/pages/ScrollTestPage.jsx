@@ -59,8 +59,8 @@ function applyAnimation(grid, animationType, triggerOverrides = {}) {
   switch (animationType) {
 
     case 'type1':
-      grid.style.setProperty('--perspective', '1000px')
-      grid.style.setProperty('--grid-inner-scale', '0.5')
+      grid.style.setProperty('--perspective', '1600px')
+      grid.style.setProperty('--grid-inner-scale', '1.0')
       grid.style.setProperty('--grid-columns', '8')
       grid.style.setProperty('--grid-width', '200%')
       grid.style.setProperty('--grid-gap', '4vw')
@@ -168,7 +168,6 @@ function applyAnimation(grid, animationType, triggerOverrides = {}) {
 
 export default function ScrollTestPage() {
   const grid1Ref = useRef(null)
-  const grid2Ref = useRef(null)
 
   useEffect(() => {
     const lenis = new Lenis({ lerp: 0.1, smoothWheel: true })
@@ -176,9 +175,11 @@ export default function ScrollTestPage() {
     const rafLoop = (time) => { lenis.raf(time); requestAnimationFrame(rafLoop) }
     requestAnimationFrame(rafLoop)
 
-    // Start type1 early so the animation begins the moment the user scrolls
-    if (grid1Ref.current) applyAnimation(grid1Ref.current, 'type1', { start: 'top bottom+=100%' })
-    if (grid2Ref.current) applyAnimation(grid2Ref.current, 'type2')
+    if (grid1Ref.current) applyAnimation(grid1Ref.current, 'type1', {
+      start: 'top bottom+=100%',
+      endTrigger: '#impermanence',
+      end: 'bottom top',
+    })
 
     return () => {
       lenis.destroy()
@@ -235,31 +236,11 @@ export default function ScrollTestPage() {
         </div>
       </div>
 
-      {/* Separator */}
-      <div style={{ textAlign: 'center', padding: '2rem 0', opacity: 0.3, fontSize: '0.85rem' }}>Type 2</div>
-
-      {/* Grid 2 — type2 */}
-      <div className="grid-section">
-        <div className="content-title">
+      {/* Impermanence text — type1 animation continues through here */}
+      <section className="section-intro" id="impermanence">
+        <p style={{ fontSize: 'clamp(2rem, 8vw, 5rem)', fontWeight: 300, opacity: 0.85, lineHeight: 1.2 }}>
           Impermanence guides<br />life's river.
-        </div>
-        <div className="grid" ref={grid2Ref}>
-          <div className="grid-wrap">
-            {Array.from({ length: ITEM_COUNT }).map((_, i) => (
-              <div key={`b${i}`} className="grid__item">
-                {hasImage
-                  ? <img src={`/assets/images/home/photo${String(i + 1).padStart(2, '0')}.jpg`} alt="" />
-                  : <div className="grid__item-inner" style={{ aspectRatio: '4/3', background: COLORS[(i + 6) % COLORS.length] }} />
-                }
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* Outro */}
-      <section className="section-outro">
-        <p>End of test — change ANIMATION_TYPE in ScrollTestPage.jsx to compare</p>
+        </p>
       </section>
 
     </div>
