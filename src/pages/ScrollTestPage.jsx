@@ -62,8 +62,8 @@ function applyAnimation(grid, animationType, triggerOverrides = {}) {
       grid.style.setProperty('--perspective', '1600px')
       grid.style.setProperty('--grid-inner-scale', '1.0')
       grid.style.setProperty('--grid-columns', '8')
-      grid.style.setProperty('--grid-width', '200%')
-      grid.style.setProperty('--grid-gap', '2vw')
+      grid.style.setProperty('--grid-width', '175%')
+      grid.style.setProperty('--grid-gap', '3vw')
       timeline
         .set(gridWrap, { rotationY: 25 })
         .set(gridItems, { z: () => gsap.utils.random(-1600, 200) })
@@ -250,6 +250,14 @@ export default function ScrollTestPage() {
           </Button>
         </div>
       </section>
+
+      <footer style={{ textAlign: 'center', padding: '2.5rem 1.5rem', borderTop: '1px solid #e5e5e5' }}>
+        <p style={{ fontSize: '0.85rem', color: '#a3a3a3', marginBottom: '0.75rem' }}>© 2026 William Mason Shewman, LLC</p>
+        <div style={{ display: 'flex', justifyContent: 'center', gap: '1.5rem', fontSize: '0.85rem' }}>
+          <a href="/privacy.html" style={{ color: '#a3a3a3', textDecoration: 'none' }}>Privacy Policy</a>
+          <a href="/terms.html"   style={{ color: '#a3a3a3', textDecoration: 'none' }}>Terms of Service</a>
+        </div>
+      </footer>
 
     </div>
   )
