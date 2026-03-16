@@ -70,14 +70,14 @@
   border-radius: 10px;
 }
 
-/* Inner — scaled by --grid-inner-scale */
+/* Inner — scaled by --grid-inner-scale (used for placeholder divs only) */
 .scroll-test .grid__item-inner {
   position: relative;
   width: calc(1 / var(--grid-inner-scale, 1) * 100%);
   height: auto;
 }
 
-.scroll-test .grid__item-inner img {
+.scroll-test .grid__item img {
   width: 100%;
   height: auto;
   display: block;

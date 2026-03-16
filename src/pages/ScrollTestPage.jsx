@@ -43,7 +43,7 @@ const COLORS = [
 function applyAnimation(grid, animationType, triggerOverrides = {}) {
   const gridWrap  = grid.querySelector('.grid-wrap')
   const gridItems = grid.querySelectorAll('.grid__item')
-  const gridItemsInner = [...gridItems].map(item => item.querySelector('.grid__item-inner'))
+  const gridItemsInner = [...gridItems].map(item => item.querySelector('.grid__item-inner')).filter(Boolean)
 
   const timeline = gsap.timeline({
     defaults: { ease: 'none' },
@@ -225,12 +225,10 @@ export default function ScrollTestPage() {
           <div className="grid-wrap">
             {Array.from({ length: 24 }).map((_, i) => (
               <div key={i} className="grid__item">
-                <div className="grid__item-inner">
-                  {hasImage
-                    ? <img src={`/assets/images/home/photo${String(i + 1).padStart(2, '0')}.jpg`} alt="" />
-                    : <div style={{ aspectRatio: '4/3', background: COLORS[i % COLORS.length] }} />
-                  }
-                </div>
+                {hasImage
+                  ? <img src={`/assets/images/home/photo${String(i + 1).padStart(2, '0')}.jpg`} alt="" />
+                  : <div className="grid__item-inner" style={{ aspectRatio: '4/3', background: COLORS[i % COLORS.length] }} />
+                }
               </div>
             ))}
           </div>
@@ -249,12 +247,10 @@ export default function ScrollTestPage() {
           <div className="grid-wrap">
             {Array.from({ length: ITEM_COUNT }).map((_, i) => (
               <div key={`b${i}`} className="grid__item">
-                <div className="grid__item-inner">
-                  {hasImage
-                    ? <img src={`/assets/images/home/photo${String(i + 1).padStart(2, '0')}.jpg`} alt="" />
-                    : <div style={{ aspectRatio: '4/3', background: COLORS[(i + 6) % COLORS.length] }} />
-                  }
-                </div>
+                {hasImage
+                  ? <img src={`/assets/images/home/photo${String(i + 1).padStart(2, '0')}.jpg`} alt="" />
+                  : <div className="grid__item-inner" style={{ aspectRatio: '4/3', background: COLORS[(i + 6) % COLORS.length] }} />
+                }
               </div>
             ))}
           </div>
