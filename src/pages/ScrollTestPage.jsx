@@ -65,20 +65,20 @@ function applyAnimation(grid, animationType) {
       break
 
     case 'type2':
-      grid.style.setProperty('--grid-width', '130%')
-      grid.style.setProperty('--perspective', '1800px')
+      grid.style.setProperty('--grid-width', '160%')
+      grid.style.setProperty('--perspective', '2000px')
+      grid.style.setProperty('--grid-inner-scale', '0.5')
       grid.style.setProperty('--grid-item-ratio', '0.8')
       grid.style.setProperty('--grid-columns', '6')
-      grid.style.setProperty('--grid-gap', '2vw')
+      grid.style.setProperty('--grid-gap', '14vw')
       timeline
-        // Grid starts slightly tilted back and scaled down — zooms toward viewer
-        .fromTo(gridWrap,
-          { rotationX: 18, scale: 0.6 },
-          { rotationX: 0,  scale: 1.1, ease: 'power1.inOut' }, 0)
-        // Items start deep in z-space and rush forward, staggered
+        .set(gridWrap, { rotationX: 20 })
+        .set(gridItems, { z: () => gsap.utils.random(-3000, -1000) })
         .fromTo(gridItems,
-          { z: () => gsap.utils.random(-2000, -800), filter: 'brightness(0%)' },
-          { z: 0, filter: 'brightness(100%)', stagger: { amount: 0.4, from: 'center' }, ease: 'power2.out' }, 0)
+          { yPercent: () => gsap.utils.random(100, 1000), rotationY: -45, filter: 'brightness(200%)' },
+          { ease: 'power2', yPercent: () => gsap.utils.random(-1000, -100), rotationY: 45, filter: 'brightness(0%)' }, 0)
+        .fromTo(gridWrap, { rotationZ: -5 }, { rotationX: -20, rotationZ: 10, scale: 1.2 }, 0)
+        .fromTo(gridItemsInner, { scale: 2 }, { scale: 0.5 }, 0)
       break
 
     case 'type3':
