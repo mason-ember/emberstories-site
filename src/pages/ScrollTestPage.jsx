@@ -184,23 +184,26 @@ export default function ScrollTestPage() {
   useEffect(() => {
     if (!gridRef.current) return
 
-    // Kill existing ScrollTriggers and clear all GSAP transforms
+    // 1. Kill existing ScrollTriggers and clear GSAP state
     ScrollTrigger.getAll().forEach(t => t.kill())
-    const gridWrap  = gridRef.current.querySelector('.grid-wrap')
-    const gridItems = gridRef.current.querySelectorAll('.grid__item')
+    const gridWrap       = gridRef.current.querySelector('.grid-wrap')
+    const gridItems      = gridRef.current.querySelectorAll('.grid__item')
     const gridItemsInner = [...gridItems].map(i => i.querySelector('.grid__item-inner'))
     gsap.set([gridWrap, gridItems, gridItemsInner], { clearProps: 'all' })
 
-    // Reset CSS vars to defaults before each type applies its own
+    // 2. Reset CSS vars
     CSS_VARS.forEach(v => gridRef.current.style.setProperty(v, CSS_VAR_DEFAULTS[v]))
 
-    applyAnimation(gridRef.current, activeType)
-
-    // Scroll back to top so the trigger fires correctly
-    window.scrollTo({ top: 0 })
+    // 3. Scroll to top BEFORE creating the new ScrollTrigger
+    window.scrollTo(0, 0)
     if (lenisRef.current) lenisRef.current.scrollTo(0, { immediate: true })
 
-    ScrollTrigger.refresh()
+    // 4. Apply animation on the next frame so layout/scroll have settled
+    const raf = requestAnimationFrame(() => {
+      applyAnimation(gridRef.current, activeType)
+    })
+
+    return () => cancelAnimationFrame(raf)
   }, [activeType])
 
   return (
