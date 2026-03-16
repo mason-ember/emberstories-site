@@ -1,35 +1,133 @@
-import ScrollPhotoGrid from '@/components/home/ScrollPhotoGrid'
-import HeroSection from '@/components/home/HeroSection'
-import CTASection from '@/components/home/CTASection'
-import PeopleSection from '@/components/home/PeopleSection'
-import FinalCTASection from '@/components/home/FinalCTASection'
+import { useEffect, useRef } from 'react'
+import { Link } from 'react-router-dom'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import Lenis from 'lenis'
+import { Button } from '@/components/ui/button'
+import './ScrollTestPage.css'
+
+gsap.registerPlugin(ScrollTrigger)
+
+const hasImage = true
+const COLORS = [
+  '#d4b8e0', '#b8cfe0', '#c4b8e0', '#b8e0c4', '#e0b8b8', '#e0d4b8',
+  '#c4e0b8', '#b8d4e0', '#e0c4b8', '#d4e0b8', '#b8b8e0', '#e0b8d4',
+  '#d4c4e0', '#c4d4e0', '#d4b8c4', '#b8c4e0', '#e0d4c4', '#c4e0d4',
+]
+
+function applyAnimation(grid) {
+  const gridWrap        = grid.querySelector('.grid-wrap')
+  const gridItems       = grid.querySelectorAll('.grid__item')
+  const gridItemsInner  = [...gridItems].map(item => item.querySelector('.grid__item-inner')).filter(Boolean)
+
+  grid.style.setProperty('--perspective', '1600px')
+  grid.style.setProperty('--grid-inner-scale', '0.5')
+  grid.style.setProperty('--grid-columns', '8')
+  grid.style.setProperty('--grid-width', '200%')
+  grid.style.setProperty('--grid-gap', '3vw')
+
+  gsap.timeline({
+    defaults: { ease: 'none' },
+    scrollTrigger: {
+      trigger: gridWrap,
+      start: 'top bottom+=100%',
+      endTrigger: '#ember-to-remember',
+      end: 'bottom top',
+      scrub: true,
+    },
+  })
+    .set(gridWrap, { rotationY: 25 })
+    .set(gridItems, { z: () => gsap.utils.random(-800, 200) })
+    .fromTo(gridItems, { xPercent: () => gsap.utils.random(-300, 0) }, { xPercent: () => gsap.utils.random(0, 300) }, 0)
+    .fromTo(gridItemsInner, { scale: 2 }, { scale: 0.5 }, 0)
+}
 
 export default function HomePage() {
+  const gridRef = useRef(null)
+
+  useEffect(() => {
+    const lenis = new Lenis({ lerp: 0.1, smoothWheel: true })
+    lenis.on('scroll', () => ScrollTrigger.update())
+    const rafLoop = (time) => { lenis.raf(time); requestAnimationFrame(rafLoop) }
+    requestAnimationFrame(rafLoop)
+
+    if (gridRef.current) applyAnimation(gridRef.current)
+
+    return () => {
+      lenis.destroy()
+      ScrollTrigger.getAll().forEach(t => t.kill())
+    }
+  }, [])
+
   return (
-    // No background on the outer wrapper — white comes from body, allowing fixed grid to show through
-    <div className="text-foreground font-sans" style={{ background: 'transparent' }}>
+    <div className="scroll-test">
 
-      {/* Fixed 3D photo grid — spans the full page behind all content */}
-      <ScrollPhotoGrid />
+      {/* Hero */}
+      <section className="section-intro">
+        <div>
+          <img
+            src="/assets/brand/EmberLogo-Vert-BlackTxt.svg"
+            alt="Ember Stories"
+            style={{ height: 96, margin: '0 auto 40px', display: 'block' }}
+          />
+          <h1 style={{ fontSize: 'clamp(2rem, 5vw, 3rem)', fontWeight: 600, letterSpacing: '-0.5px', marginBottom: 20, maxWidth: 680 }}>
+            Rescue your life story
+          </h1>
+          <p style={{ fontSize: '1.2rem', opacity: 0.7, maxWidth: 680, margin: '0 auto 40px', lineHeight: 1.6 }}>
+            Ember transforms the photos you've lost to the cloud into interactive stories that can be relived, shared, and passed down.
+          </p>
+          <Button asChild size="lg">
+            <Link to="/beta">Join the Beta</Link>
+          </Button>
+        </div>
+      </section>
 
-      {/* ── Hero (100vh) ─────────────────────────────────────────────── */}
-      <HeroSection />
+      {/* Photo grid */}
+      <div className="grid-section">
+        <div className="content-title">
+          <div style={{ background: 'rgba(245,245,245,0.75)', backdropFilter: 'blur(16px)', borderRadius: 7, padding: '2rem 3rem', display: 'inline-block' }}>
+            <p style={{ fontSize: 'clamp(1.5rem, 4vw, 2rem)', fontWeight: 600, letterSpacing: '-0.5px', lineHeight: 1.5, color: '#000' }}>
+              Reignite the embers<br />of your life story.
+            </p>
+            <Button asChild size="lg">
+              <Link to="/beta">Get Early Access</Link>
+            </Button>
+          </div>
+        </div>
+        <div className="grid" ref={gridRef}>
+          <div className="grid-wrap">
+            {Array.from({ length: 32 }).map((_, i) => (
+              <div key={i} className="grid__item">
+                {hasImage
+                  ? <img src={`/assets/images/home/photo${String(i + 1).padStart(2, '0')}.jpg`} alt="" />
+                  : <div className="grid__item-inner" style={{ aspectRatio: '4/3', background: COLORS[i % COLORS.length] }} />
+                }
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
 
-      {/* ── CTA over photos (110vh, crescendo) ───────────────────────── */}
-      <CTASection />
+      {/* Ember to Remember */}
+      <section className="section-intro" id="ember-to-remember" style={{ height: '60vh' }}>
+        <div>
+          <p style={{ fontSize: '0.85rem', fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', opacity: 0.5, marginBottom: '1rem' }}>
+            Private Beta
+          </p>
+          <p style={{ fontSize: 'clamp(2.5rem, 8vw, 5rem)', fontWeight: 600, letterSpacing: '-0.5px', lineHeight: 1.1, marginBottom: '2rem' }}>
+            Ember to Remember.
+          </p>
+          <Button asChild size="lg">
+            <Link to="/beta">Join the Beta</Link>
+          </Button>
+        </div>
+      </section>
 
-      {/* ── People (grid exits here) ─────────────────────────────────── */}
-      <PeopleSection />
-
-      {/* ── Ember to Remember ────────────────────────────────────────── */}
-      <FinalCTASection />
-
-      {/* ── Footer ───────────────────────────────────────────────────── */}
-      <footer className="bg-white border-t border-border py-10 px-6 text-center" style={{ position: 'relative', zIndex: 10 }}>
-        <p className="text-muted-foreground text-sm mb-3">© 2026 William Mason Shewman, LLC</p>
-        <div className="flex justify-center gap-6 text-sm">
-          <a href="/privacy.html" className="text-muted-foreground hover:text-foreground transition-colors no-underline">Privacy Policy</a>
-          <a href="/terms.html" className="text-muted-foreground hover:text-foreground transition-colors no-underline">Terms of Service</a>
+      <footer style={{ textAlign: 'center', padding: '2.5rem 1.5rem', borderTop: '1px solid #e5e5e5' }}>
+        <p style={{ fontSize: '0.85rem', color: '#a3a3a3', marginBottom: '0.75rem' }}>© 2026 William Mason Shewman, LLC</p>
+        <div style={{ display: 'flex', justifyContent: 'center', gap: '1.5rem', fontSize: '0.85rem' }}>
+          <a href="/privacy.html" style={{ color: '#a3a3a3', textDecoration: 'none' }}>Privacy Policy</a>
+          <a href="/terms.html"   style={{ color: '#a3a3a3', textDecoration: 'none' }}>Terms of Service</a>
         </div>
       </footer>
 

@@ -214,8 +214,8 @@ export default function ScrollTestPage() {
       <div className="grid-section">
         <div className="content-title">
           <div style={{ background: 'rgba(245, 245, 245, 0.75)', backdropFilter: 'blur(16px)', borderRadius: 7, padding: '2rem 3rem', display: 'inline-block' }}>
-            <p style={{ fontSize: 'clamp(1.5rem, 4vw, 2rem)', fontWeight: 600, letterSpacing: '-0.5px', marginBottom: '0.1rem', lineHeight: 1.5, color: '#000' }}>
-              Turn your cherished memories<br /> into beautiful stories.
+            <p style={{ fontSize: 'clamp(1.5rem, 4vw, 2rem)', fontWeight: 600, letterSpacing: '-0.5px', lineHeight: 1.5, color: '#000' }}>
+              Reignite the embers<br />of your life story.
             </p>
             <Button asChild size="lg">
               <Link to="/beta">Get Early Access</Link>
