@@ -21,7 +21,7 @@
 /* Grid section — wraps the grid + overlaid text */
 .scroll-test .grid-section {
   position: relative;
-  margin-bottom: 20vh;
+  margin-bottom: 4vh;
 }
 
 /* Floating text overlay — matches .content__title in demo */
