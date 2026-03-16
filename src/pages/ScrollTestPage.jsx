@@ -200,7 +200,7 @@ export default function ScrollTestPage() {
         </div>
         <div className="grid" ref={grid1Ref}>
           <div className="grid-wrap">
-            {Array.from({ length: ITEM_COUNT }).map((_, i) => (
+            {Array.from({ length: 40 }).map((_, i) => (
               <div key={i} className="grid__item">
                 <div className="grid__item-inner" style={{ background: COLORS[i % COLORS.length] }} />
               </div>
