@@ -59,7 +59,7 @@ function applyAnimation(grid, animationType, triggerOverrides = {}) {
       grid.style.setProperty('--perspective', '1000px')
       grid.style.setProperty('--grid-inner-scale', '0.5')
       grid.style.setProperty('--grid-columns', '8')
-      grid.style.setProperty('--grid-width', '250%')
+      grid.style.setProperty('--grid-width', '175%')
       timeline
         .set(gridWrap, { rotationY: 25 })
         .set(gridItems, { z: () => gsap.utils.random(-1600, 200) })
