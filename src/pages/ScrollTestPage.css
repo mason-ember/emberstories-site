@@ -16,7 +16,6 @@
 .scroll-test .section-intro h1 {
   font-size: clamp(2rem, 8vw, 5rem);
   font-weight: 300;
-  opacity: 0.7;
 }
 
 /* Grid section — wraps the grid + overlaid text */

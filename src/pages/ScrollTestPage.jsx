@@ -196,11 +196,11 @@ export default function ScrollTestPage() {
             alt="Ember Stories"
             style={{ height: 96, margin: '0 auto 40px', display: 'block' }}
           />
-          <h1 style={{ fontSize: 'clamp(2rem, 5vw, 3rem)', fontWeight: 600, letterSpacing: '-0.5px', marginBottom: 20, maxWidth: 620 }}>
-            Your family's stories deserve more than a camera roll.
+          <h1 style={{ fontSize: 'clamp(2rem, 5vw, 3rem)', fontWeight: 600, letterSpacing: '-0.5px', marginBottom: 20, maxWidth: 680 }}>
+          Rescue your life story
           </h1>
-          <p style={{ fontSize: '1.1rem', opacity: 0.6, maxWidth: 480, margin: '0 auto 40px', lineHeight: 1.6 }}>
-            Ember transforms your shared photos into memories your household can relive together.
+          <p style={{ fontSize: '1.2rem', opacity: 0.7, maxWidth: 680, margin: '0 auto 40px', lineHeight: 1.6 }}>
+          Ember transforms the photos you've lost to the cloud into interactive stories that can be relived, shared, and passed down.
           </p>
           <Button asChild size="lg">
             <Link to="/beta">Join the Beta</Link>
@@ -211,7 +211,14 @@ export default function ScrollTestPage() {
       {/* Grid 1 — type1 */}
       <div className="grid-section">
         <div className="content-title">
-          Fleeting moments,<br />existence's dance.
+          <div style={{ background: 'rgba(255,255,255,0.82)', backdropFilter: 'blur(8px)', borderRadius: 16, padding: '2rem 2.5rem', display: 'inline-block' }}>
+            <p style={{ fontSize: 'clamp(1.5rem, 4vw, 2rem)', fontWeight: 600, letterSpacing: '-0.5px', marginBottom: '1.25rem', lineHeight: 1.2, color: '#0a0a0a' }}>
+              Your moments,<br />beautifully remembered.
+            </p>
+            <Button asChild size="lg">
+              <Link to="/beta">Get Early Access</Link>
+            </Button>
+          </div>
         </div>
         <div className="grid" ref={grid1Ref}>
           <div className="grid-wrap">
