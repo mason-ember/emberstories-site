@@ -29,6 +29,7 @@ const ANIMATION_TYPE = 'type1'
 // type4: vertical left aligned
 // type5: rows alternating left to right
 // type6: top to bottom photos rotating
+const hasImage = false // flip to true once photos are in public/assets/images/home/
 const ITEM_COUNT = 18 // 3 columns × 6 rows
 
 const COLORS = [
@@ -211,7 +212,7 @@ export default function ScrollTestPage() {
       {/* Grid 1 — type1 */}
       <div className="grid-section">
         <div className="content-title">
-          <div style={{ background: 'rgba(255,255,255,0.82)', backdropFilter: 'blur(8px)', borderRadius: 16, padding: '2rem 2.5rem', display: 'inline-block' }}>
+          <div style={{ background: 'rgba(214, 214, 214, 0.25)', backdropFilter: 'blur(40px)', borderRadius: 7, padding: '2rem 2.5rem', display: 'inline-block' }}>
             <p style={{ fontSize: 'clamp(1.5rem, 4vw, 2rem)', fontWeight: 600, letterSpacing: '-0.5px', marginBottom: '1.25rem', lineHeight: 1.2, color: '#0a0a0a' }}>
               Your moments,<br />beautifully remembered.
             </p>
@@ -224,7 +225,12 @@ export default function ScrollTestPage() {
           <div className="grid-wrap">
             {Array.from({ length: 24 }).map((_, i) => (
               <div key={i} className="grid__item">
-                <div className="grid__item-inner" style={{ background: COLORS[i % COLORS.length] }} />
+                <div className="grid__item-inner">
+                  {hasImage
+                    ? <img src={`/assets/images/home/photo${String(i + 1).padStart(2, '0')}.jpg`} alt="" />
+                    : <div style={{ aspectRatio: '4/3', background: COLORS[i % COLORS.length] }} />
+                  }
+                </div>
               </div>
             ))}
           </div>
@@ -243,7 +249,12 @@ export default function ScrollTestPage() {
           <div className="grid-wrap">
             {Array.from({ length: ITEM_COUNT }).map((_, i) => (
               <div key={`b${i}`} className="grid__item">
-                <div className="grid__item-inner" style={{ background: COLORS[(i + 6) % COLORS.length] }} />
+                <div className="grid__item-inner">
+                  {hasImage
+                    ? <img src={`/assets/images/home/photo${String(i + 1).padStart(2, '0')}.jpg`} alt="" />
+                    : <div style={{ aspectRatio: '4/3', background: COLORS[(i + 6) % COLORS.length] }} />
+                  }
+                </div>
               </div>
             ))}
           </div>
