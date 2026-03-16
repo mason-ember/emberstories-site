@@ -51,16 +51,23 @@ export default function HomePage() {
     const rafLoop = (time) => { lenis.raf(time); requestAnimationFrame(rafLoop) }
     requestAnimationFrame(rafLoop)
 
-    if (gridRef.current) applyAnimation(gridRef.current)
-
-    // Recalculate trigger positions once all images have loaded.
-    // On production, images arrive over the network after ScrollTrigger
-    // has already measured the page, causing wrong end coordinates.
-    const onLoad = () => ScrollTrigger.refresh()
-    window.addEventListener('load', onLoad)
+    // Wait for all grid images to have their natural dimensions before
+    // applying the animation — ScrollTrigger needs the final page height.
+    if (gridRef.current) {
+      const images = [...gridRef.current.querySelectorAll('img')]
+      const imagePromises = images.map(img => {
+        if (img.complete && img.naturalHeight > 0) return Promise.resolve()
+        return new Promise(resolve => {
+          img.addEventListener('load', resolve, { once: true })
+          img.addEventListener('error', resolve, { once: true })
+        })
+      })
+      Promise.all(imagePromises).then(() => {
+        requestAnimationFrame(() => applyAnimation(gridRef.current))
+      })
+    }
 
     return () => {
-      window.removeEventListener('load', onLoad)
       lenis.destroy()
       ScrollTrigger.getAll().forEach(t => t.kill())
     }
