@@ -29,7 +29,7 @@ const ANIMATION_TYPE = 'type1'
 // type4: vertical left aligned
 // type5: rows alternating left to right
 // type6: top to bottom photos rotating
-const hasImage = false // flip to true once photos are in public/assets/images/home/
+const hasImage = true // flip to true once photos are in public/assets/images/home/
 const ITEM_COUNT = 18 // 3 columns × 6 rows
 
 const COLORS = [
