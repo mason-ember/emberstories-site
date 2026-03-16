@@ -60,14 +60,14 @@ function applyAnimation(grid, animationType, triggerOverrides = {}) {
 
     case 'type1':
       grid.style.setProperty('--perspective', '1600px')
-      grid.style.setProperty('--grid-inner-scale', '0.75')
+      grid.style.setProperty('--grid-inner-scale', '0.5')
       grid.style.setProperty('--grid-columns', '8')
       grid.style.setProperty('--grid-width', '200%')
-      grid.style.setProperty('--grid-gap', '4vw')
+      grid.style.setProperty('--grid-gap', '3vw')
       timeline
         .set(gridWrap, { rotationY: 25 })
-        .set(gridItems, { z: () => gsap.utils.random(-1600, 200) })
-        .fromTo(gridItems, { xPercent: () => gsap.utils.random(-1000, -500) }, { xPercent: () => gsap.utils.random(500, 1000) }, 0)
+        .set(gridItems, { z: () => gsap.utils.random(-800, 200) })
+        .fromTo(gridItems, { xPercent: () => gsap.utils.random(-300, 0) }, { xPercent: () => gsap.utils.random(0, 300) }, 0)
         .fromTo(gridItemsInner, { scale: 2 }, { scale: 0.5 }, 0)
       break
 
