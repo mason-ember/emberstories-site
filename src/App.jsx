@@ -1,5 +1,6 @@
 import { Routes, Route } from 'react-router-dom'
 import HomePage from './pages/HomePage'
+import ScrollTestPage from './pages/ScrollTestPage'
 import BetaPage from './pages/BetaPage'
 import IosPage from './pages/IosPage'
 import AndroidPage from './pages/AndroidPage'
@@ -13,6 +14,7 @@ export default function App() {
       <Route path="/ios" element={<IosPage />} />
       <Route path="/android" element={<AndroidPage />} />
       <Route path="/android/signup" element={<AndroidSignupPage />} />
+      <Route path="/scroll-test" element={<ScrollTestPage />} />
     </Routes>
   )
 }
