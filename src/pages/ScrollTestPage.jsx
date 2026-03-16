@@ -160,7 +160,8 @@ function applyAnimation(grid, animationType) {
 // ─── Component ────────────────────────────────────────────────────────────────
 
 export default function ScrollTestPage() {
-  const gridRef = useRef(null)
+  const grid1Ref = useRef(null)
+  const grid2Ref = useRef(null)
 
   useEffect(() => {
     const lenis = new Lenis({ lerp: 0.1, smoothWheel: true })
@@ -168,9 +169,8 @@ export default function ScrollTestPage() {
     const rafLoop = (time) => { lenis.raf(time); requestAnimationFrame(rafLoop) }
     requestAnimationFrame(rafLoop)
 
-    if (gridRef.current) {
-      applyAnimation(gridRef.current, ANIMATION_TYPE)
-    }
+    if (grid1Ref.current) applyAnimation(grid1Ref.current, 'type1')
+    if (grid2Ref.current) applyAnimation(grid2Ref.current, 'type2')
 
     return () => {
       lenis.destroy()
@@ -191,19 +191,39 @@ export default function ScrollTestPage() {
         </div>
       </section>
 
-      {/* Grid section */}
+      {/* Grid 1 — type1 */}
       <div className="grid-section">
         <div className="content-title">
           Fleeting moments,<br />existence's dance.
         </div>
-        <div className="grid" ref={gridRef}>
+        <div className="grid" ref={grid1Ref}>
           <div className="grid-wrap">
             {Array.from({ length: ITEM_COUNT }).map((_, i) => (
               <div key={i} className="grid__item">
-                <div
-                  className="grid__item-inner"
-                  style={{ background: COLORS[i % COLORS.length] }}
-                />
+                <div className="grid__item-inner" style={{ background: COLORS[i % COLORS.length] }} />
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Separator */}
+      <section className="section-intro">
+        <div>
+          <h2 style={{ fontWeight: 300, opacity: 0.5 }}>Type 2</h2>
+        </div>
+      </section>
+
+      {/* Grid 2 — type2 */}
+      <div className="grid-section">
+        <div className="content-title">
+          Impermanence guides<br />life's river.
+        </div>
+        <div className="grid" ref={grid2Ref}>
+          <div className="grid-wrap">
+            {Array.from({ length: ITEM_COUNT }).map((_, i) => (
+              <div key={`b${i}`} className="grid__item">
+                <div className="grid__item-inner" style={{ background: COLORS[(i + 6) % COLORS.length] }} />
               </div>
             ))}
           </div>
