@@ -20,7 +20,7 @@ gsap.registerPlugin(ScrollTrigger)
 
 // ─── Config ──────────────────────────────────────────────────────────────────
 
-const ANIMATION_TYPE = 'type2' // change to type1–type6 to compare
+const ANIMATION_TYPE = 'type1'
 // type1: left to right rotation
 // type2: top to bottom slight rotation
 // type3: up and forward
