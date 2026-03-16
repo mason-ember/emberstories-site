@@ -63,7 +63,7 @@ function applyAnimation(grid, animationType, triggerOverrides = {}) {
       grid.style.setProperty('--grid-inner-scale', '1.0')
       grid.style.setProperty('--grid-columns', '8')
       grid.style.setProperty('--grid-width', '200%')
-      grid.style.setProperty('--grid-gap', '4vw')
+      grid.style.setProperty('--grid-gap', '2vw')
       timeline
         .set(gridWrap, { rotationY: 25 })
         .set(gridItems, { z: () => gsap.utils.random(-1600, 200) })
@@ -213,9 +213,9 @@ export default function ScrollTestPage() {
       {/* Grid 1 — type1 */}
       <div className="grid-section">
         <div className="content-title">
-          <div style={{ background: 'rgba(214, 214, 214, 0.25)', backdropFilter: 'blur(40px)', borderRadius: 7, padding: '2rem 2.5rem', display: 'inline-block' }}>
-            <p style={{ fontSize: 'clamp(1.5rem, 4vw, 2rem)', fontWeight: 600, letterSpacing: '-0.5px', marginBottom: '1.25rem', lineHeight: 1.2, color: '#0a0a0a' }}>
-              Your moments,<br />beautifully remembered.
+          <div style={{ background: 'rgba(255, 255, 255, 0.5)', backdropFilter: 'blur(40px)', borderRadius: 7, padding: '2.5rem 3rem', display: 'inline-block' }}>
+            <p style={{ fontSize: 'clamp(1.5rem, 4vw, 2rem)', fontWeight: 600, letterSpacing: '-0.5px', marginBottom: '0.25rem', lineHeight: 1.5, color: '#0a0a0a' }}>
+              Your cherished memories,<br />saved as beautiful stories.
             </p>
             <Button asChild size="lg">
               <Link to="/beta">Get Early Access</Link>
@@ -236,11 +236,19 @@ export default function ScrollTestPage() {
         </div>
       </div>
 
-      {/* Impermanence text — type1 animation continues through here */}
+      {/* Final CTA — type1 animation continues through here */}
       <section className="section-intro" id="impermanence">
-        <p style={{ fontSize: 'clamp(2rem, 8vw, 5rem)', fontWeight: 300, opacity: 0.85, lineHeight: 1.2 }}>
-          Impermanence guides<br />life's river.
-        </p>
+        <div>
+          <p style={{ fontSize: '0.85rem', fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', opacity: 0.5, marginBottom: '1rem' }}>
+            Private Beta
+          </p>
+          <p style={{ fontSize: 'clamp(2.5rem, 8vw, 5rem)', fontWeight: 600, letterSpacing: '-0.5px', lineHeight: 1.1, marginBottom: '2rem' }}>
+            Ember to Remember.
+          </p>
+          <Button asChild size="lg">
+            <Link to="/beta">Join the Beta</Link>
+          </Button>
+        </div>
       </section>
 
     </div>
