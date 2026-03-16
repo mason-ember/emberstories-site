@@ -75,8 +75,8 @@ function applyAnimation(grid, animationType) {
         .set(gridWrap, { rotationX: 20 })
         .set(gridItems, { z: () => gsap.utils.random(-3000, -1000) })
         .fromTo(gridItems,
-          { yPercent: () => gsap.utils.random(100, 1000), rotationY: -45, filter: 'brightness(200%)' },
-          { ease: 'power2', yPercent: () => gsap.utils.random(-1000, -100), rotationY: 45, filter: 'brightness(0%)' }, 0)
+          { yPercent: () => gsap.utils.random(100, 1000), rotationY: -45, filter: 'brightness(100%)' },
+          { ease: 'power2', yPercent: () => gsap.utils.random(-1000, -100), rotationY: 45, filter: 'brightness(600%)' }, 0)
         .fromTo(gridWrap, { rotationZ: -5 }, { rotationX: -20, rotationZ: 10, scale: 1.2 }, 0)
         .fromTo(gridItemsInner, { scale: 2 }, { scale: 0.5 }, 0)
       break
