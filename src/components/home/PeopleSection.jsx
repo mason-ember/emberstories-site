@@ -35,7 +35,13 @@ export default function PeopleSection() {
   return (
     <section
       ref={ref}
-      className="bg-white py-32 px-6 overflow-hidden"
+      className="py-32 px-6 overflow-hidden"
+      style={{
+        position: 'relative',
+        zIndex: 10,
+        // Gradient fades the photo grid out as People content takes over
+        background: 'linear-gradient(to bottom, transparent 0%, white 28%)',
+      }}
     >
       <div className="max-w-[720px] mx-auto text-center">
 
