@@ -100,14 +100,14 @@ export default function AndroidPage() {
           </Button>
         </StepCard>
 
-        <StepCard number={2} title="Become Tester & Download" placeholder imageBelow>
+        <StepCard number={2} title="Become Tester & Download" image="/assets/images/testing/download-google-play.png" alt="Download it on Google Play" imageBelow>
           <ol className="text-muted-foreground text-[17px] list-decimal list-inside space-y-2">
             <li>Tap <strong className="text-foreground">Become a tester</strong></li>
             <li>Tap <strong className="text-foreground">Download it on Google Play</strong></li>
           </ol>
         </StepCard>
 
-        <StepCard number={3} title="Tap Install" placeholder imageBelow>
+        <StepCard number={3} title="Tap Install" image="/assets/images/testing/install-google-play.png" alt="Install on Google Play" imageBelow>
           <p className="text-muted-foreground text-[17px]">
             On the Ember Play Store listing, tap <strong className="text-foreground">Install</strong>. The app will download to your phone.
           </p>
