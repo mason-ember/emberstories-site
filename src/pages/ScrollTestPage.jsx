@@ -10,7 +10,7 @@
  *  - Adjust ITEM_COUNT and column/row counts
  */
 
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Lenis from 'lenis'
@@ -20,14 +20,7 @@ gsap.registerPlugin(ScrollTrigger)
 
 // ─── Config ──────────────────────────────────────────────────────────────────
 
-const TYPES = [
-  { id: 'type1', label: 'Type 1', desc: 'Left → right sweep' },
-  { id: 'type2', label: 'Type 2', desc: 'Top → bottom tilt' },
-  { id: 'type3', label: 'Type 3', desc: 'Up & forward burst' },
-  { id: 'type4', label: 'Type 4', desc: 'Fleeting moments' },
-  { id: 'type5', label: 'Type 5', desc: 'Alternating rows' },
-  { id: 'type6', label: 'Type 6', desc: 'Rotating descent' },
-]
+const ANIMATION_TYPE = 'type2' // change to type1–type6 to compare
 
 const ITEM_COUNT = 18 // 3 columns × 6 rows
 
@@ -161,85 +154,34 @@ function applyAnimation(grid, animationType) {
 
 // ─── Component ────────────────────────────────────────────────────────────────
 
-// CSS vars set per type — need to be cleared between switches
-const CSS_VARS = ['--perspective','--grid-width','--grid-inner-scale','--grid-item-ratio','--grid-columns','--grid-gap']
-const CSS_VAR_DEFAULTS = { '--perspective':'3000px','--grid-width':'50%','--grid-inner-scale':'1','--grid-item-ratio':'0.8','--grid-columns':'3','--grid-gap':'1vw' }
-
 export default function ScrollTestPage() {
-  const gridRef    = useRef(null)
-  const lenisRef   = useRef(null)
-  const [activeType, setActiveType] = useState('type2')
+  const gridRef = useRef(null)
 
-  // Init Lenis once
   useEffect(() => {
     const lenis = new Lenis({ lerp: 0.1, smoothWheel: true })
     lenis.on('scroll', () => ScrollTrigger.update())
     const rafLoop = (time) => { lenis.raf(time); requestAnimationFrame(rafLoop) }
     requestAnimationFrame(rafLoop)
-    lenisRef.current = lenis
-    return () => { lenis.destroy() }
+
+    if (gridRef.current) {
+      applyAnimation(gridRef.current, ANIMATION_TYPE)
+    }
+
+    return () => {
+      lenis.destroy()
+      ScrollTrigger.getAll().forEach(t => t.kill())
+    }
   }, [])
-
-  // Re-apply animation whenever type changes
-  useEffect(() => {
-    if (!gridRef.current) return
-
-    // 1. Kill existing ScrollTriggers and clear GSAP state
-    ScrollTrigger.getAll().forEach(t => t.kill())
-    const gridWrap       = gridRef.current.querySelector('.grid-wrap')
-    const gridItems      = gridRef.current.querySelectorAll('.grid__item')
-    const gridItemsInner = [...gridItems].map(i => i.querySelector('.grid__item-inner'))
-    gsap.set([gridWrap, gridItems, gridItemsInner], { clearProps: 'all' })
-
-    // 2. Reset CSS vars
-    CSS_VARS.forEach(v => gridRef.current.style.setProperty(v, CSS_VAR_DEFAULTS[v]))
-
-    // 3. Scroll to top BEFORE creating the new ScrollTrigger
-    window.scrollTo(0, 0)
-    if (lenisRef.current) lenisRef.current.scrollTo(0, { immediate: true })
-
-    // 4. Apply animation on the next frame so layout/scroll have settled
-    const raf = requestAnimationFrame(() => {
-      applyAnimation(gridRef.current, activeType)
-    })
-
-    return () => cancelAnimationFrame(raf)
-  }, [activeType])
 
   return (
     <div className="scroll-test">
-
-      {/* Sticky type selector */}
-      <div style={{
-        position: 'sticky', top: 0, zIndex: 100,
-        background: 'rgba(0,0,0,0.85)', backdropFilter: 'blur(8px)',
-        padding: '12px 24px', display: 'flex', gap: 10, flexWrap: 'wrap', alignItems: 'center',
-        borderBottom: '1px solid rgba(255,255,255,0.1)',
-      }}>
-        <span style={{ opacity: 0.4, fontSize: '0.75rem', marginRight: 4 }}>ANIMATION</span>
-        {TYPES.map(t => (
-          <button
-            key={t.id}
-            onClick={() => setActiveType(t.id)}
-            style={{
-              background: activeType === t.id ? '#9E18AC' : 'rgba(255,255,255,0.08)',
-              color: '#fff', border: 'none', borderRadius: 6,
-              padding: '6px 14px', cursor: 'pointer', fontSize: '0.8rem',
-              fontWeight: activeType === t.id ? 600 : 400,
-              transition: 'background 0.2s',
-            }}
-          >
-            {t.label} <span style={{ opacity: 0.55 }}>— {t.desc}</span>
-          </button>
-        ))}
-      </div>
 
       {/* Intro */}
       <section className="section-intro">
         <div>
           <h1>Scroll Test</h1>
           <p style={{ opacity: 0.4, fontSize: '1rem', marginTop: '1rem' }}>
-            Active: <strong>{TYPES.find(t => t.id === activeType)?.desc}</strong> — scroll slowly
+            Animation: <strong>{ANIMATION_TYPE}</strong> — scroll slowly
           </p>
         </div>
       </section>
