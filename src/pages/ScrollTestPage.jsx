@@ -210,11 +210,7 @@ export default function ScrollTestPage() {
       </div>
 
       {/* Separator */}
-      <section className="section-intro">
-        <div>
-          <h2 style={{ fontWeight: 300, opacity: 0.5 }}>Type 2</h2>
-        </div>
-      </section>
+      <div style={{ textAlign: 'center', padding: '2rem 0', opacity: 0.3, fontSize: '0.85rem' }}>Type 2</div>
 
       {/* Grid 2 — type2 */}
       <div className="grid-section">
