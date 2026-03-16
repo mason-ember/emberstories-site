@@ -21,7 +21,12 @@ gsap.registerPlugin(ScrollTrigger)
 // ─── Config ──────────────────────────────────────────────────────────────────
 
 const ANIMATION_TYPE = 'type2' // change to type1–type6 to compare
-
+// type1: left to right rotation
+// type2: top to bottom slight rotation
+// type3: up and forward
+// type4: vertical left aligned
+// type5: rows alternating left to right
+// type6: top to bottom photos rotating
 const ITEM_COUNT = 18 // 3 columns × 6 rows
 
 const COLORS = [
@@ -60,20 +65,20 @@ function applyAnimation(grid, animationType) {
       break
 
     case 'type2':
-      grid.style.setProperty('--grid-width', '160%')
-      grid.style.setProperty('--perspective', '2000px')
-      grid.style.setProperty('--grid-inner-scale', '0.5')
+      grid.style.setProperty('--grid-width', '130%')
+      grid.style.setProperty('--perspective', '1800px')
       grid.style.setProperty('--grid-item-ratio', '0.8')
       grid.style.setProperty('--grid-columns', '6')
-      grid.style.setProperty('--grid-gap', '14vw')
+      grid.style.setProperty('--grid-gap', '2vw')
       timeline
-        .set(gridWrap, { rotationX: 20 })
-        .set(gridItems, { z: () => gsap.utils.random(-3000, -1000) })
+        // Grid starts slightly tilted back and scaled down — zooms toward viewer
+        .fromTo(gridWrap,
+          { rotationX: 18, scale: 0.6 },
+          { rotationX: 0,  scale: 1.1, ease: 'power1.inOut' }, 0)
+        // Items start deep in z-space and rush forward, staggered
         .fromTo(gridItems,
-          { yPercent: () => gsap.utils.random(100, 1000), rotationY: -45, filter: 'brightness(200%)' },
-          { ease: 'power2', yPercent: () => gsap.utils.random(-1000, -100), rotationY: 45, filter: 'brightness(0%)' }, 0)
-        .fromTo(gridWrap, { rotationZ: -5 }, { rotationX: -20, rotationZ: 10, scale: 1.2 }, 0)
-        .fromTo(gridItemsInner, { scale: 2 }, { scale: 0.5 }, 0)
+          { z: () => gsap.utils.random(-2000, -800), filter: 'brightness(0%)' },
+          { z: 0, filter: 'brightness(100%)', stagger: { amount: 0.4, from: 'center' }, ease: 'power2.out' }, 0)
       break
 
     case 'type3':
