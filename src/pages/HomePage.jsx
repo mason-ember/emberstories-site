@@ -53,7 +53,14 @@ export default function HomePage() {
 
     if (gridRef.current) applyAnimation(gridRef.current)
 
+    // Recalculate trigger positions once all images have loaded.
+    // On production, images arrive over the network after ScrollTrigger
+    // has already measured the page, causing wrong end coordinates.
+    const onLoad = () => ScrollTrigger.refresh()
+    window.addEventListener('load', onLoad)
+
     return () => {
+      window.removeEventListener('load', onLoad)
       lenis.destroy()
       ScrollTrigger.getAll().forEach(t => t.kill())
     }
