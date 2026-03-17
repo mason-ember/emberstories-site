@@ -177,18 +177,20 @@ export default function HomePage() {
           ))}
         </div>
 
-        <div className="grid" ref={gridRef}>
-          <div className="grid-wrap">
-            {Array.from({ length: 32 }).map((_, i) => (
-              <div key={i} className="grid__item">
-                {hasImage
-                  ? <img src={`/assets/images/home/photo${String(i + 1).padStart(2, '0')}.jpg`} alt="" />
-                  : <div className="grid__item-inner" style={{ aspectRatio: '4/3', background: COLORS[i % COLORS.length] }} />
-                }
-              </div>
-            ))}
+        {window.innerWidth > 768 && (
+          <div className="grid" ref={gridRef}>
+            <div className="grid-wrap">
+              {Array.from({ length: 32 }).map((_, i) => (
+                <div key={i} className="grid__item">
+                  {hasImage
+                    ? <img src={`/assets/images/home/photo${String(i + 1).padStart(2, '0')}.jpg`} alt="" />
+                    : <div className="grid__item-inner" style={{ aspectRatio: '4/3', background: COLORS[i % COLORS.length] }} />
+                  }
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
+        )}
       </div>
 
       {/* Ember to Remember */}
