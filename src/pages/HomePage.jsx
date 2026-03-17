@@ -149,16 +149,16 @@ export default function HomePage() {
             <p style={{ fontSize: 'clamp(1.5rem, 4vw, 2rem)', fontWeight: 600, letterSpacing: '-0.5px', lineHeight: 1.3, color: '#000', marginBottom: '1.25rem' }}>
               Your family's memories - finally in one place.
             </p>
-            <p style={{ fontSize: '1.2rem', color: '#333', lineHeight: 1.7, marginBottom: '0.9rem' }}>
+            <p style={{ fontSize: '1.1rem', color: '#333', lineHeight: 1.6, marginBottom: '0.5rem' }}>
               Ember is a shared photo app for families. Think Apple or Google Photos, but built for households - not individuals.
             </p>
-            <p style={{ fontSize: '1.2rem', color: '#333', lineHeight: 1.7, marginBottom: '0.9rem' }}>
-              When your photos overlap (vacations, birthdays, holidays), Ember automatically combines them into a single, shared story.
+            <p style={{ fontSize: '1.1rem', color: '#333', lineHeight: 1.6, marginBottom: '0.5rem' }}>
+              When your photos overlap (vacations, birthdays, holidays), Ember automatically combines them into a single shared story.
             </p>
-            <p style={{ fontSize: '1.2rem', color: '#333', lineHeight: 1.7, marginBottom: '0.9rem' }}>
+            <p style={{ fontSize: '1.1rem', color: '#333', lineHeight: 1.6, marginBottom: '0.5rem' }}>
               You stay in control. Nothing is uploaded or shared without your permission.
             </p>
-            <p style={{ fontSize: '1.2rem', color: '#333', lineHeight: 1.7, marginBottom: '0rem' }}>
+            <p style={{ fontSize: '1.1rem', color: '#333', lineHeight: 1.6, marginBottom: '0.5rem' }}>
               We're currently in beta and looking for early testers. Your feedback will directly shape the product.
             </p>
             <Button asChild size="lg">
