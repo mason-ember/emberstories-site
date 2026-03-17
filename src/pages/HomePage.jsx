@@ -82,7 +82,7 @@ export default function HomePage() {
           <img
             src="/assets/brand/EmberLogo-Vert-BlackTxt.svg"
             alt="Ember Stories"
-            style={{ height: 96, margin: '0 auto 40px', display: 'block' }}
+            style={{ height: 120, margin: '0 auto 40px', display: 'block' }}
           />
           <h1 style={{ fontSize: 'clamp(2.5rem, 8vw, 5rem)', fontWeight: 600, letterSpacing: '-0.5px', marginBottom: 20, maxWidth: 680 }}>
             Rescue your life story
@@ -99,20 +99,20 @@ export default function HomePage() {
       {/* Photo grid */}
       <div className="grid-section">
         <div className="content-title">
-          <div style={{ background: 'rgba(245,245,245,0.75)', backdropFilter: 'blur(16px)', borderRadius: 7, padding: '2rem 3rem', display: 'inline-block', maxWidth: 580, textAlign: 'left' }}>
+          <div style={{ background: 'rgba(250, 250, 250, 0.8)', backdropFilter: 'blur(16px)', borderRadius: 7, padding: '3rem 3rem', display: 'inline-block', maxWidth: 580, textAlign: 'left' }}>
             <p style={{ fontSize: 'clamp(1.5rem, 4vw, 2rem)', fontWeight: 600, letterSpacing: '-0.5px', lineHeight: 1.3, color: '#000', marginBottom: '1.25rem' }}>
               Your family's memories—finally in one place.
             </p>
-            <p style={{ fontSize: '1rem', color: '#333', lineHeight: 1.7, marginBottom: '0.9rem' }}>
-              Ember is a shared photo app for families. Think Apple or Google Photos—but built for households, not individuals.
+            <p style={{ fontSize: '1.2rem', color: '#333', lineHeight: 1.7, marginBottom: '0.9rem' }}>
+              Ember is a shared photo app for families. Think Apple or Google Photos, but built for households, not individuals.
             </p>
-            <p style={{ fontSize: '1rem', color: '#333', lineHeight: 1.7, marginBottom: '0.9rem' }}>
-              When your photos overlap—vacations, birthdays, holidays—Ember automatically brings them together into a single, shared story.
+            <p style={{ fontSize: '1.2rem', color: '#333', lineHeight: 1.7, marginBottom: '0.9rem' }}>
+              When your photos overlap (vacations, birthdays, holidays), Ember automatically combines them into a single, shared story.
             </p>
-            <p style={{ fontSize: '1rem', color: '#333', lineHeight: 1.7, marginBottom: '0.9rem' }}>
+            <p style={{ fontSize: '1.2rem', color: '#333', lineHeight: 1.7, marginBottom: '0.9rem' }}>
               You stay in control. Nothing is uploaded or shared without your permission.
             </p>
-            <p style={{ fontSize: '1rem', color: '#333', lineHeight: 1.7, marginBottom: '1.5rem' }}>
+            <p style={{ fontSize: '1.2rem', color: '#333', lineHeight: 1.7, marginBottom: '0.9rem' }}>
               We're currently in beta and looking for early testers. Your feedback will directly shape the product.
             </p>
             <Button asChild size="lg">
