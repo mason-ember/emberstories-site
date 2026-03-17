@@ -24,6 +24,7 @@
   /* Reserve space for the sticky overlay + scroll animation range */
   padding-block: 10vh;
   margin-bottom: 0;
+  overflow: visible;
 }
 
 /* Floating text overlay — matches .content__title in demo */
@@ -83,7 +84,6 @@
     inset: 0;
     pointer-events: none;
     user-select: none;
-    overflow: hidden;
   }
 
   .scroll-test .grid-mobile-collage img {
@@ -96,20 +96,20 @@
 
   /* Group A — above card */
   .scroll-test .grid-mobile-collage img:nth-child(1)  { top:  1%; left: -5%;  transform: rotate(-5deg); }
-  .scroll-test .grid-mobile-collage img:nth-child(2)  { top:  2%; left: 55%;  transform: rotate(4deg);  }
+  .scroll-test .grid-mobile-collage img:nth-child(2)  { top:  2%; left: 65%;  transform: rotate(4deg);  }
   .scroll-test .grid-mobile-collage img:nth-child(3)  { top: 12%; left: 22%;  transform: rotate(-2deg); width: 50%; }
   .scroll-test .grid-mobile-collage img:nth-child(4)  { top: 22%; left: -6%;  transform: rotate(6deg);  }
 
   /* Group B — behind card */
   .scroll-test .grid-mobile-collage img:nth-child(5)  { top: 38%; left: -8%;  transform: rotate(-4deg); z-index: 5; }
-  .scroll-test .grid-mobile-collage img:nth-child(6)  { top: 40%; left: 57%;  transform: rotate(3deg);  z-index: 5; }
+  .scroll-test .grid-mobile-collage img:nth-child(6)  { top: 40%; left: 65%;  transform: rotate(3deg);  z-index: 5; }
 
   /* Group C — below card */
   .scroll-test .grid-mobile-collage img:nth-child(7)  { top: 62%; left: -5%;  transform: rotate(-6deg); }
-  .scroll-test .grid-mobile-collage img:nth-child(8)  { top: 60%; left: 55%;  transform: rotate(5deg);  }
+  .scroll-test .grid-mobile-collage img:nth-child(8)  { top: 60%; left: 65%;  transform: rotate(5deg);  }
   .scroll-test .grid-mobile-collage img:nth-child(9)  { top: 72%; left: 18%;  transform: rotate(-3deg); width: 50%; }
   .scroll-test .grid-mobile-collage img:nth-child(10) { top: 78%; left: -6%;  transform: rotate(4deg);  }
-  .scroll-test .grid-mobile-collage img:nth-child(11) { top: 76%; left: 52%;  transform: rotate(-5deg); }
+  .scroll-test .grid-mobile-collage img:nth-child(11) { top: 76%; left: 62%;  transform: rotate(-5deg); }
   .scroll-test .grid-mobile-collage img:nth-child(12) { top: 89%; left: 20%;  transform: rotate(3deg);  width: 48%; }
 }
 
