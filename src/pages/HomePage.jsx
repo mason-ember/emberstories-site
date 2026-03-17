@@ -16,6 +16,10 @@ const COLORS = [
 ]
 
 function applyAnimation(grid) {
+  // Prevent double-initialization (e.g. during dev StrictMode remounts).
+  if (grid.dataset.gsapApplied === 'true') return
+  grid.dataset.gsapApplied = 'true'
+
   const gridWrap        = grid.querySelector('.grid-wrap')
   const gridItems       = grid.querySelectorAll('.grid__item')
   const gridItemsInner  = [...gridItems].map(item => item.querySelector('.grid__item-inner')).filter(Boolean)
@@ -25,6 +29,11 @@ function applyAnimation(grid) {
   grid.style.setProperty('--grid-columns', '8')
   grid.style.setProperty('--grid-width', '200%')
   grid.style.setProperty('--grid-gap', '3vw')
+
+  // Lock the "random" values so ScrollTrigger refresh/scrub never re-rolls them.
+  const zVals = Array.from(gridItems, () => gsap.utils.random(-800, 200))
+  const xFromVals = Array.from(gridItems, () => gsap.utils.random(-300, 0))
+  const xToVals = Array.from(gridItems, () => gsap.utils.random(0, 300))
 
   gsap.timeline({
     defaults: { ease: 'none' },
@@ -37,16 +46,19 @@ function applyAnimation(grid) {
     },
   })
     .set(gridWrap, { rotationY: 25 })
-    .set(gridItems, { z: () => gsap.utils.random(-800, 200) })
-    .fromTo(gridItems, { xPercent: () => gsap.utils.random(-300, 0) }, { xPercent: () => gsap.utils.random(0, 300) }, 0)
+    .set(gridItems, { z: (i) => zVals[i] })
+    .fromTo(gridItems, { xPercent: (i) => xFromVals[i] }, { xPercent: (i) => xToVals[i] }, 0)
     .fromTo(gridItemsInner, { scale: 2 }, { scale: 0.5 }, 0)
 }
 
 export default function HomePage() {
   const gridRef = useRef(null)
+  const nextSectionRef = useRef(null)
+  const lenisRef = useRef(null)
 
   useEffect(() => {
     const lenis = new Lenis({ lerp: 0.1, smoothWheel: true })
+    lenisRef.current = lenis
     lenis.on('scroll', () => ScrollTrigger.update())
     const rafLoop = (time) => { lenis.raf(time); requestAnimationFrame(rafLoop) }
     requestAnimationFrame(rafLoop)
@@ -68,10 +80,41 @@ export default function HomePage() {
     }
 
     return () => {
+      lenisRef.current = null
       lenis.destroy()
       ScrollTrigger.getAll().forEach(t => t.kill())
     }
   }, [])
+
+  const scrollToNextSection = () => {
+    const target = nextSectionRef.current
+    if (!target) return
+
+    const lenis = lenisRef.current
+    if (lenis) {
+      lenis.scrollTo(target, {
+        offset: -24,
+        duration: 3.2,
+        easing: (t) => 1 - Math.pow(1 - t, 3),
+      })
+      return
+    }
+
+    // Fallback if Lenis isn't ready for any reason.
+    const startY = window.scrollY || window.pageYOffset || 0
+    const targetY = target.getBoundingClientRect().top + startY - 24
+    const delta = targetY - startY
+    const durationMs = 3200
+    const start = performance.now()
+    const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3)
+
+    const tick = (now) => {
+      const t = Math.min(1, (now - start) / durationMs)
+      window.scrollTo(0, startY + delta * easeOutCubic(t))
+      if (t < 1) requestAnimationFrame(tick)
+    }
+    requestAnimationFrame(tick)
+  }
 
   return (
     <div className="scroll-test">
@@ -84,21 +127,24 @@ export default function HomePage() {
             alt="Ember Stories"
             style={{ height: 120, margin: '0 auto 40px', display: 'block' }}
           />
-          <h1 style={{ fontSize: 'clamp(2.5rem, 8vw, 5rem)', fontWeight: 600, letterSpacing: '-0.5px', marginBottom: 20, maxWidth: 680 }}>
-            Rescue your life story
+          <h1 style={{ fontSize: 'clamp(2.4rem, 6.5vw, 4.25rem)', fontWeight: 650, letterSpacing: '-0.03em', lineHeight: 1.05, marginBottom: 16, maxWidth: 860 }}>
+            Your photos are fragmented.
           </h1>
-          <p style={{ fontSize: '1.2rem', opacity: 0.7, maxWidth: 680, margin: '0 auto 40px', lineHeight: 1.6 }}>
-            Ember transforms the photos you've lost to the cloud into interactive stories that can be relived, shared, and passed down.
+          <p style={{ fontSize: 'clamp(1.05rem, 1.35vw, 1.25rem)', fontWeight: 500, letterSpacing: '-0.01em', opacity: 0.75, maxWidth: 860, margin: '0 auto 14px', lineHeight: 1.35 }}>
+            Across devices. Across people. Across time.
           </p>
-          <Button asChild size="lg">
-            <Link to="/beta">Join the Beta</Link>
+          <h2 style={{ fontSize: 'clamp(1.5rem, 2.6vw, 2.1rem)', fontWeight: 650, letterSpacing: '-0.02em', opacity: 0.9, maxWidth: 860, margin: '0 auto 36px', lineHeight: 1.2 }}>
+            And so are your memories.
+          </h2>
+          <Button size="lg" type="button" onClick={scrollToNextSection}>
+            ↓ Let Ember help
           </Button>
         </div>
       </section>
 
       {/* Photo grid */}
       <div className="grid-section">
-        <div className="content-title">
+        <div className="content-title" ref={nextSectionRef}>
           <div style={{ background: 'rgba(250, 250, 250, 0.8)', backdropFilter: 'blur(16px)', borderRadius: 7, padding: '3rem 3rem', display: 'inline-block', maxWidth: 580, textAlign: 'left' }}>
             <p style={{ fontSize: 'clamp(1.5rem, 4vw, 2rem)', fontWeight: 600, letterSpacing: '-0.5px', lineHeight: 1.3, color: '#000', marginBottom: '1.25rem' }}>
               Your family's memories—finally in one place.
