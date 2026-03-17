@@ -38,8 +38,8 @@ function applyAnimation(grid) {
   gsap.timeline({
     defaults: { ease: 'none' },
     scrollTrigger: {
-      trigger: gridWrap,
-      start: 'top bottom+=175%',
+      trigger: '.section-intro',
+      start: 'bottom bottom',
       endTrigger: '#ember-to-remember',
       end: 'bottom top',
       scrub: true,
