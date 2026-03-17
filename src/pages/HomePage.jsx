@@ -145,7 +145,7 @@ export default function HomePage() {
       {/* Photo grid */}
       <div className="grid-section">
         <div className="content-title" ref={nextSectionRef}>
-          <div style={{ background: 'rgba(250, 250, 250, 0.8)', backdropFilter: 'blur(16px)', borderRadius: 7, padding: '3rem 3rem', display: 'inline-block', maxWidth: 580, textAlign: 'left' }}>
+          <div className="grid-overlay-card" style={{ background: 'rgba(250, 250, 250, 0.8)', backdropFilter: 'blur(16px)', borderRadius: 7, display: 'inline-block', maxWidth: 580, textAlign: 'left' }}>
             <p style={{ fontSize: 'clamp(1.5rem, 4vw, 2rem)', fontWeight: 600, letterSpacing: '-0.5px', lineHeight: 1.3, color: '#000', marginBottom: '1.25rem' }}>
               Your family's memories—finally in one place.
             </p>
