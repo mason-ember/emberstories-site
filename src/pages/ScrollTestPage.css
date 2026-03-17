@@ -21,24 +21,36 @@
 /* Grid section — wraps the grid + overlaid text */
 .scroll-test .grid-section {
   position: relative;
-  margin-bottom: 6vh;
+  /* Reserve space for the sticky overlay + scroll animation range */
+  padding-block: 15vh;
+  margin-bottom: 0;
 }
 
 /* Floating text overlay — matches .content__title in demo */
 .scroll-test .content-title {
-  position: absolute;
-  height: 100vh;
+  position: sticky;
+  min-height: 100vh;
   width: 100vw;
-  top: 50%;
-  left: 50%;
-  margin: -50vh 0 0 -50vw;
-  padding: 0 10vw;
+  top: 0;
+  left: 0;
+  margin: 0;
+  padding: 12vh 10vw 0;
   display: grid;
-  place-items: center;
+  place-items: start center;
   text-align: center;
   font-size: clamp(2rem, 8vw, 5rem);
   font-weight: 300;
   z-index: 10;
+}
+
+@media (max-width: 768px) {
+  .scroll-test .grid-section {
+    padding-block: 10vh;
+  }
+
+  .scroll-test .content-title {
+    padding-top: 10vh;
+  }
 }
 
 /* Grid sits behind the CTA — no pointer interaction */

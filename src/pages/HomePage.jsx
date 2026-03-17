@@ -39,7 +39,7 @@ function applyAnimation(grid) {
     defaults: { ease: 'none' },
     scrollTrigger: {
       trigger: gridWrap,
-      start: 'top bottom+=100%',
+      start: 'top bottom+=175%',
       endTrigger: '#ember-to-remember',
       end: 'bottom top',
       scrub: true,
