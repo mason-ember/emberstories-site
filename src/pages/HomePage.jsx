@@ -84,7 +84,7 @@ export default function HomePage() {
             alt="Ember Stories"
             style={{ height: 96, margin: '0 auto 40px', display: 'block' }}
           />
-          <h1 style={{ fontSize: 'clamp(2rem, 5vw, 3rem)', fontWeight: 600, letterSpacing: '-0.5px', marginBottom: 20, maxWidth: 680 }}>
+          <h1 style={{ fontSize: 'clamp(2.5rem, 8vw, 5rem)', fontWeight: 600, letterSpacing: '-0.5px', marginBottom: 20, maxWidth: 680 }}>
             Rescue your life story
           </h1>
           <p style={{ fontSize: '1.2rem', opacity: 0.7, maxWidth: 680, margin: '0 auto 40px', lineHeight: 1.6 }}>
