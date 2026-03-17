@@ -65,7 +65,7 @@ export default function HomePage() {
 
     // Wait for all grid images to have their natural dimensions before
     // applying the animation — ScrollTrigger needs the final page height.
-    if (gridRef.current) {
+    if (gridRef.current && window.innerWidth > 768) {
       const images = [...gridRef.current.querySelectorAll('img')]
       const imagePromises = images.map(img => {
         if (img.complete && img.naturalHeight > 0) return Promise.resolve()
@@ -147,10 +147,10 @@ export default function HomePage() {
         <div className="content-title" ref={nextSectionRef}>
           <div className="grid-overlay-card" style={{ background: 'rgba(250, 250, 250, 0.8)', backdropFilter: 'blur(16px)', borderRadius: 7, display: 'inline-block', maxWidth: 580, textAlign: 'left' }}>
             <p style={{ fontSize: 'clamp(1.5rem, 4vw, 2rem)', fontWeight: 600, letterSpacing: '-0.5px', lineHeight: 1.3, color: '#000', marginBottom: '1.25rem' }}>
-              Your family's memories—finally in one place.
+              Your family's memories - finally in one place.
             </p>
             <p style={{ fontSize: '1.2rem', color: '#333', lineHeight: 1.7, marginBottom: '0.9rem' }}>
-              Ember is a shared photo app for families. Think Apple or Google Photos, but built for households, not individuals.
+              Ember is a shared photo app for families. Think Apple or Google Photos, but built for households - not individuals.
             </p>
             <p style={{ fontSize: '1.2rem', color: '#333', lineHeight: 1.7, marginBottom: '0.9rem' }}>
               When your photos overlap (vacations, birthdays, holidays), Ember automatically combines them into a single, shared story.
@@ -158,7 +158,7 @@ export default function HomePage() {
             <p style={{ fontSize: '1.2rem', color: '#333', lineHeight: 1.7, marginBottom: '0.9rem' }}>
               You stay in control. Nothing is uploaded or shared without your permission.
             </p>
-            <p style={{ fontSize: '1.2rem', color: '#333', lineHeight: 1.7, marginBottom: '0.9rem' }}>
+            <p style={{ fontSize: '1.2rem', color: '#333', lineHeight: 1.7, marginBottom: '0rem' }}>
               We're currently in beta and looking for early testers. Your feedback will directly shape the product.
             </p>
             <Button asChild size="lg">
@@ -166,6 +166,17 @@ export default function HomePage() {
             </Button>
           </div>
         </div>
+        {/* Mobile static collage — shown on ≤768px, hidden on desktop via CSS */}
+        <div className="grid-mobile-collage">
+          {Array.from({ length: 12 }).map((_, i) => (
+            <img
+              key={i}
+              src={`/assets/images/home/photo${String(i + 1).padStart(2, '0')}.jpg`}
+              alt=""
+            />
+          ))}
+        </div>
+
         <div className="grid" ref={gridRef}>
           <div className="grid-wrap">
             {Array.from({ length: 32 }).map((_, i) => (
@@ -181,7 +192,7 @@ export default function HomePage() {
       </div>
 
       {/* Ember to Remember */}
-      <section className="section-intro" id="ember-to-remember" style={{ height: '60vh' }}>
+      <section className="section-intro" id="ember-to-remember" style={{ height: '60vh', marginBottom: '8rem' }}>
         <div>
           <p style={{ fontSize: '0.85rem', fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', opacity: 0.5, marginBottom: '1rem' }}>
             Private Beta
