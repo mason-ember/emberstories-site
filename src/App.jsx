@@ -5,6 +5,7 @@ import BetaPage from './pages/BetaPage'
 import IosPage from './pages/IosPage'
 import AndroidPage from './pages/AndroidPage'
 import AndroidSignupPage from './pages/AndroidSignupPage'
+import GooglePhotosGuidePage from './pages/GooglePhotosGuidePage'
 
 export default function App() {
   return (
@@ -14,6 +15,7 @@ export default function App() {
       <Route path="/ios" element={<IosPage />} />
       <Route path="/android" element={<AndroidPage />} />
       <Route path="/android/signup" element={<AndroidSignupPage />} />
+      <Route path="/android/google-photos" element={<GooglePhotosGuidePage />} />
       <Route path="/scroll-test" element={<ScrollTestPage />} />
     </Routes>
   )
