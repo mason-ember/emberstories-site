@@ -209,7 +209,7 @@ export default function HomePage() {
       </section>
 
       <footer style={{ textAlign: 'center', padding: '2.5rem 1.5rem', borderTop: '1px solid #e5e5e5' }}>
-        <p style={{ fontSize: '0.85rem', color: '#a3a3a3', marginBottom: '0.75rem' }}>© 2026 William Mason Shewman, LLC</p>
+        <p style={{ fontSize: '0.85rem', color: '#a3a3a3', marginBottom: '0.75rem' }}>© 2026 Ember Stories Inc</p>
         <div style={{ display: 'flex', justifyContent: 'center', gap: '1.5rem', fontSize: '0.85rem' }}>
           <a href="/privacy.html" style={{ color: '#a3a3a3', textDecoration: 'none' }}>Privacy Policy</a>
           <a href="/terms.html"   style={{ color: '#a3a3a3', textDecoration: 'none' }}>Terms of Service</a>
