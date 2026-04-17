@@ -93,6 +93,15 @@ export default function GooglePhotosGuidePage() {
               from your phone to reclaim the space.
             </p>
           </div>
+          <div className="bg-blue-50 rounded-md px-4 py-3 border border-blue-200 mt-3">
+            <p className="text-[14px] text-blue-900">
+              <strong>Downloads not working?</strong> Google Photos can sometimes silently fail
+              to download, especially with large selections. Try selecting fewer photos at a time
+              (20-30 instead of an entire day), or force-close and reopen the Google Photos app.
+              If it still doesn't work, try downloading through <strong>Google Drive</strong> instead
+              (see Option B below).
+            </p>
+          </div>
         </StepCard>
 
         <StepCard number={4} title="Return to Ember">
