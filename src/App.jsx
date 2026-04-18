@@ -15,7 +15,7 @@ export default function App() {
       <Route path="/ios" element={<IosPage />} />
       <Route path="/android" element={<AndroidPage />} />
       <Route path="/android/signup" element={<AndroidSignupPage />} />
-      <Route path="/android/google-photos" element={<GooglePhotosGuidePage />} />
+      <Route path="/android/cloud-photos" element={<GooglePhotosGuidePage />} />
       <Route path="/scroll-test" element={<ScrollTestPage />} />
     </Routes>
   )
