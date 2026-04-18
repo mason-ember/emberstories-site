@@ -270,7 +270,7 @@ function FaqItem({ question, children }) {
 function GooglePhotosIcon() {
   return (
     <img
-      src="/assets/icons/google-photos.svg"
+      src="/assets/logos/google-photos.svg"
       alt="Google Photos"
       className="w-7 h-7 shrink-0"
     />
@@ -280,7 +280,7 @@ function GooglePhotosIcon() {
 function GoogleDriveIcon() {
   return (
     <img
-      src="/assets/icons/google-drive.svg"
+      src="/assets/logos/google-drive.svg"
       alt="Google Drive"
       className="w-7 h-7 shrink-0"
     />
