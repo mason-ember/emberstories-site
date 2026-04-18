@@ -19,18 +19,6 @@ export default function GooglePhotosGuidePage() {
           downloading them to your phone unlocks the full experience.
         </p>
 
-        <div className="bg-blue-50 rounded-lg px-5 py-4 mb-10 text-left border border-blue-200">
-          <p className="text-[15px] text-blue-900 font-medium mb-1">
-            Why do I need to download?
-          </p>
-          <p className="text-[14px] text-blue-800">
-            Ember scans your photo library directly on your device to detect travel,
-            milestones, holidays, and everyday moments. Photos stored only in the cloud
-            aren't visible to the scan. Once downloaded, they appear in your gallery
-            and Ember can find the stories in them.
-          </p>
-        </div>
-
         {/* ── Accordion Sections ── */}
 
         <div className="space-y-3 mb-12">
