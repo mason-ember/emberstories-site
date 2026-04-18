@@ -315,9 +315,11 @@ function GoogleDriveIcon() {
 
 function ICloudIcon() {
   return (
-    <svg viewBox="0 0 24 24" className="w-7 h-7 shrink-0" fill="none" stroke="currentColor" strokeWidth="1.5">
-      <path d="M6.5 19a4.5 4.5 0 01-.42-8.98A7 7 0 0119.5 11a4.5 4.5 0 01.5 8.97" strokeLinecap="round" strokeLinejoin="round" className="text-[#3b82f6]" />
-    </svg>
+    <img
+      src="/assets/logos/icloud.svg"
+      alt="iCloud"
+      className="w-7 h-7 shrink-0"
+    />
   )
 }
 
