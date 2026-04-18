@@ -6,6 +6,7 @@ import IosPage from './pages/IosPage'
 import AndroidPage from './pages/AndroidPage'
 import AndroidSignupPage from './pages/AndroidSignupPage'
 import GooglePhotosGuidePage from './pages/GooglePhotosGuidePage'
+import IosCloudPhotosGuidePage from './pages/IosCloudPhotosGuidePage'
 
 export default function App() {
   return (
@@ -13,6 +14,7 @@ export default function App() {
       <Route path="/" element={<HomePage />} />
       <Route path="/beta" element={<BetaPage />} />
       <Route path="/ios" element={<IosPage />} />
+      <Route path="/ios/cloud-photos" element={<IosCloudPhotosGuidePage />} />
       <Route path="/android" element={<AndroidPage />} />
       <Route path="/android/signup" element={<AndroidSignupPage />} />
       <Route path="/android/cloud-photos" element={<GooglePhotosGuidePage />} />
