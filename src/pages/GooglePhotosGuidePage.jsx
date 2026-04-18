@@ -37,7 +37,6 @@ export default function GooglePhotosGuidePage() {
           <AccordionSection
             title="Google Photos"
             icon={<GooglePhotosIcon />}
-            defaultOpen
           >
             <p className="text-muted-foreground text-[17px] mb-8">
               Select the photos or albums you want, and download them straight to your phone.
