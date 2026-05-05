@@ -118,8 +118,8 @@
 
         <h1>Privacy Policy</h1>
         <p class="effective-date">
-            <strong>Effective Date:</strong> [TO BE UPDATED WHEN PUBLISHED] &nbsp;&middot;&nbsp;
-            <strong>Last Updated:</strong> [TO BE UPDATED WHEN PUBLISHED]
+            <strong>Effective Date:</strong> May 5, 2026 &nbsp;&middot;&nbsp;
+            <strong>Last Updated:</strong> May 5, 2026
         </p>
 
         <h2>Introduction</h2>
@@ -185,9 +185,9 @@
         <p>We work with trusted third-party service providers:</p>
         <ul>
             <li><strong>Supabase</strong>: Secure cloud database for account and app data storage</li>
-            <li><strong>Google Geocoding API</strong>: Converts GPS coordinates from your photos into location names and addresses for story context</li>
+            <li><strong>Google Cloud and Firebase</strong>: Application infrastructure, including Google Analytics for Firebase (anonymized usage analytics), Firebase Crashlytics (crash diagnostics), Firebase Remote Config (feature configuration), and the Google Geocoding API (which converts GPS coordinates from your photos into location names and addresses for story context)</li>
+            <li><strong>Anthropic</strong>: We send photo metadata (such as dates, locations, and household member context) to Anthropic's Claude API to generate story narrative text. We do not send photo image data to Anthropic. Anthropic processes this data on our behalf and does not retain it for training</li>
             <li><strong>OneSignal</strong>: Push notification delivery (only if you opt-in to notifications)</li>
-            <li><strong>Plausible Analytics</strong>: Privacy-focused analytics to understand app usage</li>
             <li><strong>Superwall</strong>: Subscription and payment management (processes subscription status only; payment transactions are handled directly by Apple and Google)</li>
         </ul>
 
@@ -199,6 +199,15 @@
             <li>Household member details you add</li>
         </ul>
         <p>Stories you mark as "private" are visible only to you and are never shared with other household members.</p>
+
+        <h3>Household Sharing and Account Deletion</h3>
+        <p>Ember treats the "Share with Household" action as an explicit, informed distribution of content to the other members of your household. This means:</p>
+        <ul>
+            <li>When you share a story with your household, you confer ongoing access to that content to all current and future members of that household</li>
+            <li>If you later delete your account, shared stories and their photos remain accessible to the remaining household members. Your identifying attribution on shared content (for example, "created by [your name]") is removed</li>
+            <li>Private stories, in contrast, are never shared and are permanently deleted when you delete your account</li>
+        </ul>
+        <p>We designed this model to reflect how families and households actually use shared memories &mdash; analogous to handing out printed photos at a family gathering, where the act of giving distributes ongoing access to those memories. Our Terms of Service contain a parallel description of this model.</p>
 
         <h3>Legal Requirements</h3>
         <p>We may disclose information if required by law or to:</p>
@@ -224,12 +233,16 @@
         <h2>Data Retention and Deletion</h2>
         <p>We retain your information for as long as your account is active or as needed to provide the Service. Specifically:</p>
         <ul>
-            <li><strong>Account data</strong>: Retained while your account is active and for up to 30 days after deletion to allow for account recovery</li>
-            <li><strong>Uploaded photos and stories</strong>: Retained until you delete them or delete your account</li>
-            <li><strong>Photo metadata</strong>: Retained as long as the associated photos or stories exist</li>
+            <li><strong>Account data</strong>: Retained while your account is active and for up to 30 days after deletion for operational cleanup. Accounts cannot be recovered after a deletion request is confirmed</li>
+            <li><strong>Private stories and photos</strong>: Permanently deleted within 30 days of your account deletion request</li>
+            <li><strong>Photo metadata (EXIF data)</strong>: Deleted or anonymized alongside its associated photo or story</li>
+            <li><strong>Shared household content</strong>: Stories and photos you have shared with your household (by selecting "Share with Household" in the app) are retained by that household for the lifetime of the household &mdash; or until individual household members delete them. When you delete your account, your identifying attribution on shared content is removed, but the underlying content remains accessible to other household members (see "Household Sharing and Account Deletion" below)</li>
+            <li><strong>Attribution data</strong>: When you delete your account, identifying links to you on collaborative data &mdash; shared story authorship, story contributions, face tags, location creator records &mdash; are removed (set to null). The underlying data remains where other household members rely on it</li>
             <li><strong>Usage and analytics data</strong>: Retained in anonymized or aggregated form for up to 12 months</li>
+            <li><strong>Billing and audit records</strong>: Records required for billing reconciliation, fraud investigation, or legal compliance are retained with identifying user links removed</li>
         </ul>
-        <p>When you delete your account, we will delete or anonymize your personal information within 30 days, except where we are required to retain it for legal or regulatory purposes.</p>
+        <p>When you delete your account, we delete or anonymize your personal information within 30 days, except where we are required to retain it for legal, regulatory, or household-continuity purposes as described above.</p>
+        <p><strong>Household dissolution:</strong> If you are the sole active Ember user of a household when you delete your account, the household itself and all its shared content will also be deleted on the same 30-day timeline.</p>
 
         <h2>Your Privacy Rights</h2>
         <p>Depending on your location, you may have the following rights regarding your personal information:</p>
@@ -273,7 +286,7 @@
 
         <h2>Cookies and Tracking</h2>
         <p>The Ember mobile application does not use cookies. We do not use third-party advertising trackers or cross-app tracking technologies. We do not participate in ad networks or share data for targeted advertising purposes.</p>
-        <p>We use Plausible Analytics, a privacy-focused analytics service that does not use cookies and does not collect personally identifiable information.</p>
+        <p>We use Google Analytics for Firebase to understand aggregate, anonymized usage patterns within the app. This service uses an installation-specific identifier rather than cookies and is configured to limit collection to anonymized event and device data — it does not include personally identifiable information.</p>
 
         <h2>Changes to This Privacy Policy</h2>
         <p>We may update this Privacy Policy periodically. When we make changes:</p>
@@ -287,12 +300,10 @@
         <p>If you have questions about this Privacy Policy or want to exercise your privacy rights, contact us:</p>
         <p>
             <strong>Email</strong>: <a href="mailto:privacy@emberstories.com" style="color:#9E18AC;">privacy@emberstories.com</a><br>
-            <strong>Address</strong>: [TO BE ADDED - ENTITY NAME AND ADDRESS]<br>
+            <strong>Address</strong>: Ember Stories Inc, 5534 Saint Joe Road, Fort Wayne, IN 46835, USA<br>
             <strong>Response Time</strong>: We will respond to requests within 30 days
         </p>
         <p>For EU users, you may also contact your local data protection authority if you have concerns about how we handle your data.</p>
-
-        <p class="legal-note">This Privacy Policy is designed to comply with GDPR, CCPA, CalOPPA, COPPA, and other applicable privacy laws. It should be reviewed by legal counsel before publication.</p>
 
         <footer>
             <p style="margin-bottom:10px;">&copy; 2026 Ember Stories Inc</p>
