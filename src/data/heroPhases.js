@@ -15,6 +15,7 @@ export const HERO_PHASES = {
   milestone: {
     id: 'milestone',
     title: "Becca's 4th Birthday",
+    dateRange: 'April 13, 2024',
     centerpiece: { src: null, stubColor: '#b8889a' }, // dusty rose-mauve — birthday warm
     thumbnails: {
       left: {
@@ -32,6 +33,7 @@ export const HERO_PHASES = {
   travel: {
     id: 'travel',
     title: 'Fall Break in Yellowstone',
+    dateRange: 'October 14 – 21, 2023',
     centerpiece: { src: null, stubColor: '#b08968' }, // canyon terracotta
     thumbnails: {
       left: {
@@ -49,6 +51,7 @@ export const HERO_PHASES = {
   holiday: {
     id: 'holiday',
     title: 'Halloween 2018',
+    dateRange: 'October 31, 2018',
     centerpiece: { src: null, stubColor: '#c08552' }, // pumpkin amber
     thumbnails: {
       left: {

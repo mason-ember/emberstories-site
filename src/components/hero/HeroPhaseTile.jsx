@@ -24,7 +24,7 @@ import {
 // freely pass derived content/title objects without triggering phantom
 // transitions on every render.
 
-export default function HeroPhaseTile({ role, phaseId, content, title, avatar }) {
+export default function HeroPhaseTile({ role, phaseId, content, title, dateRange, avatar }) {
   const tileConfig = TILE_CONFIG[role]
   const slotRef = useParallax(PARALLAX.tile[role])
   const [layers, setLayers] = useState(() => [{ id: 0, content }])
@@ -69,7 +69,9 @@ export default function HeroPhaseTile({ role, phaseId, content, title, avatar })
             isExiting={idx > 0}
           />
         ))}
-        {isCenterpiece && <CenterpieceTitle title={title} phaseId={phaseId} />}
+        {isCenterpiece && (
+          <CenterpieceCaption title={title} dateRange={dateRange} phaseId={phaseId} />
+        )}
       </div>
       {!isCenterpiece && avatar && (
         <HeroAvatar avatar={avatar} side={role === 'thumb-right' ? 'right' : 'left'} />
@@ -110,9 +112,9 @@ function PhotoLayer({ content, direction, isEntering, isExiting }) {
   return <div ref={ref} className="hero-photo-layer" style={style} />
 }
 
-function CenterpieceTitle({ title, phaseId }) {
+function CenterpieceCaption({ title, dateRange, phaseId }) {
   const ref = useRef(null)
-  const [displayed, setDisplayed] = useState(title)
+  const [displayed, setDisplayed] = useState({ title, dateRange })
   const prevPhaseIdRef = useRef(phaseId)
 
   useEffect(() => {
@@ -124,7 +126,7 @@ function CenterpieceTitle({ title, phaseId }) {
 
     const tl = gsap.timeline()
     tl.to(el, { opacity: 0, y: 6, duration: 0.15, ease: 'power2.in' })
-      .call(() => setDisplayed(title))
+      .call(() => setDisplayed({ title, dateRange }))
       .to(
         el,
         { opacity: 1, y: 0, duration: TITLE_FADE_IN_DURATION, ease: 'power2.out' },
@@ -132,11 +134,14 @@ function CenterpieceTitle({ title, phaseId }) {
       )
 
     return () => tl.kill()
-  }, [title, phaseId])
+  }, [title, dateRange, phaseId])
 
   return (
-    <div ref={ref} className="hero-tile-title">
-      {displayed}
+    <div ref={ref} className="hero-tile-caption">
+      <div className="hero-tile-title">{displayed.title}</div>
+      {displayed.dateRange && (
+        <div className="hero-tile-date">{displayed.dateRange}</div>
+      )}
     </div>
   )
 }

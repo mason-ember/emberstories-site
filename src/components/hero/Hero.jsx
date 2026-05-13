@@ -139,6 +139,7 @@ export default function Hero() {
               phaseId={phase.id}
               content={phase.centerpiece}
               title={phase.title}
+              dateRange={phase.dateRange}
             />
             <HeroPhaseTile
               role="thumb-right"
