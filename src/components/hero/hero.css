@@ -95,12 +95,12 @@
   z-index: 3;
 }
 
-/* Right thumb: ~30% overlay onto the centerpiece's bottom-right corner.
-   Top-left of thumb sits inside the cp; bottom-right spills out. */
+/* Right thumb: anchored to the centerpiece's bottom-right, with no more
+   than half of the thumb's width overlaying the cp. */
 .hero-tile-slot[data-role="thumb-right"] {
   width: 35%;
   aspect-ratio: 3 / 4;
-  left: 70%; /* ~30% of thumb width inside cp horizontally */
+  left: 82%; /* ~51% of thumb width spills past cp's right edge */
   top: 55%; /* anchored to lower portion */
   z-index: 3;
 }
@@ -283,6 +283,6 @@
   }
   /* Reduce spillage on mobile so thumbs don't clip past the viewport */
   .hero-tile-slot[data-role="thumb-left"]  { left: -10%; width: 36%; top: 4%; }
-  .hero-tile-slot[data-role="thumb-right"] { left: 72%; width: 32%; top: 58%; }
+  .hero-tile-slot[data-role="thumb-right"] { left: 82%; width: 32%; top: 58%; }
   .hero-composition { padding: 4vh 4vw 3rem; }
 }

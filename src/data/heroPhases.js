@@ -14,37 +14,43 @@ export const PHASE_ORDER = ['milestone', 'travel', 'holiday']
 export const HERO_PHASES = {
   milestone: {
     id: 'milestone',
-    title: "Becca's 4th Birthday",
-    dateRange: 'April 13, 2024',
-    centerpiece: { src: null, stubColor: '#b8889a' }, // dusty rose-mauve — birthday warm
+    title: "Ethan's 7th Birthday",
+    dateRange: 'April 13, 2021',
+    centerpiece: {
+      src: '/assets/images/hero/hero-birthday-centerpiece.jpg',
+      stubColor: '#b8889a',
+    },
     thumbnails: {
       left: {
-        src: null,
-        stubColor: '#a89483', // warm taupe
-        avatar: { src: null, stubColor: '#e8a0bf' }, // blush
+        src: '/assets/images/hero/hero-birthday-landscape.jpg',
+        stubColor: '#a89483',
+        avatar: { src: '/assets/images/hero/avatar-03.jpg', stubColor: '#e8a0bf' },
       },
       right: {
-        src: null,
-        stubColor: '#7c9ca0', // dusty teal
-        avatar: { src: null, stubColor: '#a9c4d8' }, // soft blue
+        src: '/assets/images/hero/hero-birthday-portrait.jpg',
+        stubColor: '#7c9ca0',
+        avatar: { src: '/assets/images/hero/avatar-04.jpg', stubColor: '#a9c4d8' },
       },
     },
   },
   travel: {
     id: 'travel',
-    title: 'Fall Break in Yellowstone',
+    title: 'Fall Break in Zion & the Grand Canyon',
     dateRange: 'October 14 – 21, 2023',
-    centerpiece: { src: null, stubColor: '#b08968' }, // canyon terracotta
+    centerpiece: {
+      src: '/assets/images/hero/hero-travel-centerpiece.jpg',
+      stubColor: '#b08968',
+    },
     thumbnails: {
       left: {
-        src: null,
-        stubColor: '#8a9a7c', // forest sage
-        avatar: { src: null, stubColor: '#9b86bd' }, // muted purple
+        src: '/assets/images/hero/hero-travel-landscape.jpg',
+        stubColor: '#8a9a7c',
+        avatar: { src: '/assets/images/hero/avatar-01.jpg', stubColor: '#9b86bd' },
       },
       right: {
-        src: null,
-        stubColor: '#a78a7f', // muted clay
-        avatar: { src: null, stubColor: '#7a9e9f' }, // muted teal
+        src: '/assets/images/hero/hero-travel-portrait.jpg',
+        stubColor: '#a78a7f',
+        avatar: { src: '/assets/images/hero/avatar-02.jpg', stubColor: '#7a9e9f' },
       },
     },
   },
@@ -52,17 +58,20 @@ export const HERO_PHASES = {
     id: 'holiday',
     title: 'Halloween 2018',
     dateRange: 'October 31, 2018',
-    centerpiece: { src: null, stubColor: '#c08552' }, // pumpkin amber
+    centerpiece: {
+      src: '/assets/images/hero/hero-holiday-centerpiece.jpg',
+      stubColor: '#c08552',
+    },
     thumbnails: {
       left: {
-        src: null,
-        stubColor: '#8a6a7e', // muted plum
-        avatar: { src: null, stubColor: '#d4a574' }, // orange-tan
+        src: '/assets/images/hero/hero-holiday-landscape.jpg',
+        stubColor: '#8a6a7e',
+        avatar: { src: '/assets/images/hero/avatar-09.jpg', stubColor: '#d4a574' },
       },
       right: {
-        src: null,
-        stubColor: '#9a8c83', // warm gray
-        avatar: { src: null, stubColor: '#8a9474' }, // dusty olive
+        src: '/assets/images/hero/hero-holiday-portrait.jpg',
+        stubColor: '#9a8c83',
+        avatar: { src: '/assets/images/hero/avatar-12.jpg', stubColor: '#8a9474' },
       },
     },
   },

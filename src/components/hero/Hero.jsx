@@ -83,10 +83,6 @@ export default function Hero() {
     return () => clearTimeout(timer)
   }, [state.isPaused, state.phaseIndex, state.phaseStartedAt, state.accumulatedElapsed])
 
-  // Hover/focus pause (desktop).
-  const handlePointerEnter = useCallback(() => dispatch({ type: 'PAUSE' }), [])
-  const handlePointerLeave = useCallback(() => dispatch({ type: 'RESUME' }), [])
-
   // Swipe (touch). Threshold on horizontal delta only.
   const touchStartRef = useRef({ x: 0, y: 0 })
   const onTouchStart = useCallback((e) => {
@@ -121,10 +117,6 @@ export default function Hero() {
 
           <div
             className="hero-tiles"
-            onMouseEnter={handlePointerEnter}
-            onMouseLeave={handlePointerLeave}
-            onFocus={handlePointerEnter}
-            onBlur={handlePointerLeave}
             onTouchStart={onTouchStart}
             onTouchEnd={onTouchEnd}
           >

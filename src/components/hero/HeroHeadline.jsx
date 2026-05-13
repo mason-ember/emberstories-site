@@ -8,7 +8,7 @@ export default function HeroHeadline() {
     <div className="hero-headline">
       <h1>Rescue your life stories</h1>
       <h2>
-        Ember transforms the photos you've lost to the cloud into living memories.
+        Ember transforms your forgotten photos into living memories.
       </h2>
     </div>
   )

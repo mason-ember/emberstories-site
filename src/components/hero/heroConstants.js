@@ -3,7 +3,7 @@
 // build; keep them here so iteration is one file, not seven.
 
 // Phase cycle
-export const PHASE_DURATION_MS = 5000
+export const PHASE_DURATION_MS = 6000
 
 // Slide-over transition
 export const SLIDE_DURATION = 0.55 // seconds; GSAP duration unit
