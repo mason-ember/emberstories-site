@@ -69,5 +69,16 @@ export const PARALLAX = {
   sticker: { depth: 14, lerp: 0.5 },
 }
 
+// Scroll-parallax coefficients per bg tier. Used by useScrollParallax.
+//   0   = element scrolls with the page (no parallax)
+//   1   = element is pinned to its starting viewport position
+// Distant (back) > near (front) so the deepest layer drifts away most slowly,
+// reinforcing the depth illusion.
+export const BG_SCROLL_PARALLAX = {
+  bgBack:  0.45,
+  bgMid:   0.30,
+  bgFront: 0.15,
+}
+
 // Responsive breakpoint matching existing site convention
 export const MOBILE_BREAKPOINT_PX = 768

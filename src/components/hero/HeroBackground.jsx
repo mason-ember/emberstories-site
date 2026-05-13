@@ -1,16 +1,25 @@
 import { useMemo } from 'react'
 import { useParallax } from './HeroParallaxContext'
+import { useScrollParallax } from './HeroScrollParallaxContext'
 import { HERO_BG_LAYERS } from '@/data/heroPhases'
-import { PARALLAX } from './heroConstants'
+import { BG_SCROLL_PARALLAX, PARALLAX } from './heroConstants'
 
-// Blurred parallax photo shapes at three depth tiers. Stub stage: flat
-// pastel rectangles. Once real images land, each shape gets a pre-blurred
-// background-image. See Hero.md §6.
+// Blurred parallax photo shapes at three depth tiers. Each shape responds
+// to BOTH mouse and scroll, composed via the wrapper-div pattern:
+//   .hero-bg-shape-slot   ← scroll-parallax target (owns position)
+//     .hero-bg-shape       ← mouse-parallax target (owns image)
+// See Hero.md §6.
 
 const BG_PARALLAX_BY_ID = {
   back: PARALLAX.bgBack,
   mid: PARALLAX.bgMid,
   front: PARALLAX.bgFront,
+}
+
+const BG_SCROLL_BY_ID = {
+  back: BG_SCROLL_PARALLAX.bgBack,
+  mid: BG_SCROLL_PARALLAX.bgMid,
+  front: BG_SCROLL_PARALLAX.bgFront,
 }
 
 // Stratified placement: split the hero into a 4×3 grid (12 cells) and assign
@@ -78,28 +87,35 @@ export default function HeroBackground() {
 }
 
 function BgShape({ shape }) {
-  const ref = useParallax(BG_PARALLAX_BY_ID[shape.layerId])
-  const style = {
+  const scrollRef = useScrollParallax(BG_SCROLL_BY_ID[shape.layerId])
+  const mouseRef = useParallax(BG_PARALLAX_BY_ID[shape.layerId])
+
+  const slotStyle = {
     top: shape.top,
     left: shape.left,
     width: `${shape.width}px`,
     height: `${shape.height}px`,
     opacity: shape.opacity,
   }
+
+  const innerStyle = {}
   if (shape.src) {
-    style.backgroundImage = `url(${shape.src})`
-    style.backgroundSize = 'contain'
-    style.backgroundRepeat = 'no-repeat'
-    style.backgroundPosition = 'center'
+    innerStyle.backgroundImage = `url(${shape.src})`
+    innerStyle.backgroundSize = 'contain'
+    innerStyle.backgroundRepeat = 'no-repeat'
+    innerStyle.backgroundPosition = 'center'
   } else {
-    style.backgroundColor = shape.fallbackColor
+    innerStyle.backgroundColor = shape.fallbackColor
   }
+
   return (
-    <div
-      ref={ref}
-      className="hero-bg-shape"
-      data-has-image={shape.src ? 'true' : 'false'}
-      style={style}
-    />
+    <div ref={scrollRef} className="hero-bg-shape-slot" style={slotStyle}>
+      <div
+        ref={mouseRef}
+        className="hero-bg-shape"
+        data-has-image={shape.src ? 'true' : 'false'}
+        style={innerStyle}
+      />
+    </div>
   )
 }

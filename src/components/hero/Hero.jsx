@@ -5,6 +5,7 @@ import HeroPhaseTile from './HeroPhaseTile'
 import HeroProgressDots from './HeroProgressDots'
 import HeroStickers from './HeroStickers'
 import { HeroParallaxProvider } from './HeroParallaxContext'
+import { HeroScrollParallaxProvider } from './HeroScrollParallaxContext'
 import { PHASE_DURATION_MS } from './heroConstants'
 import { HERO_PHASES, PHASE_ORDER } from '@/data/heroPhases'
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion'
@@ -107,6 +108,7 @@ export default function Hero() {
 
   return (
     <section ref={heroRef} className="hero" aria-label="Ember stories hero">
+      <HeroScrollParallaxProvider heroRef={heroRef}>
       <HeroParallaxProvider heroRef={heroRef}>
         <HeroBackground />
         {/* OS platform stickers hidden for now — uncomment to restore */}
@@ -145,6 +147,7 @@ export default function Hero() {
           <HeroCTA />
         </div>
       </HeroParallaxProvider>
+      </HeroScrollParallaxProvider>
     </section>
   )
 }

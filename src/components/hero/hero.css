@@ -20,8 +20,17 @@
   z-index: 0;
 }
 
+/* Two-layer structure for composable parallax (see HeroScrollParallaxContext):
+   outer slot owns positioning + scroll transform; inner shape owns image +
+   mouse transform. Two transforms on two DOM nodes compose naturally. */
+.hero-bg-shape-slot {
+  position: absolute;
+  will-change: transform;
+}
+
 .hero-bg-shape {
   position: absolute;
+  inset: 0;
   will-change: transform;
 }
 
