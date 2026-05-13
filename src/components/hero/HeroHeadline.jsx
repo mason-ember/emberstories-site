@@ -6,10 +6,10 @@ import { Button } from '@/components/ui/button'
 export default function HeroHeadline() {
   return (
     <div className="hero-headline">
-      <h1>Rescue your life stories</h1>
-      <h2>
-        Ember transforms your forgotten photos into living memories.
-      </h2>
+      <h1>Rescue your life stories from the cloud</h1>
+      {/*<h2>
+        Ember transforms your photos into living memories.
+      </h2>*/}
     </div>
   )
 }

@@ -87,26 +87,42 @@ export const HERO_PHASES = {
 
 // Parallax depth + lerp per tier live in heroConstants.PARALLAX (bgBack /
 // bgMid / bgFront) — looked up by id in HeroBackground.
+//
+// Each shape carries its own src + orientation. `stubColors` are kept as
+// fallbacks should an image fail to load.
 export const HERO_BG_LAYERS = [
   {
     id: 'back',
-    count: 4,
     blurPx: 24,
-    stubColors: ['#f4e9e3', '#e9eff3', '#f0eae3', '#ede5ec'],
     opacityRange: [0.4, 0.6],
+    stubColors: ['#f4e9e3', '#e9eff3', '#f0eae3', '#ede5ec'],
+    shapes: [
+      { src: '/assets/images/hero/bg-back-01.png', isPortrait: false },
+      { src: '/assets/images/hero/bg-back-02.png', isPortrait: false },
+      { src: '/assets/images/hero/bg-back-03.png', isPortrait: false },
+      { src: '/assets/images/hero/bg-back-04.png', isPortrait: true },
+    ],
   },
   {
     id: 'mid',
-    count: 3,
     blurPx: 12,
-    stubColors: ['#e8d5d0', '#d5dfe5', '#dfd5d5'],
     opacityRange: [0.5, 0.7],
+    stubColors: ['#e8d5d0', '#d5dfe5', '#dfd5d5'],
+    shapes: [
+      { src: '/assets/images/hero/bg-mid-01.png', isPortrait: false },
+      { src: '/assets/images/hero/bg-mid-02.png', isPortrait: false },
+      { src: '/assets/images/hero/bg-mid-03.png', isPortrait: true },
+    ],
   },
   {
     id: 'front',
-    count: 3,
     blurPx: 6,
-    stubColors: ['#d4bab2', '#bcc8d2', '#c9bdc3'],
     opacityRange: [0.6, 0.8],
+    stubColors: ['#d4bab2', '#bcc8d2', '#c9bdc3'],
+    shapes: [
+      { src: '/assets/images/hero/bg-front-01.png', isPortrait: false },
+      { src: '/assets/images/hero/bg-front-02.png', isPortrait: false },
+      { src: '/assets/images/hero/bg-front-03.png', isPortrait: true },
+    ],
   },
 ]

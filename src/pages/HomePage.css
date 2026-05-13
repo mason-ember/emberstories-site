@@ -1,0 +1,41 @@
+/* Page-level styles for HomePage. Section-specific styles will move to
+   their own component files when sections are real components. */
+
+.placeholder-section {
+  width: 100%;
+  background-color: #ffffff;
+  border-top: 1px solid var(--border);
+}
+
+.placeholder-section-inner {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 6rem 2rem;
+  text-align: center;
+}
+
+.placeholder-section-inner h2 {
+  font-size: clamp(1.5rem, 3vw, 2.25rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  color: var(--foreground);
+  margin: 0 0 1.5rem;
+}
+
+.placeholder-section-inner p {
+  font-size: 1.05rem;
+  line-height: 1.65;
+  color: var(--muted-foreground);
+  margin: 0 0 1rem;
+}
+
+.placeholder-section-inner p:last-child {
+  margin-bottom: 0;
+}
+
+@media (max-width: 768px) {
+  .placeholder-section-inner {
+    padding: 4rem 1.25rem;
+  }
+}

@@ -20,7 +20,10 @@ const BG_PARALLAX_BY_ID = {
 // reads as a grid.
 const CELL_COLS = 4
 const CELL_ROWS = 3
-const CELL_SEQUENCE = [0, 7, 2, 9, 5, 11, 1, 8, 3, 6, 4, 10]
+// Index 9 → front-03 (the portrait front-layer shape). Routed to cell 4
+// (middle row, leftmost column) so it stays clear of the bottom-right
+// thumbnail's footprint.
+const CELL_SEQUENCE = [0, 7, 2, 9, 5, 11, 1, 8, 3, 4, 6, 10]
 const JITTER = 0.7 // 0..1 — fraction of cell size the shape can drift within
 
 export default function HeroBackground() {
@@ -30,7 +33,7 @@ export default function HeroBackground() {
     const cellH = 100 / CELL_ROWS
     let shapeIdx = 0
     HERO_BG_LAYERS.forEach((layer) => {
-      for (let i = 0; i < layer.count; i++) {
+      layer.shapes.forEach((shapeData, i) => {
         const seed = (layer.id.charCodeAt(0) + i * 17) % 100
         const cellIndex = CELL_SEQUENCE[shapeIdx % CELL_SEQUENCE.length]
         shapeIdx++
@@ -42,13 +45,13 @@ export default function HeroBackground() {
         const top = cellRow * cellH + cellH * (0.5 + jy * JITTER)
         const left = cellCol * cellW + cellW * (0.5 + jx * JITTER)
         const size = 80 + ((seed * 11) % 140)
-        const isPortrait = seed % 10 < 4 // ~40% portrait
+        const isPortrait = shapeData.isPortrait
         const width = isPortrait ? size * 0.75 : size
         const height = isPortrait ? size : size * 0.75
         const opacity =
           layer.opacityRange[0] +
           (((seed * 23) % 100) / 100) * (layer.opacityRange[1] - layer.opacityRange[0])
-        const color = layer.stubColors[i % layer.stubColors.length]
+        const fallbackColor = layer.stubColors[i % layer.stubColors.length]
         out.push({
           id: `${layer.id}-${i}`,
           layerId: layer.id,
@@ -57,9 +60,10 @@ export default function HeroBackground() {
           width,
           height,
           opacity,
-          color,
+          src: shapeData.src,
+          fallbackColor,
         })
-      }
+      })
     })
     return out
   }, [])
@@ -75,18 +79,27 @@ export default function HeroBackground() {
 
 function BgShape({ shape }) {
   const ref = useParallax(BG_PARALLAX_BY_ID[shape.layerId])
+  const style = {
+    top: shape.top,
+    left: shape.left,
+    width: `${shape.width}px`,
+    height: `${shape.height}px`,
+    opacity: shape.opacity,
+  }
+  if (shape.src) {
+    style.backgroundImage = `url(${shape.src})`
+    style.backgroundSize = 'contain'
+    style.backgroundRepeat = 'no-repeat'
+    style.backgroundPosition = 'center'
+  } else {
+    style.backgroundColor = shape.fallbackColor
+  }
   return (
     <div
       ref={ref}
       className="hero-bg-shape"
-      style={{
-        top: shape.top,
-        left: shape.left,
-        width: `${shape.width}px`,
-        height: `${shape.height}px`,
-        backgroundColor: shape.color,
-        opacity: shape.opacity,
-      }}
+      data-has-image={shape.src ? 'true' : 'false'}
+      style={style}
     />
   )
 }
