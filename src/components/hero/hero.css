@@ -47,27 +47,25 @@
 }
 
 .hero-headline {
-  max-width: 720px;
-  margin: 0 auto 2.5rem;
+  max-width: 900px;
+  margin: 2rem 2.5rem 3rem;
 }
 
 .hero-headline h1 {
   font-size: clamp(2rem, 4.5vw, 3.25rem);
   font-weight: 750;
   letter-spacing: -0.02em;
-  line-height: 1.1;
+  line-height: 1.25;
   color: var(--foreground);
-  margin: 0 0 1rem;
+  margin: 0 0 0.5rem;
 }
 
 .hero-headline h2 {
-  font-size: clamp(1.15rem, 1.9vw, 1.5rem);
+  font-size: clamp(1.15rem, 1.9vw, 1.75rem);
   font-weight: 300;
-  letter-spacing: -0.01em;
-  line-height: 1.35;
+  line-height: 1.5;
   color: var(--foreground);
-  margin: 0 auto;
-  max-width: 580px;
+  margin: 1rem auto;
 }
 
 /* ─── Tiles row ─────────────────────────────────────────────────────────── */
