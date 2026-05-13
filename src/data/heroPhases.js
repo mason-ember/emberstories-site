@@ -94,7 +94,7 @@ export const HERO_BG_LAYERS = [
   {
     id: 'back',
     blurPx: 24,
-    opacityRange: [0.4, 0.6],
+    opacityRange: [0.3, 0.5],
     stubColors: ['#f4e9e3', '#e9eff3', '#f0eae3', '#ede5ec'],
     shapes: [
       { src: '/assets/images/hero/bg-back-01.png', isPortrait: false },
@@ -106,7 +106,7 @@ export const HERO_BG_LAYERS = [
   {
     id: 'mid',
     blurPx: 12,
-    opacityRange: [0.5, 0.7],
+    opacityRange: [0.4, 0.6],
     stubColors: ['#e8d5d0', '#d5dfe5', '#dfd5d5'],
     shapes: [
       { src: '/assets/images/hero/bg-mid-01.png', isPortrait: false },
@@ -117,7 +117,7 @@ export const HERO_BG_LAYERS = [
   {
     id: 'front',
     blurPx: 6,
-    opacityRange: [0.6, 0.8],
+    opacityRange: [0.5, 0.7],
     stubColors: ['#d4bab2', '#bcc8d2', '#c9bdc3'],
     shapes: [
       { src: '/assets/images/hero/bg-front-01.png', isPortrait: false },

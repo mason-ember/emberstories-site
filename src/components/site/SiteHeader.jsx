@@ -1,11 +1,9 @@
 import { Link } from 'react-router-dom'
-import { Button } from '@/components/ui/button'
 import './SiteHeader.css'
 
-// Site-wide header. White bg, logo left, nav center-left, store CTAs right.
-// Wireframe: emberstories-site-kb/planning/site_content/Home/ — top bar
-// of ember-hero-wireframe-2.png. Currently lives only on the homepage; can
-// be hoisted into a layout wrapper later if more pages adopt it.
+// Site-wide header. White bg, logo left, nav links right. The primary
+// store CTAs (App Store / Google Play) live in the hero instead — see
+// StoreCTAs.jsx — since the hero is where attention is highest.
 
 export default function SiteHeader() {
   return (
@@ -21,27 +19,8 @@ export default function SiteHeader() {
         <nav className="site-header-nav" aria-label="Primary">
           <a href="#about">About</a>
           <a href="#features">Features</a>
-          <a href="#get-app">Get App</a>
+          <a href="#contact">Contact</a>
         </nav>
-
-        <div className="site-header-actions">
-          <Button
-            type="button"
-            size="sm"
-            className="site-header-cta"
-            data-store="apple"
-          >
-            App Store
-          </Button>
-          <Button
-            type="button"
-            size="sm"
-            className="site-header-cta"
-            data-store="google"
-          >
-            Google Play
-          </Button>
-        </div>
       </div>
     </header>
   )

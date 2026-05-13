@@ -1,0 +1,39 @@
+.store-ctas {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.store-cta {
+  border-radius: 999px;
+  font-weight: 600;
+  letter-spacing: -0.005em;
+  font-size: 1rem;
+  padding: 0 1.75rem;
+  height: 52px;
+  gap: 0.6rem;
+}
+
+.store-cta[data-store="apple"] {
+  background-color: #000000;
+  color: #ffffff;
+}
+
+.store-cta[data-store="google"] {
+  background-color: #3ddc84;
+  color: #1a1a1a;
+}
+
+.store-cta:hover {
+  opacity: 0.88;
+}
+
+@media (max-width: 480px) {
+  .store-cta {
+    height: 48px;
+    padding: 0 1.4rem;
+    font-size: 0.95rem;
+  }
+}

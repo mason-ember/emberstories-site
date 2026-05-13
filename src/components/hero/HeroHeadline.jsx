@@ -1,4 +1,4 @@
-import { Button } from '@/components/ui/button'
+import StoreCTAs from '@/components/site/StoreCTAs'
 
 // Headline, subhead, and below-composition CTA. Static — no parallax, no
 // phase-driven motion (text must stay readable). See Hero.md §3.
@@ -8,7 +8,7 @@ export default function HeroHeadline() {
     <div className="hero-headline">
       <h1>Rescue your stories from the cloud</h1>
       <h2>
-        Ember transforms your forgotten photos into living memories.
+        Ember scans and monitors your photo library for meaningful moments, creating dynamic stories for you and your loved ones to relive.
       </h2>
     </div>
   )
@@ -17,9 +17,7 @@ export default function HeroHeadline() {
 export function HeroCTA() {
   return (
     <div className="hero-cta-row">
-      <Button size="lg" type="button">
-        Get Ember Stories
-      </Button>
+      <StoreCTAs />
     </div>
   )
 }
