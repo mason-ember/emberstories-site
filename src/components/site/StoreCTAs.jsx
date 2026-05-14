@@ -27,12 +27,12 @@ const STORE_COPY = {
   apple: {
     label: 'iOS',
     modalTitle: 'Download on iOS',
-    modalSubtitle: 'Scan with your phone camera to install Ember.',
+    modalSubtitle: 'Scan with your iPhone camera to install.',
   },
   google: {
     label: 'Android',
     modalTitle: 'Download on Android',
-    modalSubtitle: 'Scan with your phone camera to install Ember.',
+    modalSubtitle: 'Scan with your phone camera to install.',
   },
 }
 

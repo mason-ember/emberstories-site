@@ -44,21 +44,10 @@ function PlaceholderSection() {
   return (
     <section className="placeholder-section">
       <div className="placeholder-section-inner">
-        <h2>The next section lives here.</h2>
-        <p>
-          This is placeholder copy that takes the spot of an upcoming section —
-          likely the problem framing ("your memories are getting lost"), the
-          solution overview, or the how-it-works walkthrough described in the
-          Home_Outline planning doc. It's here so we can see the hero in context
-          and confirm the page flows naturally from the cycling story tiles into
-          the rest of the narrative.
-        </p>
-        <p>
-          We'll replace this block with a real section soon. The next decisions
-          are which section comes first (problem vs. solution vs. how-it-works)
-          and whether it uses alternating image/text rows, a stepped 1-2-3
-          layout, or something more native to Ember's voice.
-        </p>
+      <h2>Why do you need Ember?</h2>
+      <h1>You're losing your stories</h1>
+      <p>The cliches are true - time flies and the kids grow up fast. Your photos continue to pile in the cloud - your memories obscured by a solution built for storage, not story telling.</p>
+      <p>Ember captures and maintains the richness of your life story, allowing you to relive your most cherished memories.</p>
       </div>
     </section>
   )

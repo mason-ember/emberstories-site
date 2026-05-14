@@ -8,7 +8,7 @@ export default function HeroHeadline() {
     <div className="hero-headline">
       <h1>Rescue your stories from the cloud</h1>
       <h2>
-        Ember scans and monitors your photo library for meaningful moments, creating dynamic stories to be shared and relived.
+        Ember scans and monitors your photo library for meaningful memories, creating organized stories to be shared and relived.
       </h2>
     </div>
   )
@@ -17,6 +17,7 @@ export default function HeroHeadline() {
 export function HeroCTA() {
   return (
     <div className="hero-cta-row">
+      <p className="hero-cta-kicker">Try Ember Stories for free</p>
       <StoreCTAs />
     </div>
   )
