@@ -99,7 +99,11 @@ export const HERO_BG_LAYERS = [
     shapes: [
       { src: '/assets/images/hero/bg-back-01.png', isPortrait: false },
       { src: '/assets/images/hero/bg-back-02.png', isPortrait: false },
-      { src: '/assets/images/hero/bg-back-03.png', isPortrait: false },
+      {
+        src: '/assets/images/hero/bg-back-03.png',
+        isPortrait: false,
+        position: { top: '0.70%', left: '62%' }, // hand-placed override
+      },
       { src: '/assets/images/hero/bg-back-04.png', isPortrait: true },
     ],
   },

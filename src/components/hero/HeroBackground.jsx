@@ -51,8 +51,13 @@ export default function HeroBackground() {
         // Jitter -0.5..0.5 from the cell's center, scaled by JITTER.
         const jx = ((seed * 7) % 100) / 100 - 0.5
         const jy = ((seed * 13) % 100) / 100 - 0.5
-        const top = cellRow * cellH + cellH * (0.5 + jy * JITTER)
-        const left = cellCol * cellW + cellW * (0.5 + jx * JITTER)
+        // Per-shape position override (e.g. `position: { top: '0.7%', left: '62%' }`)
+        // skips the cell + jitter computation. Useful for hand-placing
+        // individual shapes that the grid layout doesn't get quite right.
+        const top = shapeData.position?.top
+          ?? `${cellRow * cellH + cellH * (0.5 + jy * JITTER)}%`
+        const left = shapeData.position?.left
+          ?? `${cellCol * cellW + cellW * (0.5 + jx * JITTER)}%`
         const size = 80 + ((seed * 11) % 140)
         const isPortrait = shapeData.isPortrait
         const width = isPortrait ? size * 0.75 : size
@@ -64,8 +69,8 @@ export default function HeroBackground() {
         out.push({
           id: `${layer.id}-${i}`,
           layerId: layer.id,
-          top: `${top}%`,
-          left: `${left}%`,
+          top,
+          left,
           width,
           height,
           opacity,
