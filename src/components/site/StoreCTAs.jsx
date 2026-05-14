@@ -1,9 +1,40 @@
+import { useState } from 'react'
 import { Button } from '@/components/ui/button'
+import StoreModal from './StoreModal'
+import { useIsTouchDevice } from '@/hooks/useIsTouchDevice'
 import './StoreCTAs.css'
 
 // Reusable store CTA pair: iOS (black) + Android (Play green) with their
 // platform glyphs. Same color/glyph language as BetaPage's install buttons.
-// Used as the hero's primary CTA; can be dropped anywhere on the page.
+//
+// Behavior follows pops.fyi:
+//   - Touch devices (phone/tablet): tapping a CTA navigates directly to
+//     the platform store URL.
+//   - Mouse devices (desktop/laptop): clicking opens a modal with a QR
+//     code that the user can scan with their phone camera.
+//
+// URLs in STORE_URLS are placeholders — replace when real App Store /
+// Google Play URLs are assigned. The buttons remain rendered as <a>
+// elements so right-click "Open in new tab" / middle-click work
+// universally; desktop click is intercepted and the modal opens instead.
+
+const STORE_URLS = {
+  apple: 'https://emberstories.com', // TODO: real App Store URL
+  google: 'https://emberstories.com', // TODO: real Google Play URL
+}
+
+const STORE_COPY = {
+  apple: {
+    label: 'iOS',
+    modalTitle: 'Download on iOS',
+    modalSubtitle: 'Scan with your phone camera to install Ember.',
+  },
+  google: {
+    label: 'Android',
+    modalTitle: 'Download on Android',
+    modalSubtitle: 'Scan with your phone camera to install Ember.',
+  },
+}
 
 const AppleIcon = () => (
   <svg
@@ -27,17 +58,55 @@ const AndroidIcon = () => (
   </svg>
 )
 
+const ICONS = { apple: AppleIcon, google: AndroidIcon }
+
 export default function StoreCTAs() {
+  const [openStore, setOpenStore] = useState(null) // 'apple' | 'google' | null
+  const isTouch = useIsTouchDevice()
+
+  const handleClick = (store) => (e) => {
+    if (isTouch) return // Let the anchor follow the href normally.
+    e.preventDefault()
+    setOpenStore(store)
+  }
+
+  const renderButton = (store) => {
+    const Icon = ICONS[store]
+    return (
+      <Button
+        asChild
+        type="button"
+        className="store-cta"
+        data-store={store}
+      >
+        <a
+          href={STORE_URLS[store]}
+          target="_blank"
+          rel="noreferrer"
+          onClick={handleClick(store)}
+        >
+          <Icon />
+          {STORE_COPY[store].label}
+        </a>
+      </Button>
+    )
+  }
+
   return (
-    <div className="store-ctas">
-      <Button type="button" className="store-cta" data-store="apple">
-        <AppleIcon />
-        iOS
-      </Button>
-      <Button type="button" className="store-cta" data-store="google">
-        <AndroidIcon />
-        Android
-      </Button>
-    </div>
+    <>
+      <div className="store-ctas">
+        {renderButton('apple')}
+        {renderButton('google')}
+      </div>
+
+      <StoreModal
+        open={openStore !== null}
+        onClose={() => setOpenStore(null)}
+        title={openStore ? STORE_COPY[openStore].modalTitle : ''}
+        subtitle={openStore ? STORE_COPY[openStore].modalSubtitle : ''}
+        qrValue={openStore ? STORE_URLS[openStore] : ''}
+        directUrl={openStore ? STORE_URLS[openStore] : ''}
+      />
+    </>
   )
 }
