@@ -1,9 +1,7 @@
 import './problem.css'
 
 // Problem section — emotional thesis + product reveal in a single movement.
-// Editorial composition: hero-scale headline, drop-capped lede, two-column
-// dyad pivot, four-fragment coda. No imagery — typography carries it.
-//
+// Single-column editorial composition on a warm paper background.
 // Source-of-truth copy + structural rationale:
 // emberstories-site-kb/planning/site_content/Home/2_Problem.md
 
@@ -24,7 +22,7 @@ export default function Problem() {
           somehow, they feel distant — like files rather than memories.
         </p>
 
-        <div className="problem-dyad" role="group" aria-label="Problem and reframing">
+        <div className="problem-dyad">
           <div className="problem-dyad-side problem-dyad-problem">
             <h3 className="problem-subhead">Cloud storage preserves photos</h3>
             <p>
@@ -45,6 +43,8 @@ export default function Problem() {
             </p>
           </div>
         </div>
+
+        <hr className="problem-rule" aria-hidden="true" />
 
         <div className="problem-coda">
           <p className="problem-fragments">

@@ -1,36 +1,47 @@
-/* Problem section — editorial single-column with a two-column dyad pivot.
-   Background matches the hero (#fafafa) so the section reads as a continuation
-   of the hero's thought, not a new chapter.
+/* Problem section — single-column editorial on a warm-leaning neutral.
+   The page uses a per-section value shift instead of a color palette: the
+   hero is white (#ffffff), this section is slightly weighted (#f4f4f3). All
+   text is black; warmth comes from typography — Source Serif 4 for the
+   editorial prose, the site's default sans for the two dyad subheads (which
+   remain as the section's "modern infrastructure" voice against the serif
+   "human memory" voice).
    See: emberstories-site-kb/planning/site_content/Home/2_Problem.md */
 
 .problem-section {
   width: 100%;
-  background-color: #fafafa;
+  background-color: #f4f4f3;
   padding: 14vh 5vw 12vh;
+
+  /* Serif used selectively on editorial moments. Georgia is the system
+     fallback so the section never goes unstyled mid-load. */
+  --problem-serif: 'Source Serif 4', Georgia, 'Times New Roman', serif;
 }
 
 .problem-inner {
-  max-width: 960px;
+  max-width: 680px;
   margin: 0 auto;
   text-align: center;
 }
 
-/* ─── Section headline ─────────────────────────────────────────────────────
-   Slightly smaller than the hero H1 so visual hierarchy reads hero > section,
-   but big enough to be the strongest line on this part of the page. */
+/* ─── Section headline ───────────────────────────────────────────────────── */
 
 .problem-headline {
+  font-family: var(--problem-serif);
   font-size: clamp(2.75rem, 6vw, 4.25rem);
-  font-weight: 750;
-  letter-spacing: -0.025em;
-  line-height: 1.05;
+  /* Serif at display size carries more visual weight than sans at the same
+     numeric weight — 500 reads as confident-but-quiet, which matches the
+     reflective tone of "We used to reminisce." Push to 600 if it reads
+     under-weighted in context. */
+  font-weight: 500;
+  letter-spacing: -0.008em;
+  line-height: 1.08;
   color: var(--foreground);
   margin: 0 auto;
   max-width: 760px;
 }
 
-/* Hairline used between the major movements (headline → lede → dyad → coda).
-   Centered, short, low-contrast — an editorial signal, not a section break. */
+/* Hairline between major movements — used after the headline and before the
+   coda only. Generous vertical rhythm handles the rest. */
 .problem-rule {
   width: 56px;
   height: 1px;
@@ -40,101 +51,78 @@
   margin: 3.5rem auto;
 }
 
-/* ─── Lede paragraph ───────────────────────────────────────────────────────
-   Narrow reading column. Drop cap on the first letter is the most explicit
-   editorial signal in the section — it tells the visitor "this is an essay,
-   not marketing copy." */
+/* ─── Lede paragraph ─────────────────────────────────────────────────────── */
 
 .problem-lede {
-  max-width: 620px;
+  font-family: var(--problem-serif);
   margin: 0 auto;
-  font-size: 1.125rem;
-  line-height: 1.8;
-  color: var(--muted-foreground);
-  text-align: left;
-  letter-spacing: -0.003em;
-}
-
-.problem-lede::first-letter {
-  float: left;
-  font-size: 4.25rem;
-  line-height: 0.85;
-  font-weight: 750;
+  font-size: 1.1875rem;
+  line-height: 1.75;
   color: var(--foreground);
-  margin: 0.4rem 0.65rem 0 0;
-  letter-spacing: -0.04em;
+  text-align: left;
+  letter-spacing: 0;
 }
 
-/* ─── Dyad ─────────────────────────────────────────────────────────────────
-   "Cloud storage preserves photos" / "Ember preserves stories" as a side-by-
-   side pair on desktop. The visual structure mirrors the rhetorical contrast.
-   Left side is muted (the problem); right side is foreground (the answer).
-   No vertical rule between them — the color/weight differential is enough. */
+/* ─── Dyad — now stacked, no two-column grid ─────────────────────────────── */
 
 .problem-dyad {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  column-gap: 4rem;
-  row-gap: 2rem;
   margin: 3.5rem auto 0;
   text-align: left;
-  max-width: 880px;
+}
+
+.problem-dyad-side + .problem-dyad-side {
+  margin-top: 2.75rem;
 }
 
 .problem-subhead {
-  font-size: clamp(1.25rem, 2vw, 1.5rem);
+  font-size: clamp(1.35rem, 2.2vw, 1.625rem);
   font-weight: 600;
   letter-spacing: -0.015em;
-  line-height: 1.2;
+  line-height: 1.25;
   margin: 0 0 1rem;
 }
 
+/* Dyad subheads stay in the site's default sans — they act as the
+   "modern infrastructure" voice. The serif body paragraphs below them
+   carry the "human memory" voice. */
 .problem-dyad-side p {
-  font-size: 1rem;
+  font-family: var(--problem-serif);
+  font-size: 1.0625rem;
   line-height: 1.7;
   margin: 0;
-}
-
-.problem-dyad-problem .problem-subhead,
-.problem-dyad-problem p {
-  color: var(--muted-foreground);
-}
-
-.problem-dyad-answer .problem-subhead,
-.problem-dyad-answer p {
   color: var(--foreground);
+  letter-spacing: 0;
 }
 
-/* ─── Coda ─────────────────────────────────────────────────────────────────
-   Four fragments stacked as a quatrain, each on its own line. The cadence is
-   the point — it should read like four held beats, not a list. The four
-   moments deliberately echo the hero's three story archetypes (Milestone /
-   Travel / Holiday) plus a fourth that expands to "the everyday." */
+/* ─── Coda ───────────────────────────────────────────────────────────────── */
 
 .problem-coda {
-  margin: 4rem auto 0;
-  max-width: 620px;
+  margin: 0 auto;
+  text-align: center;
 }
 
 .problem-fragments {
-  font-size: clamp(1.25rem, 2.4vw, 1.65rem);
+  font-family: var(--problem-serif);
+  font-size: clamp(1.3rem, 2.5vw, 1.75rem);
   font-weight: 500;
-  letter-spacing: -0.015em;
-  line-height: 1.7;
+  letter-spacing: -0.005em;
+  line-height: 1.65;
   color: var(--foreground);
   margin: 0;
 }
 
 .problem-closing {
-  font-size: 1.0625rem;
+  font-family: var(--problem-serif);
+  font-size: 1.125rem;
   font-style: italic;
-  color: var(--muted-foreground);
+  font-weight: 400;
+  color: var(--foreground);
   margin: 2rem 0 0;
-  letter-spacing: -0.005em;
+  letter-spacing: 0;
   line-height: 1.5;
 }
 
-/* ─── Mobile ───────────────────────────────────────────────────────────── */
+/* ─── Mobile ─────────────────────────────────────────────────────────────── */
 
 @media (max-width: 768px) {
   .problem-section {
@@ -155,28 +143,12 @@
     line-height: 1.75;
   }
 
-  .problem-lede::first-letter {
-    font-size: 3.5rem;
-    margin: 0.35rem 0.5rem 0 0;
-  }
-
-  /* Stack the dyad. A short horizontal rule between them preserves the
-     "but here is the answer" pivot that the side-by-side gap carried on
-     desktop. */
   .problem-dyad {
-    grid-template-columns: 1fr;
-    column-gap: 0;
-    row-gap: 2.25rem;
     margin-top: 2.5rem;
   }
 
-  .problem-dyad-answer {
-    border-top: 1px solid var(--border);
-    padding-top: 2.25rem;
-  }
-
-  .problem-coda {
-    margin-top: 3rem;
+  .problem-dyad-side + .problem-dyad-side {
+    margin-top: 2.25rem;
   }
 
   .problem-fragments {
