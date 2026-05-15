@@ -1,11 +1,11 @@
 import { useEffect } from 'react'
 import Lenis from 'lenis'
 import Hero from '@/components/hero/Hero'
+import Problem from '@/components/problem/Problem'
 import SiteFooter from '@/components/site/SiteFooter'
 import SiteHeader from '@/components/site/SiteHeader'
-import './HomePage.css'
 
-// Marketing homepage. Header + hero + placeholder sections to come.
+// Marketing homepage. Header + hero + problem + (more sections to come).
 // Planning: emberstories-site-kb/planning/site_content/Home/
 //
 // Lenis is initialized at this page level so the smooth-scroll behavior is
@@ -33,22 +33,9 @@ export default function HomePage() {
       <SiteHeader />
       <main>
         <Hero />
-        <PlaceholderSection />
+        <Problem />
       </main>
       <SiteFooter />
     </>
-  )
-}
-
-function PlaceholderSection() {
-  return (
-    <section className="placeholder-section">
-      <div className="placeholder-section-inner">
-      <h2>Why do you need Ember?</h2>
-      <h1>You're losing your stories</h1>
-      <p>The cliches are true - time flies and the kids grow up fast. Your photos continue to pile in the cloud - your memories obscured by a solution built for storage, not story telling.</p>
-      <p>Ember captures and maintains the richness of your life story, allowing you to relive your most cherished memories.</p>
-      </div>
-    </section>
   )
 }
