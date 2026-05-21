@@ -60,6 +60,13 @@ export default function Problem() {
     mm.add(
       '(min-width: 769px) and (prefers-reduced-motion: no-preference)',
       () => {
+        // Lede centering — xPercent/yPercent: -50 is the GSAP-native way to
+        // pull the absolutely-positioned lede back by half its own size,
+        // matching translate(-50%, -50%). Sets the offset once so the
+        // fade-in's y animation below composes on top of the centering
+        // rather than overwriting it.
+        gsap.set(ledeRef.current, { xPercent: -50, yPercent: -50 })
+
         // Lede fade-up as the section approaches viewport — pre-pin, so by
         // the time the pin engages the lede is at full opacity.
         gsap.fromTo(
@@ -86,24 +93,28 @@ export default function Problem() {
         // and "rail moving"; the rail keeps drifting until it fades out
         // with the lede.
         //
-        // Total scroll-distance for the motion: ~287vh (35vh pre-pin +
-        // 252vh of the 280vh pin = motion ends at ~90% of the pin, the
-        // same moment the rail's opacity reaches 0). Stretching the motion
-        // across more scroll naturally slows the rail compared to the
-        // previous pin-only animation.
+        // Translation range: 0 → -(trackWidth - viewportWidth). At x=0 the
+        // first photo's left edge sits at the viewport's left edge; at the
+        // end the last photo's right edge sits at the viewport's right
+        // edge. No extra buffer — the rail content fills the visible width
+        // throughout the motion.
+        //
+        // Total scroll-distance for the motion: ~197vh (35vh pre-pin +
+        // ~162vh of the 180vh pin = motion ends at ~90% of the pin, the
+        // same moment the rail's opacity reaches 0).
         gsap.to(railRef.current, {
           x: () => {
             const track = railRef.current
             if (!track) return 0
             const trackWidth = track.scrollWidth
             const viewportWidth = window.innerWidth
-            return -(trackWidth - viewportWidth + 200)
+            return -(trackWidth - viewportWidth)
           },
           ease: 'none',
           scrollTrigger: {
             trigger: sectionRef.current,
             start: 'top 35%',
-            end: '+=287%',
+            end: '+=197%',
             scrub: 1,
             invalidateOnRefresh: true,
           },
@@ -117,7 +128,7 @@ export default function Problem() {
             scrollTrigger: {
               trigger: stageRef.current,
               start: 'top top',
-              end: '+=280%',
+              end: '+=180%',
               pin: true,
               scrub: 1,
               invalidateOnRefresh: true,
