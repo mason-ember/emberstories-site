@@ -50,103 +50,107 @@ export default function Problem() {
   const [woven, setWoven] = useState(false)
 
   // Pin + scrub timeline. All scroll-driven motion lives here.
+  // Scoped to desktop via gsap.matchMedia — on mobile, the rail goes static
+  // (see problem.css mobile breakpoint) and no GSAP code runs at all.
   useLayoutEffect(() => {
     if (typeof window === 'undefined') return
-    const reduceMotion = window.matchMedia(
-      '(prefers-reduced-motion: reduce)',
-    ).matches
-    if (reduceMotion) return // Reduced-motion users get the static fallback layout.
 
-    const ctx = gsap.context(() => {
-      // Lede fade-up as the section approaches viewport — pre-pin, so by the
-      // time the pin engages the lede is at full opacity.
-      gsap.fromTo(
-        ledeRef.current,
-        { opacity: 0, y: 28 },
-        {
-          opacity: 1,
-          y: 0,
+    const mm = gsap.matchMedia()
+
+    mm.add(
+      '(min-width: 769px) and (prefers-reduced-motion: no-preference)',
+      () => {
+        // Lede fade-up as the section approaches viewport — pre-pin, so by
+        // the time the pin engages the lede is at full opacity.
+        gsap.fromTo(
+          ledeRef.current,
+          { opacity: 0, y: 28 },
+          {
+            opacity: 1,
+            y: 0,
+            ease: 'none',
+            scrollTrigger: {
+              trigger: sectionRef.current,
+              start: 'top 85%',
+              end: 'top 35%',
+              scrub: 1,
+            },
+          },
+        )
+
+        // Rail horizontal motion — its OWN ScrollTrigger, separate from the
+        // pin. Starts the instant the lede reaches full opacity ('top 35%'
+        // — same end-point as the lede fade-in trigger) and continues
+        // straight through pin engagement, the bulk of the pin, and into
+        // the crossfade window. No static moment between "lede settled"
+        // and "rail moving"; the rail keeps drifting until it fades out
+        // with the lede.
+        //
+        // Total scroll-distance for the motion: ~287vh (35vh pre-pin +
+        // 252vh of the 280vh pin = motion ends at ~90% of the pin, the
+        // same moment the rail's opacity reaches 0). Stretching the motion
+        // across more scroll naturally slows the rail compared to the
+        // previous pin-only animation.
+        gsap.to(railRef.current, {
+          x: () => {
+            const track = railRef.current
+            if (!track) return 0
+            const trackWidth = track.scrollWidth
+            const viewportWidth = window.innerWidth
+            return -(trackWidth - viewportWidth + 200)
+          },
           ease: 'none',
           scrollTrigger: {
             trigger: sectionRef.current,
-            start: 'top 85%',
-            end: 'top 35%',
-            scrub: 1,
-          },
-        },
-      )
-
-      // Rail horizontal motion — its OWN ScrollTrigger, separate from the
-      // pin. Starts the instant the lede reaches full opacity ('top 35%' —
-      // same end-point as the lede fade-in trigger) and continues straight
-      // through pin engagement, the bulk of the pin, and into the crossfade
-      // window. No static moment between "lede settled" and "rail moving";
-      // the rail keeps drifting until it fades out with the lede.
-      //
-      // Total scroll-distance for the motion: ~287vh (35vh pre-pin +
-      // 252vh of the 280vh pin = motion ends at ~90% of the pin, the same
-      // moment the rail's opacity reaches 0). Stretching the motion across
-      // more scroll naturally slows the rail compared to the previous
-      // pin-only animation.
-      gsap.to(railRef.current, {
-        x: () => {
-          const track = railRef.current
-          if (!track) return 0
-          const trackWidth = track.scrollWidth
-          const viewportWidth = window.innerWidth
-          return -(trackWidth - viewportWidth + 200)
-        },
-        ease: 'none',
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top 35%',
-          end: '+=287%',
-          scrub: 1,
-          invalidateOnRefresh: true,
-        },
-      })
-
-      // Pin + crossfade timeline. Only handles pin behavior and the
-      // lede→dyad-problem handoff at the end. Rail x is driven separately
-      // (above), so the pin timeline no longer animates it.
-      gsap
-        .timeline({
-          scrollTrigger: {
-            trigger: stageRef.current,
-            start: 'top top',
-            end: '+=280%',
-            pin: true,
+            start: 'top 35%',
+            end: '+=287%',
             scrub: 1,
             invalidateOnRefresh: true,
           },
         })
-        // Crossfade window. Lede + rail fade out from 78%; dyad-problem
-        // fades in from 82% (overlap of 4 percentage points = a true
-        // crossfade rather than a sequential fade-out-then-in). Both
-        // complete by 90% — which matches the rail's motion endpoint, so
-        // the rail is still drifting laterally as it fades out.
-        .to(
-          [ledeRef.current, railFrameRef.current],
-          { opacity: 0, duration: 0.12, ease: 'power2.in' },
-          0.78,
-        )
-        .to(
-          dyadProblemRef.current,
-          { opacity: 1, y: 0, duration: 0.12, ease: 'power2.out' },
-          0.82,
-        )
 
-      // Images load asynchronously; recompute ScrollTrigger geometry once
-      // they're in so the pin distance accounts for the real rail width.
-      const onLoad = () => ScrollTrigger.refresh()
-      if (document.readyState === 'complete') {
-        ScrollTrigger.refresh()
-      } else {
-        window.addEventListener('load', onLoad, { once: true })
-      }
-    }, sectionRef)
+        // Pin + crossfade timeline. Only handles pin behavior and the
+        // lede→dyad-problem handoff at the end. Rail x is driven separately
+        // (above), so the pin timeline no longer animates it.
+        gsap
+          .timeline({
+            scrollTrigger: {
+              trigger: stageRef.current,
+              start: 'top top',
+              end: '+=280%',
+              pin: true,
+              scrub: 1,
+              invalidateOnRefresh: true,
+            },
+          })
+          // Crossfade window. Lede + rail fade out from 78%; dyad-problem
+          // fades in from 82% (overlap of 4 percentage points = a true
+          // crossfade rather than a sequential fade-out-then-in). Both
+          // complete by 90% — which matches the rail's motion endpoint, so
+          // the rail is still drifting laterally as it fades out.
+          .to(
+            [ledeRef.current, railFrameRef.current],
+            { opacity: 0, duration: 0.12, ease: 'power2.in' },
+            0.78,
+          )
+          .to(
+            dyadProblemRef.current,
+            { opacity: 1, y: 0, duration: 0.12, ease: 'power2.out' },
+            0.82,
+          )
 
-    return () => ctx.revert()
+        // Images load asynchronously; recompute ScrollTrigger geometry once
+        // they're in so the pin distance accounts for the real rail width.
+        const onLoad = () => ScrollTrigger.refresh()
+        if (document.readyState === 'complete') {
+          ScrollTrigger.refresh()
+        } else {
+          window.addEventListener('load', onLoad, { once: true })
+        }
+      },
+    )
+
+    return () => mm.revert()
   }, [])
 
   // Coda fragments scatter-align (one-shot, IntersectionObserver-driven).
