@@ -5,14 +5,15 @@ import './problem.css'
 
 gsap.registerPlugin(ScrollTrigger)
 
-// Problem section — three movements:
-//   1. Pinned hero stage. The lede pins top-left (80/80) while a rotated rail
-//      of memory photos scrolls L→R behind it. At the end of the pin, the
-//      lede and rail fade out.
-//   2. Dyad in editorial column. Voice-contrast across the two halves:
-//      problem side dimmed/smaller, answer side full presence.
-//   3. Coda. Four fragments arrive scattered and align as the section enters
-//      viewport; closing line fades in last.
+// Problem section — three full-stage movements stitched together by scroll:
+//   1. Pinned hero stage. The lede pins centered (top-third bias) while a
+//      rotated rail of memory photos drifts L→R behind it. At the end of
+//      the pin, the lede and rail fade out.
+//   2. Combined dyad stage. 100vh, 50/50 split — text (problem + answer,
+//      stacked, voice-contrast preserved) on the left; phone graphic on
+//      the right. Per-half bg colors are configurable via CSS variables.
+//   3. Coda stage. Dark background. Four fragments arrive scattered and
+//      align as the section enters viewport; closing line fades in last.
 //
 // Source-of-truth copy + structural rationale:
 // emberstories-site-kb/planning/site_content/Home/2_Problem.md
@@ -45,7 +46,6 @@ export default function Problem() {
   const ledeRef = useRef(null)
   const railFrameRef = useRef(null)
   const railRef = useRef(null)
-  const dyadProblemRef = useRef(null)
   const codaRef = useRef(null)
   const [woven, setWoven] = useState(false)
 
@@ -88,20 +88,17 @@ export default function Problem() {
         // Rail horizontal motion — its OWN ScrollTrigger, separate from the
         // pin. Starts the instant the lede reaches full opacity ('top 35%'
         // — same end-point as the lede fade-in trigger) and continues
-        // straight through pin engagement, the bulk of the pin, and into
-        // the crossfade window. No static moment between "lede settled"
-        // and "rail moving"; the rail keeps drifting until it fades out
-        // with the lede.
+        // straight through pin engagement and all the way to the end of
+        // the pin. The rail keeps drifting laterally even during the
+        // fade-out, so the user never sees the photos sit static.
         //
         // Translation range: 0 → -(trackWidth - viewportWidth). At x=0 the
         // first photo's left edge sits at the viewport's left edge; at the
         // end the last photo's right edge sits at the viewport's right
-        // edge. No extra buffer — the rail content fills the visible width
-        // throughout the motion.
+        // edge — no leading or trailing dead space.
         //
-        // Total scroll-distance for the motion: ~197vh (35vh pre-pin +
-        // ~162vh of the 180vh pin = motion ends at ~90% of the pin, the
-        // same moment the rail's opacity reaches 0).
+        // Total scroll-distance for the motion: 215vh (35vh pre-pin +
+        // 180vh of pin = motion ends exactly when the pin releases).
         gsap.to(railRef.current, {
           x: () => {
             const track = railRef.current
@@ -114,15 +111,17 @@ export default function Problem() {
           scrollTrigger: {
             trigger: sectionRef.current,
             start: 'top 35%',
-            end: '+=197%',
+            end: '+=215%',
             scrub: 1,
             invalidateOnRefresh: true,
           },
         })
 
-        // Pin + crossfade timeline. Only handles pin behavior and the
-        // lede→dyad-problem handoff at the end. Rail x is driven separately
-        // (above), so the pin timeline no longer animates it.
+        // Pin timeline. Only handles pin behavior and the lede + rail
+        // fade-out at the very end of the pin. Rail x is driven separately
+        // (above). The next beat (combined dyad stage) lives in normal
+        // flow below — it appears as soon as the pin releases, so the
+        // fade-out is timed so the pin stage is empty just before release.
         gsap
           .timeline({
             scrollTrigger: {
@@ -134,20 +133,13 @@ export default function Problem() {
               invalidateOnRefresh: true,
             },
           })
-          // Crossfade window. Lede + rail fade out from 78%; dyad-problem
-          // fades in from 82% (overlap of 4 percentage points = a true
-          // crossfade rather than a sequential fade-out-then-in). Both
-          // complete by 90% — which matches the rail's motion endpoint, so
-          // the rail is still drifting laterally as it fades out.
+          // Fade out timed to complete right as the pin releases (0.85 →
+          // 1.0). Rail is still drifting through the fade because its x
+          // ScrollTrigger runs to the same end point.
           .to(
             [ledeRef.current, railFrameRef.current],
-            { opacity: 0, duration: 0.12, ease: 'power2.in' },
-            0.78,
-          )
-          .to(
-            dyadProblemRef.current,
-            { opacity: 1, y: 0, duration: 0.12, ease: 'power2.out' },
-            0.82,
+            { opacity: 0, duration: 0.15, ease: 'power2.in' },
+            0.85,
           )
 
         // Images load asynchronously; recompute ScrollTrigger geometry once
@@ -219,38 +211,47 @@ export default function Problem() {
             ))}
           </div>
         </div>
+      </div>
 
-        {/* Dyad-problem lives inside the pin stage. It crossfades in as the
-            lede and rail fade out at the end of the pin, so the handoff
-            between the two beats happens on a single frame — no gap. */}
-        <div className="problem-pin-dyad-problem" ref={dyadProblemRef}>
-          <h3 className="problem-subhead">Cloud storage preserves photos</h3>
-          <p>
-            Our phones and cloud services do a remarkable job preserving our
-            photos. But somewhere along the way, the stories began to
-            disappear — fragmented across devices, buried in endless
-            scrolling, reduced to isolated files instead of shared family
-            narratives.
-          </p>
+      {/* ─── Combined dyad stage: 50/50 split ───────────────────────────── */}
+      {/* Each half has its own bg, controllable via the per-half CSS vars
+          --dyad-text-bg and --dyad-visual-bg defined on .problem-section. */}
+      <div className="problem-dyad-stage">
+        <div className="problem-dyad-half problem-dyad-half--text">
+          <div className="problem-dyad-text-inner">
+            <div className="problem-dyad-side problem-dyad-problem">
+              <h3 className="problem-subhead">
+                Cloud storage preserves photos
+              </h3>
+              <p>
+                Our phones and cloud services do a remarkable job preserving
+                our photos. But somewhere along the way, the stories began to
+                disappear — fragmented across devices, buried in endless
+                scrolling, reduced to isolated files instead of shared family
+                narratives.
+              </p>
+            </div>
+            <div className="problem-dyad-side problem-dyad-answer">
+              <h3 className="problem-subhead">Ember preserves stories</h3>
+              <p>
+                Ember turns your photos back into stories — the kind you used
+                to tell. And because the best memories are shared, Ember
+                identifies photos from those who were there with you —
+                weaving them into a single, shared story.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div
+          className="problem-dyad-half problem-dyad-half--visual"
+          aria-hidden="true"
+        >
+          {/* Phone graphic of the app goes here. */}
         </div>
       </div>
 
-      {/* ─── Editorial flow: dyad-answer + coda ─────────────────────────── */}
-      <div className="problem-inner">
-        <div className="problem-dyad">
-          <div className="problem-dyad-side problem-dyad-answer">
-            <h3 className="problem-subhead">Ember preserves stories</h3>
-            <p>
-              Ember turns your photos back into stories — the kind you used to
-              tell. And because the best memories are shared, Ember identifies
-              photos from those who were there with you — weaving them into a
-              single, shared story.
-            </p>
-          </div>
-        </div>
-
-        <hr className="problem-rule" aria-hidden="true" />
-
+      {/* ─── Coda stage: dark bg, light text ────────────────────────────── */}
+      <div className="problem-coda-stage">
         <div
           ref={codaRef}
           className={`problem-coda${woven ? ' is-woven' : ''}`}

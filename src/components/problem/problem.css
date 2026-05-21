@@ -1,20 +1,29 @@
-/* Problem section — three movements stitched together by scroll:
-   1. Pinned hero stage with lede + rotated parallax rail
-   2. Editorial dyad column with voice contrast
-   3. Editorial coda with scatter-align reveal
-   Background is the warm-leaning neutral that distinguishes the section
-   from the white hero above.
+/* Problem section — three full-stage movements stitched together by scroll:
+   1. Pinned hero stage (warm neutral bg) with lede + rotated parallax rail
+   2. Combined dyad stage (50/50 split, light bg per half)
+   3. Coda stage (dark bg, light text)
+   Each stage owns its own background; per-half dyad backgrounds are
+   driven by CSS custom properties so the two halves can carry different
+   colors when the right-side phone graphic lands.
    See: emberstories-site-kb/planning/site_content/Home/2_Problem.md */
 
 .problem-section {
   width: 100%;
-  background-color: #f4f4f3;
   --problem-serif: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+
+  /* Per-stage / per-half background tokens. Override any of these to
+     change a region's color without touching the structural rules. */
+  --pin-bg: #f4f4f3;          /* warm neutral — current pin stage */
+  --dyad-text-bg: #fcfcfd;    /* near-white, matches hero bg */
+  --dyad-visual-bg: #fcfcfd;  /* near-white; change to differentiate */
+  --coda-bg: #101828;         /* near-black */
+  --coda-text: #f9fafb;       /* near-white */
+  --coda-text-muted: #d0d5dd; /* light gray */
 }
 
 /* ─── Pinned hero stage ──────────────────────────────────────────────────── */
 
-/* Stage holds the lede and the rail. GSAP pins this element for ~280vh
+/* Stage holds the lede and the rail. GSAP pins this element for ~180vh
    of scroll while the rail track translates inside. overflow: hidden
    contains the rotated rail's bounding box, which extends beyond the
    viewport diagonally. */
@@ -23,6 +32,7 @@
   height: 100vh;
   width: 100%;
   overflow: hidden;
+  background-color: var(--pin-bg);
 }
 
 /* Lede centered absolutely in the pin stage. GSAP applies the matching
@@ -105,7 +115,7 @@
   overflow: hidden;
   background: #e8e3da;
   /* Slight shadow to lift the photos off the warm background; subtle so the
-     60% opacity treatment isn't undermined. */
+     opacity treatment isn't undermined. */
   box-shadow: 0 8px 24px -12px rgba(20, 20, 20, 0.25);
 }
 
@@ -126,75 +136,48 @@
   object-fit: cover;
 }
 
-/* ─── Dyad-problem inside the pin stage ──────────────────────────────────── */
+/* ─── Dyad stage ─────────────────────────────────────────────────────────── */
 
-/* Positioned mid-stage so when it crossfades in, it sits naturally in
-   the editorial register — not pinned to a corner like the lede.
-   Initial opacity 0 (GSAP fades to 1). Slight initial y-offset matches
-   the lede's entry style for visual continuity across the handoff. */
-.problem-pin-dyad-problem {
-  position: absolute;
-  top: 34vh;
-  left: 50%;
-  transform: translate(-50%, 16px);
-  width: min(680px, calc(100% - 10vw));
-  text-align: left;
-  opacity: 0;
-  z-index: 2;
-  will-change: opacity, transform;
+/* 100vh, 50/50 split. Each half owns its own background via the per-half
+   CSS variables defined at the section root, so the right side can later
+   carry a different bg if the phone graphic wants one. */
+.problem-dyad-stage {
+  display: flex;
+  flex-direction: row;
+  min-height: 100vh;
+  width: 100%;
 }
 
-.problem-pin-dyad-problem .problem-subhead {
-  font-size: clamp(1.15rem, 1.9vw, 1.35rem);
-  font-weight: 500;
-  letter-spacing: -0.015em;
-  line-height: 1.25;
-  color: rgba(20, 20, 20, 0.6);
-  margin: 0 0 1rem;
+.problem-dyad-half {
+  flex: 1 1 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  min-width: 0;
 }
 
-.problem-pin-dyad-problem p {
-  font-family: var(--problem-serif);
-  font-size: 1rem;
-  line-height: 1.65;
-  color: rgba(20, 20, 20, 0.65);
-  margin: 0;
-  letter-spacing: 0;
+.problem-dyad-half--text {
+  background-color: var(--dyad-text-bg);
+  padding: 10vh 6vw;
 }
 
-/* ─── Editorial flow — dyad-answer + coda ────────────────────────────────── */
-
-/* Reduced top padding: the dyad-problem inside the pin already serves as
-   the section's intermediate beat. The editorial column starts close to
-   the pin's end so the dyad-answer follows tightly after dyad-problem
-   exits the viewport. */
-.problem-inner {
-  max-width: 680px;
-  margin: 0 auto;
-  padding: 6vh 5vw 12vh;
-  text-align: center;
+.problem-dyad-half--visual {
+  background-color: var(--dyad-visual-bg);
 }
 
-/* Hairline used only between dyad and coda — the pin stage and the lede
-   above handle their own separation. */
-.problem-rule {
-  width: 56px;
-  height: 1px;
-  background: var(--foreground);
-  opacity: 0.2;
-  border: 0;
-  margin: 3.5rem auto;
-}
-
-/* ─── Dyad — stacked with voice contrast ─────────────────────────────────── */
-
-.problem-dyad {
-  margin: 0 auto;
+/* Text half inner container. Constrains the line length so the paragraphs
+   read at a comfortable measure regardless of viewport width. */
+.problem-dyad-text-inner {
+  max-width: 480px;
+  width: 100%;
   text-align: left;
 }
+
+/* ─── Dyad copy — voice contrast preserved ───────────────────────────────── */
 
 .problem-dyad-side + .problem-dyad-side {
-  margin-top: 3rem;
+  margin-top: 2.75rem;
 }
 
 .problem-subhead {
@@ -204,31 +187,47 @@
   margin: 0 0 1rem;
 }
 
-.problem-dyad-side p {
-  font-family: var(--problem-serif);
+/* Problem half — quieter. Lower-opacity color, smaller subhead, tighter
+   body. */
+.problem-dyad-problem .problem-subhead {
+  font-size: clamp(1.15rem, 1.6vw, 1.35rem);
+  font-weight: 500;
+  color: rgba(20, 20, 20, 0.6);
+}
+
+.problem-dyad-problem p {
+  font-size: 1rem;
+  line-height: 1.65;
+  color: rgba(20, 20, 20, 0.65);
   margin: 0;
-  color: var(--foreground);
   letter-spacing: 0;
 }
 
-/* Answer half — full presence. The problem half lives in the pin stage
-   above (see .problem-pin-dyad-problem); the editorial column leads
-   directly with the answer. */
+/* Answer half — full presence. */
 .problem-dyad-answer .problem-subhead {
-  font-size: clamp(1.4rem, 2.4vw, 1.75rem);
+  font-size: clamp(1.4rem, 2.2vw, 1.75rem);
   font-weight: 600;
   color: var(--foreground);
 }
 
 .problem-dyad-answer p {
   font-size: 1.1875rem;
-  line-height: 1.75;
+  line-height: 1.7;
   color: var(--foreground);
+  margin: 0;
+  letter-spacing: -0.005em;
 }
 
-/* ─── Coda — scatter then align ──────────────────────────────────────────── */
+/* ─── Coda stage ─────────────────────────────────────────────────────────── */
+
+.problem-coda-stage {
+  background-color: var(--coda-bg);
+  color: var(--coda-text);
+  padding: 18vh 5vw;
+}
 
 .problem-coda {
+  max-width: 680px;
   margin: 0 auto;
   text-align: center;
 }
@@ -239,7 +238,7 @@
   font-weight: 500;
   letter-spacing: -0.005em;
   line-height: 1.65;
-  color: var(--foreground);
+  color: var(--coda-text);
   margin: 0;
 }
 
@@ -263,7 +262,7 @@
   font-size: 1.125rem;
   font-style: italic;
   font-weight: 400;
-  color: var(--foreground);
+  color: var(--coda-text-muted);
   margin: 2rem 0 0;
   letter-spacing: 0;
   line-height: 1.5;
@@ -310,17 +309,6 @@
     padding: 0 5vw;
   }
 
-  /* In static layout the in-stage dyad-problem appears below the rail,
-     in the same editorial register it would have during the crossfade. */
-  .problem-pin-dyad-problem {
-    position: static;
-    transform: none;
-    opacity: 1;
-    width: 100%;
-    max-width: 720px;
-    margin: 4rem auto 0;
-  }
-
   .problem-fragment,
   .problem-closing {
     opacity: 1 !important;
@@ -331,13 +319,14 @@
 
 /* ─── Mobile ─────────────────────────────────────────────────────────────── */
 
-/* Mobile drops the entire scroll choreography. The pin doesn't engage (GSAP
-   is scoped to (min-width: 769px) via gsap.matchMedia), so the stage flows
-   as a normal block. The rail still appears at an angle, but statically —
-   only the first 4 photos are shown to keep the composition tight at
-   smaller viewports. The dyad-problem flows in below the rail in normal
-   document order. */
+/* Mobile drops the scroll choreography. The pin doesn't engage (GSAP is
+   scoped to (min-width: 769px) via gsap.matchMedia), so the pin stage
+   flows as a normal block. The rail still appears at an angle, but
+   statically — only the first 4 photos are shown to keep the composition
+   tight at smaller viewports. The dyad stage stacks vertically (text
+   above visual), and the coda follows. */
 @media (max-width: 768px) {
+  /* Pin stage → static layout */
   .problem-pin-stage {
     height: auto;
     overflow: visible;
@@ -362,10 +351,7 @@
     line-height: 1.65;
   }
 
-  /* Static angled rail. position: relative + fixed height takes it out of
-     absolute overlay mode (where it was layered behind the lede) and into
-     normal flow as a discrete block under the lede. transform: none on
-     the track guards against any residual GSAP translation. */
+  /* Static angled rail, only first 4 photos. */
   .problem-rail-frame {
     position: relative;
     inset: auto;
@@ -384,8 +370,6 @@
     width: 100%;
   }
 
-  /* Hide everything past the first 4 photos. display: none also keeps
-     lazy-loaded images from being fetched on mobile. */
   .problem-rail-photo:nth-child(n + 5) {
     display: none;
   }
@@ -400,28 +384,34 @@
     height: 150px;
   }
 
-  /* Dyad-problem becomes a normal-flow block under the rail, fully visible
-     (no crossfade to do without the pin). */
-  .problem-pin-dyad-problem {
-    position: static;
-    transform: none;
-    opacity: 1;
+  /* Dyad stage → stacked. Text first, then visual half. Each half takes
+     full width; min-height lets them carry vertical breathing room. */
+  .problem-dyad-stage {
+    flex-direction: column;
+    min-height: auto;
+  }
+
+  .problem-dyad-half {
+    flex: 0 0 auto;
     width: 100%;
+    min-height: 60vh;
+  }
+
+  .problem-dyad-half--text {
+    padding: 10vh 24px;
+  }
+
+  .problem-dyad-text-inner {
     max-width: 100%;
-    padding: 0 24px;
-    margin: 5vh auto 0;
-  }
-
-  .problem-inner {
-    padding: 6vh 1.5rem 8vh;
-  }
-
-  .problem-rule {
-    margin: 2.5rem auto;
   }
 
   .problem-dyad-side + .problem-dyad-side {
     margin-top: 2.25rem;
+  }
+
+  /* Coda stage */
+  .problem-coda-stage {
+    padding: 12vh 24px;
   }
 
   .problem-fragments {
