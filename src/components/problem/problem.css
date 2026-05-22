@@ -25,9 +25,15 @@
   justify-content: center;
   background-color: var(--pin-bg);
   padding: 8vh 5vw;
+  /* Clip the bg parallax shapes (which extend to inset:0 of this stage
+     and may drift beyond it via mouse/scroll transforms). */
+  overflow: hidden;
 }
 
 .problem-pin-lede {
+  /* Sit above the .hero-bg layer (z-index: 0) that now lives in this stage. */
+  position: relative;
+  z-index: 2;
   max-width: min(820px, 88vw);
   text-align: center;
   opacity: 0;

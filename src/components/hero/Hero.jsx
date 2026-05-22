@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useReducer, useRef } from 'react'
-import HeroBackground from './HeroBackground'
 import HeroHeadline, { HeroCTA } from './HeroHeadline'
 import HeroPhaseTile from './HeroPhaseTile'
 import HeroProgressDots from './HeroProgressDots'
@@ -110,7 +109,9 @@ export default function Hero() {
     <section ref={heroRef} className="hero" aria-label="Ember stories hero">
       <HeroScrollParallaxProvider heroRef={heroRef}>
       <HeroParallaxProvider heroRef={heroRef}>
-        <HeroBackground />
+        {/* Background parallax shapes moved to the Problem section. The
+            hero parallax providers stay because HeroPhaseTile, HeroAvatar,
+            and HeroStickers still register against the hero rect. */}
         {/* OS platform stickers hidden for now — uncomment to restore */}
         {/* <HeroStickers /> */}
 
