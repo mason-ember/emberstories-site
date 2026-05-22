@@ -8,7 +8,7 @@ export default function HeroHeadline() {
     <div className="hero-headline">
       <h1>Rescue your stories from the cloud</h1>
       <h2>
-        Ember scans and monitors your photo library for meaningful memories, creating organized stories to be shared and relived.
+        Ember transforms your family's photos into stories worth sharing and reliving.
       </h2>
     </div>
   )

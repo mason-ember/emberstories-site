@@ -1,316 +1,73 @@
-/* Problem section — three full-stage movements stitched together by scroll:
-   1. Pinned hero stage (warm neutral bg) with lede + rotated parallax rail
-   2. Combined dyad stage (50/50 split, light bg per half)
-   3. Coda stage (dark bg, light text)
-   Each stage owns its own background; per-half dyad backgrounds are
-   driven by CSS custom properties so the two halves can carry different
-   colors when the right-side phone graphic lands.
-   See: emberstories-site-kb/planning/site_content/Home/2_Problem.md */
+/* Problem section — simplified pass.
+   Single centered serif lede that fades in on scroll. The earlier
+   pin + parallax-rail + dyad + coda composition was removed while we
+   move the page toward a conventional consumer-SaaS flow. Copy and
+   structural rationale for the fuller treatment live in:
+   emberstories-site-kb/planning/site_content/Home/2_Problem.md */
 
 .problem-section {
   width: 100%;
-  --problem-serif: 'Source Serif 4', Georgia, 'Times New Roman', serif;
-
-  /* Per-stage / per-half background tokens. Override any of these to
-     change a region's color without touching the structural rules. */
-  --pin-bg: #f4f4f3;          /* warm neutral — current pin stage */
-  --dyad-text-bg: #fcfcfd;    /* near-white, matches hero bg */
-  --dyad-visual-bg: #fcfcfd;  /* near-white; change to differentiate */
-  --coda-bg: #101828;         /* near-black */
-  --coda-text: #f9fafb;       /* near-white */
-  --coda-text-muted: #d0d5dd; /* light gray */
+  --problem-serif: var(--font-serif);
+  --pin-bg: #f4f4f3;
 }
 
-/* ─── Pinned hero stage ──────────────────────────────────────────────────── */
-
-/* Stage holds the lede and the rail. GSAP pins this element for ~180vh
-   of scroll while the rail track translates inside. overflow: hidden
-   contains the rotated rail's bounding box, which extends beyond the
-   viewport diagonally. */
+/* Single stage — fills the viewport so the lede sits at vertical center
+   without any pinning or scrub-driven motion. */
 .problem-pin-stage {
   position: relative;
-  height: 100vh;
-  width: 100%;
-  overflow: hidden;
-  background-color: var(--pin-bg);
-}
-
-/* Lede centered absolutely in the pin stage. GSAP applies the matching
-   xPercent/yPercent: -50 offsets so the box centers on its own midpoint
-   while still allowing the y-translate fade-in to compose cleanly.
-   Sized larger than the dyad/coda copy below so it tracks the hero's
-   display weight rather than the section's editorial body weight. */
-.problem-pin-lede {
-  position: absolute;
-  /* Biased toward the top: vertical center of the upper 2/3 of the stage
-     (33vh ≈ 1/3 viewport height). Leaves the lower half free for the
-     rotated rail to occupy without crowding the type. */
-  top: 33%;
-  left: 50%;
-  max-width: min(720px, 70vw);
-  text-align: center;
-  z-index: 2;
-  will-change: transform, opacity;
-}
-
-.problem-pin-lede .problem-headline {
-  /* Inherits the site's default sans (same family as the hero h1). Weight
-     and letter-spacing nudged to match the hero's display register — sans
-     at 500/-0.012 reads markedly lighter than serif at the same values. */
-  font-size: clamp(2.5rem, 5.25vw, 4.75rem);
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  line-height: 1.06;
-  color: var(--foreground);
-  margin: 0 0 1.5rem;
-}
-
-.problem-pin-lede .problem-lede {
-  /* Inherits site default sans; weight bumped to 400 so body copy reads at
-     standard sans body weight rather than the lighter inherited default. */
-  font-size: clamp(1.5rem, 1.8vw, 1.75rem);
-  font-weight: 400;
-  line-height: 1.5;
-  color: var(--foreground);
-  margin: 0;
-  letter-spacing: -0.005em;
-}
-
-/* ─── Rotated parallax rail ──────────────────────────────────────────────── */
-
-/* Frame is the rotated coordinate frame; it doesn't move. Translation
-   happens on the inner track. The rotation pivots around the frame's
-   center, then translateY pushes the whole assembly toward the lower
-   half of the viewport. */
-.problem-rail-frame {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  pointer-events: none;
-  opacity: 0.5;
-  transform: translateY(22%) rotate(-15deg);
-  transform-origin: center center;
-  will-change: opacity;
-}
-
-/* Track is the long horizontal strip of photos. GSAP translates this along
-   x; the rotation from the parent frame skews the translation diagonally
-   on screen (which is exactly what we want — photos slide along the
-   tilted rail axis). No outer padding — the rail starts with the first
-   photo at the viewport's left edge and ends with the last photo at the
-   right edge, so the user never sees a swath of empty rail. */
-.problem-rail-track {
-  display: flex;
-  flex-shrink: 0;
-  gap: 12px;
-  padding: 0;
-  will-change: transform;
-}
-
-.problem-rail-photo {
-  flex-shrink: 0;
-  margin: 0;
-  border-radius: 5px;
-  overflow: hidden;
-  background: #e8e3da;
-  /* Slight shadow to lift the photos off the warm background; subtle so the
-     opacity treatment isn't undermined. */
-  box-shadow: 0 8px 24px -12px rgba(20, 20, 20, 0.25);
-}
-
-.problem-rail-photo--landscape {
-  width: 480px;
-  height: 360px;
-}
-
-.problem-rail-photo--portrait {
-  width: 270px;
-  height: 360px;
-}
-
-.problem-rail-photo img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-/* ─── Dyad stage ─────────────────────────────────────────────────────────── */
-
-/* 100vh, 50/50 split. Each half owns its own background via the per-half
-   CSS variables defined at the section root, so the right side can later
-   carry a different bg if the phone graphic wants one. */
-.problem-dyad-stage {
-  display: flex;
-  flex-direction: row;
   min-height: 100vh;
+  /* svh tracks the dynamic viewport on mobile (excludes browser chrome),
+     so the stage still fills the screen when the URL bar collapses. */
+  min-height: 100svh;
   width: 100%;
-}
-
-.problem-dyad-half {
-  flex: 1 1 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  position: relative;
-  min-width: 0;
+  background-color: var(--pin-bg);
+  padding: 8vh 5vw;
 }
 
-.problem-dyad-half--text {
-  background-color: var(--dyad-text-bg);
-  padding: 10vh 6vw;
-}
-
-.problem-dyad-half--visual {
-  background-color: var(--dyad-visual-bg);
-}
-
-/* Text half inner container. Constrains the line length so the paragraphs
-   read at a comfortable measure regardless of viewport width. */
-.problem-dyad-text-inner {
-  max-width: 480px;
-  width: 100%;
-  text-align: left;
-}
-
-/* ─── Dyad copy — voice contrast preserved ───────────────────────────────── */
-
-.problem-dyad-side + .problem-dyad-side {
-  margin-top: 2.75rem;
-}
-
-.problem-subhead {
-  font-weight: 600;
-  letter-spacing: -0.015em;
-  line-height: 1.25;
-  margin: 0 0 1rem;
-}
-
-/* Problem half — quieter. Lower-opacity color, smaller subhead, tighter
-   body. */
-.problem-dyad-problem .problem-subhead {
-  font-size: clamp(1.15rem, 1.6vw, 1.35rem);
-  font-weight: 500;
-  color: rgba(20, 20, 20, 0.6);
-}
-
-.problem-dyad-problem p {
-  font-size: 1rem;
-  line-height: 1.65;
-  color: rgba(20, 20, 20, 0.65);
-  margin: 0;
-  letter-spacing: 0;
-}
-
-/* Answer half — full presence. */
-.problem-dyad-answer .problem-subhead {
-  font-size: clamp(1.4rem, 2.2vw, 1.75rem);
-  font-weight: 600;
-  color: var(--foreground);
-}
-
-.problem-dyad-answer p {
-  font-size: 1.1875rem;
-  line-height: 1.7;
-  color: var(--foreground);
-  margin: 0;
-  letter-spacing: -0.005em;
-}
-
-/* ─── Coda stage ─────────────────────────────────────────────────────────── */
-
-.problem-coda-stage {
-  background-color: var(--coda-bg);
-  color: var(--coda-text);
-  padding: 18vh 5vw;
-}
-
-.problem-coda {
-  max-width: 680px;
-  margin: 0 auto;
+.problem-pin-lede {
+  max-width: min(820px, 88vw);
   text-align: center;
-}
-
-.problem-fragments {
-  font-family: var(--problem-serif);
-  font-size: clamp(1.3rem, 2.5vw, 1.75rem);
-  font-weight: 500;
-  letter-spacing: -0.005em;
-  line-height: 1.65;
-  color: var(--coda-text);
-  margin: 0;
-}
-
-.problem-fragment {
-  display: block;
   opacity: 0;
-  transform: translateX(var(--dx, 0)) rotate(var(--rot, 0));
+  transform: translateY(18px);
   transition:
-    opacity 1.1s ease-out var(--delay, 0s),
-    transform 1.1s cubic-bezier(0.22, 1, 0.36, 1) var(--delay, 0s);
+    opacity 0.9s ease-out,
+    transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
   will-change: transform, opacity;
 }
 
-.problem-coda.is-woven .problem-fragment {
-  opacity: 1;
-  transform: translateX(0) rotate(0deg);
-}
-
-.problem-closing {
-  font-family: var(--problem-serif);
-  font-size: 1.125rem;
-  font-style: italic;
-  font-weight: 400;
-  color: var(--coda-text-muted);
-  margin: 2rem 0 0;
-  letter-spacing: 0;
-  line-height: 1.5;
-  opacity: 0;
-  transform: translateY(6px);
-  transition:
-    opacity 1.3s ease-out 1.05s,
-    transform 1.3s cubic-bezier(0.22, 1, 0.36, 1) 1.05s;
-}
-
-.problem-coda.is-woven .problem-closing {
+.problem-pin-lede.is-visible {
   opacity: 1;
   transform: translateY(0);
 }
 
+.problem-pin-lede .problem-headline {
+  font-family: var(--problem-serif);
+  font-size: clamp(2.5rem, 5vw, 4.25rem);
+  font-weight: 700;
+  letter-spacing: -0.022em;
+  line-height: 1.05;
+  color: var(--foreground);
+  margin: 0 0 1.75rem;
+}
+
+.problem-pin-lede .problem-lede {
+  /* Supporting copy under the serif h2 — sans so the editorial weight
+     stays with the section header. */
+  font-size: clamp(1.5rem, 2.6vw, 2.25rem);
+  font-weight: 400;
+  line-height: 1.45;
+  color: var(--foreground);
+  margin: 0;
+  letter-spacing: -0.005em;
+}
+
 /* ─── Reduced motion ─────────────────────────────────────────────────────── */
 
-/* For users who've asked for reduced motion: collapse the pinned stage into
-   a static lede + non-scrolling photo rail, and freeze the coda reveal. */
 @media (prefers-reduced-motion: reduce) {
-  .problem-pin-stage {
-    height: auto;
-    overflow: visible;
-    padding: 12vh 5vw 4vh;
-  }
-
   .problem-pin-lede {
-    position: static;
-    max-width: 720px;
-    margin: 0 auto 4rem;
-  }
-
-  .problem-rail-frame {
-    position: relative;
-    inset: auto;
-    height: 280px;
-    transform: none;
-    overflow-x: auto;
-    overflow-y: hidden;
-    opacity: 1;
-  }
-
-  .problem-rail-track {
-    padding: 0 5vw;
-  }
-
-  .problem-fragment,
-  .problem-closing {
     opacity: 1 !important;
     transform: none !important;
     transition: none !important;
@@ -319,102 +76,18 @@
 
 /* ─── Mobile ─────────────────────────────────────────────────────────────── */
 
-/* Mobile drops the scroll choreography. The pin doesn't engage (GSAP is
-   scoped to (min-width: 769px) via gsap.matchMedia), so the pin stage
-   flows as a normal block. The rail still appears at an angle, but
-   statically — only the first 4 photos are shown to keep the composition
-   tight at smaller viewports. The dyad stage stacks vertically (text
-   above visual), and the coda follows. */
 @media (max-width: 768px) {
-  /* Pin stage → static layout */
   .problem-pin-stage {
-    height: auto;
-    overflow: visible;
-    padding: 12vh 0 6vh;
-  }
-
-  .problem-pin-lede {
-    position: static;
-    padding: 0 24px;
-    max-width: 100%;
-    margin: 0;
-  }
-
-  .problem-pin-lede .problem-headline {
-    font-size: clamp(2.25rem, 9vw, 3rem);
-    letter-spacing: -0.02em;
-    margin-bottom: 1rem;
-  }
-
-  .problem-pin-lede .problem-lede {
-    font-size: 1.25rem;
-    line-height: 1.65;
-  }
-
-  /* Static angled rail, only first 4 photos. */
-  .problem-rail-frame {
-    position: relative;
-    inset: auto;
-    width: 100%;
-    height: 280px;
-    margin-top: 5vh;
-    transform: rotate(-10deg);
-    opacity: 0.7;
-    overflow: hidden;
-  }
-
-  .problem-rail-track {
-    transform: none !important;
-    padding: 0;
-    justify-content: center;
-    width: 100%;
-  }
-
-  .problem-rail-photo:nth-child(n + 5) {
-    display: none;
-  }
-
-  .problem-rail-photo--landscape {
-    width: 200px;
-    height: 150px;
-  }
-
-  .problem-rail-photo--portrait {
-    width: 112px;
-    height: 150px;
-  }
-
-  /* Dyad stage → stacked. Text first, then visual half. Each half takes
-     full width; min-height lets them carry vertical breathing room. */
-  .problem-dyad-stage {
-    flex-direction: column;
-    min-height: auto;
-  }
-
-  .problem-dyad-half {
-    flex: 0 0 auto;
-    width: 100%;
-    min-height: 60vh;
-  }
-
-  .problem-dyad-half--text {
-    padding: 10vh 24px;
-  }
-
-  .problem-dyad-text-inner {
-    max-width: 100%;
-  }
-
-  .problem-dyad-side + .problem-dyad-side {
-    margin-top: 2.25rem;
-  }
-
-  /* Coda stage */
-  .problem-coda-stage {
     padding: 12vh 24px;
   }
 
-  .problem-fragments {
-    font-size: clamp(1.15rem, 5vw, 1.45rem);
+  .problem-pin-lede .problem-headline {
+    font-size: clamp(2rem, 8.5vw, 2.75rem);
+    margin-bottom: 1.25rem;
+  }
+
+  .problem-pin-lede .problem-lede {
+    font-size: clamp(1.25rem, 5.5vw, 1.625rem);
+    line-height: 1.5;
   }
 }

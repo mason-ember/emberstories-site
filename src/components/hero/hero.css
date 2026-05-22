@@ -8,7 +8,7 @@
   width: 100%;
   min-height: 100vh;
   overflow: hidden;
-  background-color: #fafafa;
+  background-color: #fff;
 }
 
 /* ─── Background parallax shapes ────────────────────────────────────────── */
@@ -72,8 +72,12 @@
 }
 
 .hero-headline h2 {
-  font-size: clamp(1.5rem, 2vw, 2.25rem);
+  /* Supporting subhead under the serif h1 — sans so the editorial weight
+     stays with the headline alone. */
+  font-family: var(--font-sans);
+  font-size: clamp(1.5rem, 3vw, 2.25rem);
   font-weight: 350;
+  letter-spacing: -0.015em;
   line-height: 1.15;
   color: var(--foreground);
   margin: 2rem 0 0;

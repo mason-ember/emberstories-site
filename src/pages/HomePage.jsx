@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import Lenis from 'lenis'
 import Hero from '@/components/hero/Hero'
 import Problem from '@/components/problem/Problem'
+import Solution from '@/components/solution/Solution'
 import SiteFooter from '@/components/site/SiteFooter'
 import SiteHeader from '@/components/site/SiteHeader'
 
@@ -34,6 +35,7 @@ export default function HomePage() {
       <main>
         <Hero />
         <Problem />
+        <Solution />
       </main>
       <SiteFooter />
     </>
