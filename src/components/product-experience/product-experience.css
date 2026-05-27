@@ -1,0 +1,203 @@
+/* Product Experience (§3) — button-controlled carousel.
+   Section background is deep aubergine; slides are 2-column (text left,
+   image right). Buttons above carousel act as tabs. */
+
+.px-section {
+  background-color: #1A1325;
+  color: #fff;
+  padding: 96px 5vw;
+  width: 100%;
+}
+
+/* ─── Tab buttons ───────────────────────────────────────────────────────── */
+
+.px-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin: 0 auto 64px;
+  flex-wrap: wrap;
+}
+
+.px-tab {
+  appearance: none;
+  -webkit-appearance: none;
+  /* Reserve the same border footprint as the active state so the button
+     dimensions don't shift when the glass border appears. */
+  border: 1px solid transparent;
+  cursor: pointer;
+  padding: 16px 24px;
+  border-radius: 9999px;
+  background-color: transparent;
+  color: #D9D2DD;
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.005em;
+  transition:
+    background-color 0.25s ease,
+    border-color 0.25s ease,
+    color 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.px-tab:hover:not(.is-active) {
+  color: #fff;
+}
+
+.px-tab:focus-visible {
+  outline: 2px solid #811193;
+  outline-offset: 3px;
+}
+
+/* Liquid-glass active state: frosted translucent fill + soft inner highlight
+   for the specular edge, plus a faint outer halo for depth. Sits above the
+   #1A1325 section bg so the backdrop blur picks up subtle tonal variation. */
+.px-tab.is-active {
+  color: #fff;
+  background-color: rgba(255, 255, 255, 0.14);
+  border-color: rgba(255, 255, 255, 0.22);
+  backdrop-filter: blur(18px) saturate(160%);
+  -webkit-backdrop-filter: blur(18px) saturate(160%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.28),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.12),
+    0 8px 24px rgba(0, 0, 0, 0.25);
+}
+
+/* ─── Slide ─────────────────────────────────────────────────────────────── */
+
+.px-slide-wrap {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.px-slide {
+  display: grid;
+  grid-template-columns: minmax(0, 480px) minmax(0, 760px);
+  gap: 40px;
+  align-items: center;
+  justify-content: center;
+  animation: px-slide-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes px-slide-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.px-slide-text {
+  max-width: 480px;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.px-slide-heading {
+  font-family: var(--font-serif);
+  font-size: clamp(2rem, 3.4vw, 2.75rem);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: #fff;
+  margin: 0 0 1.25rem;
+}
+
+.px-slide-body {
+  font-family: var(--font-sans);
+  font-size: clamp(1.0625rem, 1.4vw, 1.1875rem);
+  font-weight: 400;
+  line-height: 1.55;
+  color: #D9D2DD;
+  margin: 0;
+}
+
+.px-slide-visual {
+  max-width: 760px;
+  width: 100%;
+  /* Reserve space before image decode and keep all slides the same height
+     so switching tabs can't collapse the section (which previously caused
+     the page to jump and reveal the Solution section above). Matches the
+     natural aspect of timeline-grid.png (1352x996). */
+  aspect-ratio: 1352 / 996;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.px-slide-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  border-radius: 12px;
+}
+
+.px-slide-placeholder {
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  background-color: rgba(255, 255, 255, 0.04);
+  border: 1px dashed rgba(255, 255, 255, 0.18);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(217, 210, 221, 0.7);
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+/* ─── Reduced motion ────────────────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .px-slide {
+    animation: none;
+  }
+  .px-tab {
+    transition: none;
+  }
+}
+
+/* ─── Mobile ────────────────────────────────────────────────────────────── */
+
+@media (max-width: 900px) {
+  .px-section {
+    padding: 72px 24px;
+  }
+
+  .px-tabs {
+    gap: 8px;
+    margin-bottom: 40px;
+  }
+
+  .px-tab {
+    padding: 12px 18px;
+    font-size: 0.9375rem;
+  }
+
+  .px-slide {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 32px;
+  }
+
+  .px-slide-text {
+    max-width: 100%;
+    order: 2;
+    text-align: center;
+    align-items: center;
+  }
+
+  .px-slide-visual {
+    order: 1;
+  }
+}

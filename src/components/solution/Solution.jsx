@@ -44,7 +44,7 @@ export default function Solution() {
       >
         <div className="solution-text">
           <h2 id="solution-headline" className="solution-headline">
-            Ember rediscovers and preserves your life stories
+            Ember recreates and preserves your life stories
           </h2>
           <p className="solution-body">
             And because the best moments are shared, Ember finds photos from

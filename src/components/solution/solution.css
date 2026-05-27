@@ -3,10 +3,9 @@
    shifts from centered editorial-serif to a left-aligned product pitch. */
 
 .solution-section {
-  --solution-bg: #E3E1DC;
   --solution-serif: var(--font-serif);
   width: 100%;
-  background-color: var(--solution-bg);
+  background: linear-gradient(180deg, #D9D2DD 0%, #FFF 100%);
   padding: 12vh 6vw;
   overflow: hidden;
 }

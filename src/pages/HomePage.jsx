@@ -3,6 +3,7 @@ import Lenis from 'lenis'
 import Hero from '@/components/hero/Hero'
 import Problem from '@/components/problem/Problem'
 import Solution from '@/components/solution/Solution'
+import ProductExperience from '@/components/product-experience/ProductExperience'
 import SiteFooter from '@/components/site/SiteFooter'
 import SiteHeader from '@/components/site/SiteHeader'
 
@@ -36,6 +37,7 @@ export default function HomePage() {
         <Hero />
         <Problem />
         <Solution />
+        <ProductExperience />
       </main>
       <SiteFooter />
     </>
