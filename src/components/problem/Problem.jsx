@@ -46,7 +46,7 @@ export default function Problem() {
       ref={sectionRef}
       aria-labelledby="problem-headline"
     >
-      <HeroScrollParallaxProvider heroRef={sectionRef}>
+      <HeroScrollParallaxProvider heroRef={sectionRef} triggerOnEnter>
         <HeroParallaxProvider heroRef={sectionRef}>
           <div className="problem-pin-stage">
             <HeroBackground />

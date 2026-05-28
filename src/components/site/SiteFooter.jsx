@@ -8,16 +8,10 @@ import './SiteFooter.css'
 //
 // Pair with <SiteHeader /> for the standard site chrome.
 
-const NAV_LINKS = [
-  { label: 'About',    href: '#about' },
-  { label: 'Features', href: '#features' },
-  { label: 'Get App',  href: '#get-app' },
-]
-
-const LEGAL_LINKS = [
-  { label: 'Privacy',  href: '/privacy.html' },
-  { label: 'Terms',    href: '/terms.html' },
-  { label: 'Feedback / Support', href: '/support.html' },
+const LINKS = [
+  { label: 'Privacy', href: '/privacy.html' },
+  { label: 'Terms',   href: '/terms.html' },
+  { label: 'Contact', href: '/support.html' },
 ]
 
 export default function SiteFooter() {
@@ -28,7 +22,7 @@ export default function SiteFooter() {
       <div className="site-footer-inner">
         <Link to="/" className="site-footer-logo" aria-label="Ember home">
           <img
-            src="/assets/brand/EmberLogo-Horz-BlackTxt.svg"
+            src="/assets/brand/EmberLogo-Vert-BlackTxt.svg"
             alt="Ember"
           />
         </Link>
@@ -36,11 +30,7 @@ export default function SiteFooter() {
         <p className="site-footer-tagline">Ember to Remember.</p>
 
         <nav className="site-footer-nav" aria-label="Footer">
-          {NAV_LINKS.map((link) => (
-            <a key={link.href} href={link.href}>{link.label}</a>
-          ))}
-          <span className="site-footer-nav-divider" aria-hidden="true" />
-          {LEGAL_LINKS.map((link) => (
+          {LINKS.map((link) => (
             <a key={link.href} href={link.href}>{link.label}</a>
           ))}
         </nav>

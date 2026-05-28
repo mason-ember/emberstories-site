@@ -23,7 +23,7 @@ import { MOBILE_BREAKPOINT_PX } from './heroConstants'
 
 const HeroScrollParallaxContext = createContext(null)
 
-export function HeroScrollParallaxProvider({ heroRef, children }) {
+export function HeroScrollParallaxProvider({ heroRef, children, triggerOnEnter = false }) {
   const registry = useRef(new Map())
   const idCounter = useRef(0)
 
@@ -45,8 +45,16 @@ export function HeroScrollParallaxProvider({ heroRef, children }) {
       // Hero is fully past viewport top → bg shapes have already scrolled away,
       // no need to keep computing.
       if (heroRect.bottom < 0) return
-      // Positive once the user has scrolled past the hero top.
-      const scrollPx = Math.max(0, -heroRect.top)
+      // Two reference frames:
+      //   default (hero, starts at page top): scrollPx grows once the top edge
+      //     scrolls past viewport top.
+      //   triggerOnEnter (sections below the fold): scrollPx grows the moment
+      //     the section's top edge crosses the viewport bottom, so parallax is
+      //     already in motion when the section is first seen.
+      const viewportH = window.innerHeight
+      const scrollPx = triggerOnEnter
+        ? Math.max(0, viewportH - heroRect.top)
+        : Math.max(0, -heroRect.top)
 
       registry.current.forEach(({ ref, coefficient }) => {
         const el = ref.current
@@ -65,7 +73,7 @@ export function HeroScrollParallaxProvider({ heroRef, children }) {
     window.addEventListener('scroll', onScroll, { passive: true })
     dispatch() // initial paint
     return () => window.removeEventListener('scroll', onScroll)
-  }, [heroRef])
+  }, [heroRef, triggerOnEnter])
 
   const register = useCallback((ref, coefficient) => {
     const id = ++idCounter.current

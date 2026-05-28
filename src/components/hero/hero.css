@@ -50,14 +50,14 @@
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  padding: 8vh 5vw 4rem;
+  padding: 10vh 5vw 4rem;
   min-height: 100vh;
   text-align: center;
 }
 
 .hero-headline {
   max-width: 900px;
-  margin: 1.5rem 0;
+  margin: 0 0 1.5rem;
   order: 3; /* Sits between dots and CTAs visually. DOM order preserved for a11y. */
 }
 
