@@ -75,9 +75,9 @@ export const PARALLAX = {
 // Distant (back) > near (front) so the deepest layer drifts away most slowly,
 // reinforcing the depth illusion.
 export const BG_SCROLL_PARALLAX = {
-  bgBack:  0.24,
-  bgMid:   0.12,
-  bgFront: 0.06,
+  bgBack:  0.39,
+  bgMid:   0.26,
+  bgFront: 0.13,
 }
 
 // Responsive breakpoint matching existing site convention

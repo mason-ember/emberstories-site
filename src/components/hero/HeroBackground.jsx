@@ -34,6 +34,10 @@ const CELL_ROWS = 3
 // thumbnail's footprint.
 const CELL_SEQUENCE = [0, 7, 2, 9, 5, 11, 1, 8, 3, 4, 6, 10]
 const JITTER = 0.7 // 0..1 — fraction of cell size the shape can drift within
+// Shift the whole constellation upward. Positive values move shapes toward
+// the top of the section; large enough values let the top row partially
+// clip past the section's top edge.
+const VERTICAL_OFFSET_PCT = 20
 
 export default function HeroBackground() {
   const shapes = useMemo(() => {
@@ -55,7 +59,7 @@ export default function HeroBackground() {
         // skips the cell + jitter computation. Useful for hand-placing
         // individual shapes that the grid layout doesn't get quite right.
         const top = shapeData.position?.top
-          ?? `${cellRow * cellH + cellH * (0.5 + jy * JITTER)}%`
+          ?? `${cellRow * cellH + cellH * (0.5 + jy * JITTER) - VERTICAL_OFFSET_PCT}%`
         const left = shapeData.position?.left
           ?? `${cellCol * cellW + cellW * (0.5 + jx * JITTER)}%`
         const size = 80 + ((seed * 11) % 140)
