@@ -60,6 +60,27 @@
   --radius-lg: var(--radius);
 }
 
+/* ─── Site Typography ──────────────────────────────────────────────────────
+   Headings: Source Serif 4 (editorial serif, all sections).
+   Body:     Source Sans 3 (humanist sans, all sections).
+   Adobe's "Pro" line is deprecated on Google Fonts; "4" and "3" are the
+   maintained successors of the same families. Fonts are loaded in
+   index.html via Google Fonts.
+   ─────────────────────────────────────────────────────────────────────── */
+:root {
+  --font-serif: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+  --font-sans:  'Source Sans 3', system-ui, -apple-system, BlinkMacSystemFont,
+                'Segoe UI', Helvetica, Arial, sans-serif;
+}
+
+html, body {
+  font-family: var(--font-sans);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-serif);
+}
+
 /* ─── Ember Light Theme ─────────────────────────────────────────────────── */
 :root {
   --background:           #ffffff;

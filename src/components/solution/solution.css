@@ -1,0 +1,120 @@
+/* Solution section — text on the left, device pair on the right. Mirrors
+   the Problem section's warm neutral background for visual continuity, but
+   shifts from centered editorial-serif to a left-aligned product pitch. */
+
+.solution-section {
+  --solution-serif: var(--font-serif);
+  width: 100%;
+  background: linear-gradient(180deg, #D9D2DD 0%, #FFF 100%);
+  padding: 12vh 6vw;
+  overflow: hidden;
+}
+
+/* Two-column grid. Text column gets a comfortable measure; visual column
+   takes the remaining space and lets the device image fill it. */
+.solution-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+  gap: clamp(1.5rem, 4vw, 4rem);
+  align-items: center;
+  max-width: 1240px;
+  margin: 0 auto;
+  opacity: 0;
+  transform: translateY(20px);
+  transition:
+    opacity 0.9s ease-out,
+    transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform, opacity;
+}
+
+.solution-grid.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ─── Text column ────────────────────────────────────────────────────────── */
+
+.solution-text {
+  text-align: left;
+  max-width: 520px;
+}
+
+.solution-headline {
+  font-family: var(--solution-serif);
+  font-size: clamp(2.25rem, 4vw, 3.25rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.08;
+  color: var(--foreground);
+  margin: 0 0 1.5rem;
+}
+
+.solution-body {
+  font-size: clamp(1.05rem, 1.25vw, 1.1875rem);
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--foreground);
+  margin: 0 0 2rem;
+  letter-spacing: -0.003em;
+}
+
+/* StoreCTAs renders its own pair-button container; this wrapper just
+   establishes the spacing relationship to the body copy above. */
+.solution-ctas {
+  display: flex;
+  align-items: center;
+}
+
+/* ─── Visual column ──────────────────────────────────────────────────────── */
+
+.solution-visual {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+}
+
+.solution-devices {
+  display: block;
+  width: 100%;
+  max-width: 640px;
+  height: auto;
+  /* The PNG is transparent; no shadow needed — the device frames carry
+     their own depth. */
+}
+
+/* ─── Mobile ─────────────────────────────────────────────────────────────── */
+
+@media (max-width: 768px) {
+  .solution-section {
+    padding: 10vh 24px;
+  }
+
+  .solution-grid {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    text-align: left;
+  }
+
+  .solution-text {
+    max-width: 100%;
+  }
+
+  .solution-headline {
+    font-size: clamp(2rem, 8vw, 2.5rem);
+  }
+
+  .solution-devices {
+    max-width: 100%;
+  }
+}
+
+/* ─── Reduced motion ─────────────────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .solution-grid {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}

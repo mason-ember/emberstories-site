@@ -1,0 +1,117 @@
+/* §5 Why we built Ember — founder's note in an editorial two-column spread.
+   White background lets the family photo carry the warmth; sits between the
+   warm-cream HIW and whatever follows. */
+
+.why-section {
+  width: 100%;
+  background-color: #FFFFFF;
+  padding: 16vh 6vw;
+  color: var(--foreground);
+}
+
+.why-grid {
+  max-width: 1240px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(2.5rem, 6vw, 5.5rem);
+  align-items: center;
+  opacity: 0;
+  transform: translateY(20px);
+  transition:
+    opacity 0.9s ease-out,
+    transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+
+.why-grid.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ─── Visual column ──────────────────────────────────────────────────────── */
+
+.why-visual {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.why-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 560px;
+}
+
+/* ─── Text column ────────────────────────────────────────────────────────── */
+
+.why-text {
+  max-width: 540px;
+}
+
+.why-heading {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: clamp(2rem, 3.4vw, 2.75rem);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin: 0 0 clamp(1.5rem, 3vh, 2rem);
+  color: var(--foreground);
+}
+
+.why-body {
+  font-family: var(--font-sans);
+  font-size: clamp(1.0625rem, 1.25vw, 1.1875rem);
+  line-height: 1.65;
+  font-weight: 400;
+  letter-spacing: -0.003em;
+  color: var(--foreground);
+  margin: 0 0 1.75rem;
+}
+
+/* Closer paragraph — the Mad Men-inspired pivot. Slight serif italic
+   treatment lifts it off the body without resorting to a pull-quote bar. */
+.why-closer {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(1.1875rem, 1.5vw, 1.4375rem);
+  line-height: 1.45;
+  letter-spacing: -0.008em;
+  color: #2A1F38;
+  margin: 0 0 1.75rem;
+}
+
+.why-attribution {
+  font-family: var(--font-sans);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  color: #6B5E78;
+  margin: 0;
+}
+
+/* ─── Mobile ─────────────────────────────────────────────────────────────── */
+
+@media (max-width: 900px) {
+  .why-grid {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  .why-text {
+    max-width: 100%;
+  }
+
+  .why-image {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .why-section {
+    padding: 10vh 24px;
+  }
+}

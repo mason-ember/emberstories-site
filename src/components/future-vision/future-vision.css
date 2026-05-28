@@ -1,0 +1,174 @@
+/* §6 Future Vision — themed roadmap on a warm-glow gradient.
+   Echoes the "embers of a fire waiting to be relit" line from §5. */
+
+.fv-section {
+  position: relative;
+  width: 100%;
+  background-color: #160F1F;
+  color: #fff;
+  padding: 16vh 6vw;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/* Soft radial ember glow anchored bottom-center. Layered behind content. */
+.fv-glow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(
+      ellipse 70% 50% at 50% 110%,
+      rgba(255, 140, 60, 0.28),
+      rgba(158, 24, 172, 0.18) 35%,
+      transparent 70%
+    ),
+    radial-gradient(
+      ellipse 50% 40% at 50% -10%,
+      rgba(158, 24, 172, 0.12),
+      transparent 60%
+    );
+}
+
+.fv-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 1240px;
+  margin: 0 auto;
+  opacity: 0;
+  transform: translateY(20px);
+  transition:
+    opacity 0.9s ease-out,
+    transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+
+.fv-inner.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ─── Header ─────────────────────────────────────────────────────────────── */
+
+.fv-header {
+  text-align: center;
+  margin: 0 auto clamp(3.5rem, 7vh, 5.5rem);
+  max-width: 720px;
+}
+
+.fv-eyebrow {
+  font-family: var(--font-sans);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #C9A6D4;
+  margin: 0 0 1rem;
+}
+
+.fv-heading {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: clamp(2.25rem, 4vw, 3.25rem);
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  color: #fff;
+  margin: 0 0 1.25rem;
+}
+
+.fv-lede {
+  font-family: var(--font-sans);
+  font-size: clamp(1.0625rem, 1.25vw, 1.1875rem);
+  line-height: 1.55;
+  color: #D9D2DD;
+  margin: 0;
+}
+
+/* ─── Groups ─────────────────────────────────────────────────────────────── */
+
+.fv-groups {
+  list-style: none;
+  margin: 0 0 clamp(3rem, 6vh, 4.5rem);
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+}
+
+.fv-group {
+  opacity: 0;
+  transform: translateY(16px);
+  transition:
+    opacity 0.7s ease-out,
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--fv-group-delay, 0ms);
+}
+
+.fv-inner.is-visible .fv-group {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.fv-group-title {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  font-size: clamp(1.125rem, 1.4vw, 1.3125rem);
+  line-height: 1.25;
+  letter-spacing: -0.012em;
+  color: #fff;
+  margin: 0 0 1rem;
+  padding-bottom: 0.875rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+.fv-items {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+}
+
+.fv-item {
+  font-family: var(--font-sans);
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  color: #D9D2DD;
+  letter-spacing: -0.003em;
+}
+
+/* ─── Pricing line ───────────────────────────────────────────────────────── */
+
+.fv-pricing {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(1rem, 1.15vw, 1.125rem);
+  line-height: 1.5;
+  color: #C9A6D4;
+  text-align: center;
+  margin: 0 auto;
+  max-width: 560px;
+}
+
+/* ─── Responsive ─────────────────────────────────────────────────────────── */
+
+@media (max-width: 1024px) {
+  .fv-groups {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 2.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .fv-section {
+    padding: 12vh 24px;
+  }
+
+  .fv-groups {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}

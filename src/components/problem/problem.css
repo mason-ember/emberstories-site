@@ -1,0 +1,99 @@
+/* Problem section — simplified pass.
+   Single centered serif lede that fades in on scroll. The earlier
+   pin + parallax-rail + dyad + coda composition was removed while we
+   move the page toward a conventional consumer-SaaS flow. Copy and
+   structural rationale for the fuller treatment live in:
+   emberstories-site-kb/planning/site_content/Home/2_Problem.md */
+
+.problem-section {
+  width: 100%;
+  --problem-serif: var(--font-serif);
+  --pin-bg: #f4f4f3;
+}
+
+/* Single stage — fills the viewport so the lede sits at vertical center
+   without any pinning or scrub-driven motion. */
+.problem-pin-stage {
+  position: relative;
+  min-height: 100vh;
+  /* svh tracks the dynamic viewport on mobile (excludes browser chrome),
+     so the stage still fills the screen when the URL bar collapses. */
+  min-height: 100svh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--pin-bg);
+  padding: 8vh 5vw;
+  /* Clip the bg parallax shapes (which extend to inset:0 of this stage
+     and may drift beyond it via mouse/scroll transforms). */
+  overflow: hidden;
+}
+
+.problem-pin-lede {
+  /* Sit above the .hero-bg layer (z-index: 0) that now lives in this stage. */
+  position: relative;
+  z-index: 2;
+  max-width: min(820px, 88vw);
+  text-align: center;
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity 0.9s ease-out,
+    transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform, opacity;
+}
+
+.problem-pin-lede.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.problem-pin-lede .problem-headline {
+  font-family: var(--problem-serif);
+  font-size: clamp(2.5rem, 5vw, 4.25rem);
+  font-weight: 700;
+  letter-spacing: -0.022em;
+  line-height: 1.05;
+  color: var(--foreground);
+  margin: 0 0 1.75rem;
+}
+
+.problem-pin-lede .problem-lede {
+  /* Supporting copy under the serif h2 — sans so the editorial weight
+     stays with the section header. */
+  font-size: clamp(1.5rem, 2.6vw, 2.25rem);
+  font-weight: 400;
+  line-height: 1.45;
+  color: var(--foreground);
+  margin: 0;
+  letter-spacing: -0.005em;
+}
+
+/* ─── Reduced motion ─────────────────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .problem-pin-lede {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
+/* ─── Mobile ─────────────────────────────────────────────────────────────── */
+
+@media (max-width: 768px) {
+  .problem-pin-stage {
+    padding: 12vh 24px;
+  }
+
+  .problem-pin-lede .problem-headline {
+    font-size: clamp(2rem, 8.5vw, 2.75rem);
+    margin-bottom: 1.25rem;
+  }
+
+  .problem-pin-lede .problem-lede {
+    font-size: clamp(1.25rem, 5.5vw, 1.625rem);
+    line-height: 1.5;
+  }
+}

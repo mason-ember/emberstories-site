@@ -1,0 +1,93 @@
+/* §7 Final CTA — light cream background closes the page on daylight after
+   the dark §6. Headline + subhead + official store badges, centered. */
+
+.fcta-section {
+  width: 100%;
+  background-color: #F4F1EC;
+  padding: 16vh 6vw;
+  color: var(--foreground);
+  text-align: center;
+}
+
+.fcta-inner {
+  max-width: 720px;
+  margin: 0 auto;
+  opacity: 0;
+  transform: translateY(20px);
+  transition:
+    opacity 0.9s ease-out,
+    transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+
+.fcta-inner.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.fcta-heading {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: clamp(2.25rem, 4vw, 3.25rem);
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  color: var(--foreground);
+  margin: 0 0 1.25rem;
+}
+
+.fcta-sub {
+  font-family: var(--font-sans);
+  font-size: clamp(1.0625rem, 1.25vw, 1.1875rem);
+  line-height: 1.55;
+  color: #4A3E58;
+  margin: 0 0 clamp(2.5rem, 5vh, 3.5rem);
+}
+
+/* ─── Badges ─────────────────────────────────────────────────────────────── */
+
+.fcta-badges {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: clamp(0.75rem, 1.5vw, 1.25rem);
+}
+
+/* Both official badges render at the same visual height. Apple's SVG and
+   Google's SVG have different intrinsic aspect ratios; height locks them
+   to a shared baseline. */
+.fcta-badge {
+  display: inline-flex;
+  align-items: center;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.fcta-badge:hover {
+  transform: translateY(-1px);
+}
+
+.fcta-badge:active {
+  opacity: 0.85;
+}
+
+.fcta-badge:focus-visible {
+  outline: 2px solid #9E18AC;
+  outline-offset: 4px;
+  border-radius: 8px;
+}
+
+.fcta-badge img {
+  display: block;
+  height: 56px;
+  width: auto;
+}
+
+@media (max-width: 768px) {
+  .fcta-section {
+    padding: 12vh 24px;
+  }
+
+  .fcta-badge img {
+    height: 50px;
+  }
+}
