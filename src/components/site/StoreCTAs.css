@@ -1,40 +1,42 @@
+/* Store CTA pair — official Apple App Store + Google Play badges.
+   Both render at a shared visual height regardless of intrinsic SVG aspect. */
+
 .store-ctas {
   display: flex;
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 0.75rem;
+  gap: clamp(0.75rem, 1.5vw, 1.25rem);
 }
 
 .store-cta {
-  border-radius: 999px;
-  font-weight: 600;
-  letter-spacing: -0.005em;
-  font-size: 1rem;
-  padding: 0 1.75rem;
-  height: 52px;
-  gap: 0.6rem;
-  min-width: 180px; /* keeps iOS and Android buttons equal width */
-}
-
-.store-cta[data-store="apple"] {
-  background-color: #000000;
-  color: #ffffff;
-}
-
-.store-cta[data-store="google"] {
-  background-color: #3ddc84;
-  color: #1a1a1a;
+  display: inline-flex;
+  align-items: center;
+  transition: transform 0.2s ease, opacity 0.2s ease;
 }
 
 .store-cta:hover {
-  opacity: 0.88;
+  transform: translateY(-1px);
+}
+
+.store-cta:active {
+  opacity: 0.85;
+}
+
+.store-cta:focus-visible {
+  outline: 2px solid #9E18AC;
+  outline-offset: 4px;
+  border-radius: 8px;
+}
+
+.store-cta img {
+  display: block;
+  height: 52px;
+  width: auto;
 }
 
 @media (max-width: 480px) {
-  .store-cta {
-    height: 48px;
-    padding: 0 1.4rem;
-    font-size: 0.95rem;
+  .store-cta img {
+    height: 46px;
   }
 }

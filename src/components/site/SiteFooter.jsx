@@ -17,7 +17,7 @@ const NAV_LINKS = [
 const LEGAL_LINKS = [
   { label: 'Privacy',  href: '/privacy.html' },
   { label: 'Terms',    href: '/terms.html' },
-  { label: 'Contact',  href: 'mailto:hello@emberstories.com' },
+  { label: 'Feedback / Support', href: '/support.html' },
 ]
 
 export default function SiteFooter() {

@@ -19,7 +19,7 @@ export default function SiteHeader() {
         <nav className="site-header-nav" aria-label="Primary">
           <a href="#about">About</a>
           <a href="#features">Features</a>
-          <a href="#contact">Contact</a>
+          <a href="/support.html">Feedback / Support</a>
         </nav>
       </div>
     </header>

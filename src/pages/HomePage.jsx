@@ -4,6 +4,10 @@ import Hero from '@/components/hero/Hero'
 import Problem from '@/components/problem/Problem'
 import Solution from '@/components/solution/Solution'
 import ProductExperience from '@/components/product-experience/ProductExperience'
+import HowItWorks from '@/components/how-it-works/HowItWorks'
+import WhyEmber from '@/components/why-ember/WhyEmber'
+import FutureVision from '@/components/future-vision/FutureVision'
+import FinalCTA from '@/components/final-cta/FinalCTA'
 import SiteFooter from '@/components/site/SiteFooter'
 import SiteHeader from '@/components/site/SiteHeader'
 
@@ -38,6 +42,10 @@ export default function HomePage() {
         <Problem />
         <Solution />
         <ProductExperience />
+        <HowItWorks />
+        <WhyEmber />
+        <FutureVision />
+        <FinalCTA />
       </main>
       <SiteFooter />
     </>

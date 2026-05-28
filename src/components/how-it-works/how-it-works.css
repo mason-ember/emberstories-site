@@ -1,0 +1,139 @@
+/* How It Works (§4) — three numbered cards. Light background snaps the
+   page back to reassurance after the dark Product Experience section. */
+
+.hiw-section {
+  width: 100%;
+  background-color: #F4F1EC;
+  padding: 14vh 6vw;
+  color: var(--foreground);
+}
+
+.hiw-inner {
+  max-width: 1240px;
+  margin: 0 auto;
+  opacity: 0;
+  transform: translateY(20px);
+  transition:
+    opacity 0.9s ease-out,
+    transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+
+.hiw-inner.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ─── Section header ─────────────────────────────────────────────────────── */
+
+.hiw-heading {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: clamp(2rem, 3.6vw, 2.875rem);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  text-align: center;
+  margin: 0 0 clamp(3rem, 6vh, 5rem);
+}
+
+/* ─── Step row ───────────────────────────────────────────────────────────── */
+
+.hiw-steps {
+  list-style: none;
+  margin: 0 0 clamp(2.5rem, 5vh, 4rem);
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1.25rem, 2.5vw, 2.5rem);
+}
+
+.hiw-step {
+  background: transparent;
+  border: none;
+  padding: clamp(1rem, 2vw, 1.5rem) 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: clamp(0.75rem, 1.5vw, 1.25rem);
+  opacity: 0;
+  transform: translateY(16px);
+  transition:
+    opacity 0.7s ease-out,
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--hiw-step-delay, 0ms);
+}
+
+.hiw-inner.is-visible .hiw-step {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.hiw-step-numeral {
+  font-family: var(--font-serif);
+  font-weight: 900;
+  font-size: clamp(4.5rem, 8vw, 7rem);
+  line-height: 0.9;
+  color: #9E18AC;
+  letter-spacing: -0.06em;
+}
+
+.hiw-step-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  text-align: center;
+}
+
+.hiw-step-title {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  font-size: clamp(1.25rem, 1.7vw, 1.5rem);
+  line-height: 1.25;
+  letter-spacing: -0.015em;
+  color: var(--foreground);
+  margin: 0;
+}
+
+.hiw-step-tagline {
+  font-family: var(--font-sans);
+  font-style: italic;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  color: #6B5E78;
+  margin: 0;
+  letter-spacing: -0.003em;
+}
+
+/* ─── Trust line ─────────────────────────────────────────────────────────── */
+
+.hiw-trust {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(1.125rem, 1.5vw, 1.375rem);
+  line-height: 1.45;
+  color: #2A1F38;
+  text-align: center;
+  margin: 0 auto;
+  max-width: 720px;
+  letter-spacing: -0.005em;
+}
+
+/* ─── Mobile ─────────────────────────────────────────────────────────────── */
+
+@media (max-width: 768px) {
+  .hiw-section {
+    padding: 10vh 24px;
+  }
+
+  .hiw-steps {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .hiw-step {
+    padding: 0.5rem 0;
+    gap: 1rem;
+  }
+}

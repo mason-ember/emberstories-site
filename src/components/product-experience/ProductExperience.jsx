@@ -27,11 +27,11 @@ const slides = [
   },
   {
     id: 'contributors',
-    label: 'Shared Stories',
-    heading: 'Better together',
-    body: 'When loved ones were there with you, their photos join yours — one shared memory built from every angle.',
-    image: null,
-    imageAlt: 'Two phones contributing photos to a shared story',
+    label: 'Built Together',
+    heading: 'The whole story, from every angle',
+    body: 'When household members share a moment, their photos weave into one story — the way it actually happened.',
+    image: '/assets/images/ux/shared-stories.jpg',
+    imageAlt: 'An Ember story built from photos contributed by multiple household members',
   },
 ]
 

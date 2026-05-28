@@ -1,20 +1,13 @@
-import { useState } from 'react'
-import StoreModal from './StoreModal'
+import { useEffect, useRef, useState } from 'react'
+import StoreModal from '@/components/site/StoreModal'
 import { useIsTouchDevice } from '@/hooks/useIsTouchDevice'
-import './StoreCTAs.css'
+import './final-cta.css'
 
-// Reusable store CTA pair using the official Apple App Store and Google
-// Play badges. Touch/desktop behavior is preserved from the prior pill
-// implementation:
-//   - Touch devices (phone/tablet): tapping a badge navigates directly
-//     to the platform store URL.
-//   - Mouse devices (desktop/laptop): clicking opens a modal with a QR
-//     code that the user can scan with their phone camera.
+// §7 — Final Call To Action. Headline + subhead + official store badges.
+// Mirrors the touch/desktop click behavior of <StoreCTAs />: phones link
+// straight to the store, desktops open a QR modal.
 //
-// URLs in STORE_URLS are placeholders — replace when real App Store /
-// Google Play URLs are assigned. The badges remain rendered as <a>
-// elements so right-click "Open in new tab" / middle-click work
-// universally; desktop click is intercepted and the modal opens instead.
+// URLs are placeholders until the real store listings exist.
 
 const STORE_URLS = {
   apple: 'https://emberstories.com', // TODO: real App Store URL
@@ -36,12 +29,32 @@ const STORE_COPY = {
   },
 }
 
-export default function StoreCTAs() {
-  const [openStore, setOpenStore] = useState(null) // 'apple' | 'google' | null
+export default function FinalCTA() {
+  const ref = useRef(null)
+  const [visible, setVisible] = useState(false)
+  const [openStore, setOpenStore] = useState(null)
   const isTouch = useIsTouchDevice()
 
+  useEffect(() => {
+    const el = ref.current
+    if (!el) return
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            setVisible(true)
+            io.disconnect()
+          }
+        })
+      },
+      { threshold: 0.3 },
+    )
+    io.observe(el)
+    return () => io.disconnect()
+  }, [])
+
   const handleClick = (store) => (e) => {
-    if (isTouch) return // Let the anchor follow the href normally.
+    if (isTouch) return
     e.preventDefault()
     setOpenStore(store)
   }
@@ -55,7 +68,7 @@ export default function StoreCTAs() {
         target="_blank"
         rel="noreferrer"
         onClick={handleClick(store)}
-        className={`store-cta store-cta--${store}`}
+        className={`fcta-badge fcta-badge--${store}`}
         aria-label={c.label}
       >
         <img src={c.badge} alt={c.label} />
@@ -64,10 +77,21 @@ export default function StoreCTAs() {
   }
 
   return (
-    <>
-      <div className="store-ctas">
-        {renderBadge('apple')}
-        {renderBadge('google')}
+    <section className="fcta-section" aria-labelledby="fcta-heading">
+      <div
+        ref={ref}
+        className={`fcta-inner${visible ? ' is-visible' : ''}`}
+      >
+        <h2 id="fcta-heading" className="fcta-heading">
+          Bring your stories home.
+        </h2>
+        <p className="fcta-sub">
+          Free during launch on iOS and Android.
+        </p>
+        <div className="fcta-badges">
+          {renderBadge('apple')}
+          {renderBadge('google')}
+        </div>
       </div>
 
       <StoreModal
@@ -78,6 +102,6 @@ export default function StoreCTAs() {
         qrValue={openStore ? STORE_URLS[openStore] : ''}
         directUrl={openStore ? STORE_URLS[openStore] : ''}
       />
-    </>
+    </section>
   )
 }
