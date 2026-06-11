@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import StoreModal from './StoreModal'
+import { STORE_URLS, STORE_FALLBACK_URL } from '@/data/storeUrls'
 import { useIsTouchDevice } from '@/hooks/useIsTouchDevice'
 import './StoreCTAs.css'
 
@@ -11,15 +12,9 @@ import './StoreCTAs.css'
 //   - Mouse devices (desktop/laptop): clicking opens a modal with a QR
 //     code that the user can scan with their phone camera.
 //
-// URLs in STORE_URLS are placeholders — replace when real App Store /
-// Google Play URLs are assigned. The badges remain rendered as <a>
+// URLs live in src/data/storeUrls.js. The badges remain rendered as <a>
 // elements so right-click "Open in new tab" / middle-click work
 // universally; desktop click is intercepted and the modal opens instead.
-
-const STORE_URLS = {
-  apple: 'https://emberstories.com', // TODO: real App Store URL
-  google: 'https://emberstories.com', // TODO: real Google Play URL
-}
 
 const STORE_COPY = {
   apple: {
@@ -51,7 +46,7 @@ export default function StoreCTAs() {
     return (
       <a
         key={store}
-        href={STORE_URLS[store]}
+        href={STORE_URLS[store] ?? STORE_FALLBACK_URL}
         target="_blank"
         rel="noreferrer"
         onClick={handleClick(store)}

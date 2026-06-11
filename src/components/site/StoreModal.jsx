@@ -1,14 +1,15 @@
 import { useEffect } from 'react'
 import { createPortal } from 'react-dom'
-// TEMPORARY: QRCodeSVG import disabled while store URLs are placeholders.
-// Restore once production App Store + Google Play URLs are wired into
-// STORE_URLS (in StoreCTAs.jsx and FinalCTA.jsx).
-// import { QRCodeSVG } from 'qrcode.react'
+import { QRCodeSVG } from 'qrcode.react'
 import './StoreModal.css'
 
 // QR-code modal shown on desktop when a user clicks a store CTA. Mirrors
 // the pops.fyi pattern: scan with phone camera to install. On touch devices
 // the modal is bypassed entirely — StoreCTAs follows the link directly.
+//
+// A null/empty qrValue means the store listing isn't live yet (see
+// src/data/storeUrls.js) — the modal shows a "coming soon" notice
+// instead of a QR code.
 //
 // Closes on ESC, backdrop click, and the explicit × button. Body scroll
 // locked while open. Renders into document.body via a portal so stacking
@@ -64,45 +65,29 @@ export default function StoreModal({
         <p className="store-modal-subtitle">{subtitle}</p>
 
         <div className="store-modal-qr">
-          {/*
-            TEMPORARY: QR + direct-link are hidden because STORE_URLS (in
-            StoreCTAs.jsx and FinalCTA.jsx) are still placeholders pointing
-            to emberstories.com. We're keeping the modal open behavior so
-            people see the "coming soon" notice instead of being silently
-            sent to a dead link. Restore the QR block and the direct-link
-            block below, and re-enable the QRCodeSVG import at the top of
-            this file, once real production store URLs are wired up.
-
-            Original block:
-            {qrValue ? (
-              <QRCodeSVG value={qrValue} size={240} level="M" includeMargin={false} />
-            ) : (
-              <div className="store-modal-qr-placeholder">QR pending</div>
-            )}
-          */}
-          <div className="store-modal-placeholder">
-            <strong>Coming soon</strong>
-            <span>
-              Our App Store and Google Play listings are being finalized.
-              Please check back shortly.
-            </span>
-          </div>
+          {qrValue ? (
+            <QRCodeSVG value={qrValue} size={240} level="M" />
+          ) : (
+            <div className="store-modal-placeholder">
+              <strong>Coming soon</strong>
+              <span>
+                Our Google Play listing is being finalized.
+                Please check back shortly.
+              </span>
+            </div>
+          )}
         </div>
 
-        {/*
-          TEMPORARY: hidden along with the QR. See restoration note above.
-
-          {directUrl && (
-            <a
-              href={directUrl}
-              target="_blank"
-              rel="noreferrer"
-              className="store-modal-direct"
-            >
-              Or open the store directly
-            </a>
-          )}
-        */}
+        {directUrl && (
+          <a
+            href={directUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="store-modal-direct"
+          >
+            Or open the store directly
+          </a>
+        )}
       </div>
     </div>,
     document.body,

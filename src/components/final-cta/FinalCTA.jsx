@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import StoreModal from '@/components/site/StoreModal'
+import { STORE_URLS, STORE_FALLBACK_URL } from '@/data/storeUrls'
 import { useIsTouchDevice } from '@/hooks/useIsTouchDevice'
 import './final-cta.css'
 
@@ -7,12 +8,7 @@ import './final-cta.css'
 // Mirrors the touch/desktop click behavior of <StoreCTAs />: phones link
 // straight to the store, desktops open a QR modal.
 //
-// URLs are placeholders until the real store listings exist.
-
-const STORE_URLS = {
-  apple: 'https://emberstories.com', // TODO: real App Store URL
-  google: 'https://emberstories.com', // TODO: real Google Play URL
-}
+// URLs live in src/data/storeUrls.js.
 
 const STORE_COPY = {
   apple: {
@@ -64,7 +60,7 @@ export default function FinalCTA() {
     return (
       <a
         key={store}
-        href={STORE_URLS[store]}
+        href={STORE_URLS[store] ?? STORE_FALLBACK_URL}
         target="_blank"
         rel="noreferrer"
         onClick={handleClick(store)}
