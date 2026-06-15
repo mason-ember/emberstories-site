@@ -8,7 +8,7 @@
 
 export const STORE_URLS = {
   apple: 'https://apps.apple.com/us/app/ember-photos/id6770519373',
-  google: null, // TODO: real Google Play URL when Android promotes to production
+  google: 'https://play.google.com/store/apps/details?id=com.emberstories.ember',
 }
 
 export const STORE_FALLBACK_URL = 'https://emberstories.com'
