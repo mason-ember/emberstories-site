@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Fallback page for app auth links (email verify, password reset).
+         Served at /auth/callback and /auth/callback-dev via _redirects 200
+         rewrites. Normally never seen: on Android the OS routes these URLs
+         straight into the app via verified App Links (assetlinks.json). This
+         page catches the leftovers — desktop clicks, app-not-installed, or a
+         device where App Link verification failed — and offers a
+         user-gesture custom-scheme handoff (which browsers allow, unlike
+         server-side 302s to custom schemes).
+         Session tokens arrive in the URL fragment; this page reads them
+         client-side only and sends them nowhere. Keep it free of analytics
+         and external requests. -->
+    <meta name="robots" content="noindex, nofollow">
+    <title>Ember Stories</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            max-width: 480px;
+            margin: 0 auto;
+            padding: 48px 24px;
+            color: #101828;
+            text-align: center;
+        }
+        h1 { font-size: 1.5rem; color: #3B074B; margin-bottom: 8px; }
+        p { color: #667085; margin: 12px 0; }
+        .button {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 14px 32px;
+            background: #9E18AC;
+            color: #ffffff;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .button:hover { background: #811193; }
+        .secondary {
+            display: block;
+            margin-top: 20px;
+            color: #9E18AC;
+            text-decoration: none;
+            font-size: 0.95rem;
+        }
+        .secondary:hover { text-decoration: underline; }
+        .error-detail {
+            background: #F9FAFB;
+            border-radius: 8px;
+            padding: 12px 16px;
+            font-size: 0.9rem;
+            color: #667085;
+            margin-top: 16px;
+        }
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+    <h1 id="heading">One moment…</h1>
+    <p id="message"></p>
+    <a id="open-app" class="button hidden" href="#">Open the Ember app</a>
+    <a id="get-app" class="secondary hidden" href="/download">Don't have the app? Get Ember</a>
+    <div id="error-detail" class="error-detail hidden"></div>
+
+    <script>
+        (function () {
+            // Tokens/errors arrive in the fragment (GoTrue) — parse both it
+            // and the query (?type= comes from the app's redirect_to).
+            var hashParams = new URLSearchParams(location.hash.replace(/^#/, ''));
+            var queryParams = new URLSearchParams(location.search);
+            var type = hashParams.get('type') || queryParams.get('type') || '';
+            var error = hashParams.get('error') || queryParams.get('error');
+            var errorDescription = hashParams.get('error_description') ||
+                queryParams.get('error_description');
+            var hasToken = hashParams.has('access_token');
+
+            // Dev builds claim /auth/callback-dev and register their own
+            // scheme — mirror DeepLinkScheme in the app.
+            var isDev = location.pathname.indexOf('-dev') !== -1;
+            var scheme = isDev ? 'com.ember.app.dev' : 'com.ember.app';
+            // Hand the full link (query + fragment) to the app unchanged.
+            var appUrl = scheme + '://auth/callback' + location.search + location.hash;
+
+            var isMobile = /android|iphone|ipod/i.test(navigator.userAgent);
+
+            var heading = document.getElementById('heading');
+            var message = document.getElementById('message');
+            var openApp = document.getElementById('open-app');
+            var getApp = document.getElementById('get-app');
+            var errorDetail = document.getElementById('error-detail');
+
+            if (error) {
+                heading.textContent = 'This link didn’t work';
+                message.textContent =
+                    'It may have expired or already been used. Open the Ember app and request a new one.';
+                if (errorDescription) {
+                    errorDetail.textContent = errorDescription.replace(/\+/g, ' ');
+                    errorDetail.classList.remove('hidden');
+                }
+                return;
+            }
+
+            var isRecovery = type === 'recovery';
+            if (hasToken) {
+                heading.textContent = isRecovery ? 'Reset your password' : 'Email verified!';
+                if (isMobile) {
+                    message.textContent = isRecovery
+                        ? 'Continue in the Ember app to choose a new password.'
+                        : 'Tap below to continue setting up Ember.';
+                    openApp.href = appUrl;
+                    openApp.classList.remove('hidden');
+                    getApp.classList.remove('hidden');
+                } else {
+                    message.textContent = isRecovery
+                        ? 'Now return to the Ember app on your phone to finish resetting your password.'
+                        : 'Now return to the Ember app on your phone and sign in.';
+                }
+            } else {
+                heading.textContent = 'Continue in the Ember app';
+                message.textContent =
+                    'This page completes sign-in links from Ember emails. Open the link on the phone where Ember is installed.';
+                getApp.classList.remove('hidden');
+            }
+        })();
+    </script>
+</body>
+</html>

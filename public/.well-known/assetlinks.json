@@ -1,0 +1,22 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.emberstories.ember",
+      "sha256_cert_fingerprints": [
+        "A4:C5:F5:5A:77:A3:A4:D1:B9:D0:D5:48:35:5C:5F:B6:F6:9C:78:7D:58:60:55:ED:F8:85:DF:E6:C7:0F:72:47"
+      ]
+    }
+  },
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.emberstories.ember.dev",
+      "sha256_cert_fingerprints": [
+        "36:90:25:C5:6E:AF:1A:FD:52:F9:71:98:42:D8:C8:A7:03:C7:45:44:53:82:78:A4:3B:59:C8:0F:A5:FF:C3:FB"
+      ]
+    }
+  }
+]

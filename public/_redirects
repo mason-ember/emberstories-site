@@ -1,1 +1,9 @@
+# Auth-link fallback pages — served when an email auth link lands in a browser
+# instead of the app (desktop click, app not installed, App Links unverified).
+# 200 rewrites (not 30x redirects) so the token fragment reaches the page
+# untouched. See ember_app topics/auth/android_app_links.md.
+/auth/callback      /auth-callback.html   200
+/auth/callback-dev  /auth-callback.html   200
+
+# SPA fallback
 /*  /index.html  200
