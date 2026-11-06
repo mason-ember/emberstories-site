@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Household invitation landing page (E11 D-carrier). Served at
+         /invite/<token> (prod app) and /invite-dev/<token> (Dev app) via
+         _redirects 200 rewrites. The invitation email's "Get Ember" links
+         here. On Android a verified App Link opens the app directly, so this
+         page is mostly seen on iPhone and by people without the app.
+         Without the app: Get Ember (→ /download). With it: "Open Ember" hands
+         the token to the app through its custom scheme (a user gesture; a
+         scheme navigation without the app installed shows Safari's
+         "address is invalid" alert, so the page never tries one on load).
+         The token is a bearer secret: this page reads it from the path
+         client-side only and sends it nowhere. Keep it free of analytics and
+         external requests. -->
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="referrer" content="no-referrer">
+    <title>Ember Stories</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            max-width: 480px;
+            margin: 0 auto;
+            padding: 48px 24px;
+            color: #101828;
+            text-align: center;
+        }
+        h1 { font-size: 1.5rem; color: #3B074B; margin-bottom: 8px; }
+        p { color: #667085; margin: 12px 0; }
+        .button {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 14px 32px;
+            background: #9E18AC;
+            color: #ffffff;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .button:hover { background: #811193; }
+        .secondary {
+            display: block;
+            margin-top: 20px;
+            color: #9E18AC;
+            text-decoration: none;
+            font-size: 0.95rem;
+        }
+        .secondary:hover { text-decoration: underline; }
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+    <h1 id="heading">You're invited to Ember</h1>
+    <p id="message"></p>
+    <a id="get-app" class="button hidden" href="/download">Get Ember</a>
+    <a id="open-app" class="secondary hidden" href="#">Already installed? Open Ember</a>
+
+    <script>
+        (function () {
+            // /invite/<token> or /invite-dev/<token> — mirror send-invitation
+            // and the app's DeepLinkScheme (iOS: one scheme for both flavors;
+            // Android Dev: its own).
+            var match = location.pathname.match(/^\/invite(-dev)?\/([A-Za-z0-9_-]{32,128})\/?$/);
+            var heading = document.getElementById('heading');
+            var message = document.getElementById('message');
+            var getApp = document.getElementById('get-app');
+            var openApp = document.getElementById('open-app');
+
+            if (!match) {
+                heading.textContent = 'This link didn’t work';
+                message.textContent =
+                    'Open the invitation email on your phone and tap Get Ember again.';
+                return;
+            }
+
+            var isDev = !!match[1];
+            var token = match[2];
+            var isAndroid = /android/i.test(navigator.userAgent);
+            var isMobile = isAndroid || /iphone|ipod|ipad/i.test(navigator.userAgent);
+            var scheme = isAndroid && isDev ? 'com.ember.app.dev' : 'com.ember.app';
+
+            if (isMobile) {
+                message.textContent =
+                    'Get Ember on this phone, then come back to your invitation email and tap Get Ember again to join your household.';
+                getApp.classList.remove('hidden');
+                openApp.href = scheme + '://invite?token=' + encodeURIComponent(token);
+                openApp.classList.remove('hidden');
+            } else {
+                message.textContent =
+                    'Open your invitation email on your phone and tap Get Ember there to join your household.';
+                getApp.classList.remove('hidden');
+            }
+        })();
+    </script>
+</body>
+</html>

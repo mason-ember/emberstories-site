@@ -5,5 +5,11 @@
 /auth/callback      /auth-callback.html   200
 /auth/callback-dev  /auth-callback.html   200
 
+# Household invitation links (E11): the email's Get Ember. A 200 rewrite keeps
+# the token in the path for the page; on Android a verified App Link opens the
+# app before this page loads. /invite-dev/ = the Dev app.
+/invite/*      /invite.html  200
+/invite-dev/*  /invite.html  200
+
 # SPA fallback
 /*  /index.html  200
